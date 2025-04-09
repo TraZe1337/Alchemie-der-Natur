@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantName: Wasserdost
   plantPrefabs:
-  - {fileID: 5436147274717873894, guid: bb8c1901e51b30940b64129e1e3e9291, type: 3}
+  - {fileID: 3796498864760674873, guid: bb8c1901e51b30940b64129e1e3e9291, type: 3}
   - {fileID: 396796632403519401, guid: 115d0d64b829e9449b2b6e740cc652e3, type: 3}
   - {fileID: 9003606239796241762, guid: eeeb0afeb6901d447b82096965094ef3, type: 3}
   - {fileID: 6757992140131076885, guid: 395022f833396154eb1a5d118cbbb3a1, type: 3}
