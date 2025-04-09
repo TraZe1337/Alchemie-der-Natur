@@ -1,0 +1,48 @@
+using UnityEngine;
+
+public class Pot : MonoBehaviour
+{
+    [SerializeField] private float waterLevel = 100f;
+    [SerializeField] private float sunlightLevel = 1f;
+    [SerializeField] private float nutrientLevel = 50f;
+
+    public float CurrentWaterLevel => waterLevel;
+    public float CurrentSunlightLevel => sunlightLevel;
+    public float CurrentNutrientLevel => nutrientLevel;
+
+    public event System.Action OnStateChanged;
+
+    void Update()
+    {
+        UpdateEnvironment(Time.deltaTime);
+    }
+
+    public void UpdateEnvironment(float deltaTime)
+    {
+        // Example: water evaporation over time
+        waterLevel = Mathf.Max(0, waterLevel - 0.5f * deltaTime);
+        OnStateChanged?.Invoke();
+    }
+
+    public void AddWater(float amount)
+    {
+        if(amount < 0)
+        {
+            Debug.LogWarning("Cannot add a negative amount of water.");
+            return;
+        }
+        waterLevel += amount;
+        OnStateChanged?.Invoke();
+    }
+
+    public void ConsumeNutrients(float amount)
+    {
+        if(amount < 0)
+        {
+            Debug.LogWarning("Cannot consume a negative amount of nutrients.");
+            return;
+        }
+        nutrientLevel = Mathf.Max(0, nutrientLevel - amount);
+        OnStateChanged?.Invoke();
+    }
+}
