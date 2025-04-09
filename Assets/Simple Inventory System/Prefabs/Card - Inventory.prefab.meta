@@ -1,14 +1,7 @@
 fileFormatVersion: 2
-guid: a9452ce0fe0cbe744b85b9be995fd10e
+guid: 5af981a367676ff43908c7f93bd80c50
 PrefabImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 314055
-  packageName: Simple Inventory System
-  packageVersion: 1.0
-  assetPath: Assets/Simple Inventory System/Prefabs/Card - Inventory.prefab
-  uploadId: 740847
