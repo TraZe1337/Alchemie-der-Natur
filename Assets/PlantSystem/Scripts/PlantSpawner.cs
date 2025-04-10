@@ -15,8 +15,9 @@ public class PlantSpawner : MonoBehaviour
         
     }
 
+    // Spawn a new plant state based on the current growth stage
     public void SpawnNewPlantState(int state) {
-        if (state < 0 || state >= plantSO.MaxStage)
+        if (state < 0 || state >= plantSO.MaxGrowthStage)
         {
             Debug.LogError("Invalid plant state: " + state);
             return;

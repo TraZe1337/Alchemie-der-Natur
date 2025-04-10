@@ -28,9 +28,12 @@ public class TimeManager : MonoBehaviour
         float deltaTime = Time.deltaTime;
 
         // Update each registered plant's growth progress.
-        foreach (PlantGrowth plantGrowth in plantGrowths)
+        if (plantGrowths.Count > 0)
         {
-            plantGrowth.TickGrowth(deltaTime);
+            foreach (PlantGrowth plantGrowth in plantGrowths)
+            {
+                plantGrowth.TickGrowth(deltaTime);
+            }
         }
     }
 
@@ -47,6 +50,7 @@ public class TimeManager : MonoBehaviour
     // Method for plant objects to unregister (e.g., if they are destroyed)
     public void UnregisterPlant(PlantGrowth plantGrowth)
     {
+        Debug.Log("Unregistering plant: " + plantGrowth.gameObject.name);
         if (plantGrowths.Contains(plantGrowth))
         {
             plantGrowths.Remove(plantGrowth);

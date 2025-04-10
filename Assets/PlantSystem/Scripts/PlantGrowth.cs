@@ -4,8 +4,10 @@ public class PlantGrowth : MonoBehaviour
 {
     public PlantSO plantData;
     public Pot pot;
+    public DehydrationColorChanger dehydrationColorChanger;
 
     private float currentGrowth = 0f;
+    private float currentDehydration = 0f;
     private int currentStage = 0;
     private GameObject currentPlantInstance;
 
@@ -28,8 +30,10 @@ public class PlantGrowth : MonoBehaviour
         float growthSpeed = plantData.growthRate * Mathf.Clamp01(waterFactor);
         currentGrowth += growthSpeed * deltaTime;
 
+        CheckHydration(waterFactor);
+
         // Growth stage
-        if (currentStage < plantData.MaxStage && currentGrowth >= (currentStage + 1) * 10f)
+        if (currentStage < plantData.MaxGrowthStage && currentGrowth >= (currentStage + 1) * 10f)
         {
             AdvanceGrowthStage();
         }
@@ -42,25 +46,80 @@ public class PlantGrowth : MonoBehaviour
         currentStage++;
     }
 
-    private void SpawnNewPlantState(int state) {
-        if (state < 0 || state >= plantData.MaxStage) {
+    private void CheckHydration(float waterFactor)
+    {
+        // Calculate dehydration value based on waterFactor
+        // The closer waterFactor is to 0, the higher the dehydrationValue
+        float dehydrationRate = 1f - Mathf.Pow(waterFactor, 2);
+        // dehydrationValue between 0 and 1
+        dehydrationRate = Mathf.Clamp01(dehydrationRate);
+        //Debug.Log("Dehydration Value: " + dehydrationRate);
+
+        if (dehydrationRate > 0) {
+            currentDehydration += dehydrationRate * Time.deltaTime;
+            if (currentDehydration >= plantData.dieTroughDehydrationThresholdinMinutes * 60f)
+            {
+                Die();
+            }
+            else
+            {
+                //TODO: When TimeManager gets slower it my take a while before dehydration effect is shown when new growth state is triggered.
+                ShowDehydrationEffect(Mathf.Lerp(0f, 1f, currentDehydration / (plantData.dieTroughDehydrationThresholdinMinutes * 60f)));
+            }
+        }
+        else
+        {
+            //TODO: Should the plants dehydration be reset to 0 directly when water is sufficient?
+            currentDehydration = 0f; // Reset dehydration if water is sufficient
+        }
+
+        
+    }
+
+    private void SpawnNewPlantState(int state)
+    {
+        if (state < 0 || state >= plantData.MaxGrowthStage)
+        {
             Debug.LogError("Invalid plant state: " + state);
             return;
         }
 
         // Destroy the previous plant instance if it exists
-        if (currentPlantInstance != null) {
+        if (currentPlantInstance != null)
+        {
             Destroy(currentPlantInstance);
         }
 
         // Get the new plant prefab for the given state
         GameObject plantPrefab = plantData.GetPlantPrefab(state);
-        if (plantPrefab != null) {
+        if (plantPrefab != null)
+        {
             // Instantiate the new plant prefab and store the reference
             currentPlantInstance = Instantiate(plantPrefab, transform);
             currentPlantInstance.transform.SetParent(transform);
-        } else {
+        }
+        else
+        {
             Debug.LogError("No prefab found for state: " + state);
         }
+    }
+
+    private void ShowDehydrationEffect(float effectIntensity)
+    {
+        // Implement visual or audio effects for dehydration here
+        //Debug.Log("Dehydration effect triggered for: " + gameObject.name);
+        dehydrationColorChanger.UpdateDehydrationColor(effectIntensity);
+    }
+
+    private void Die()
+    {
+        Debug.Log("Plant died: " + gameObject.name);
+
+        // Destroy any current plant instance
+        if (currentPlantInstance != null)
+            Destroy(currentPlantInstance);
+
+        // Destroy this PlantGrowth game object
+        Destroy(gameObject);
     }
 }

@@ -21,6 +21,7 @@ MonoBehaviour:
   - {fileID: 5209674874404093584, guid: 0bf9c0246b376a74e8aef26bb0810528, type: 3}
   - {fileID: 1763139113147507057, guid: a88d5f7345281704ab1f15f415b997c2, type: 3}
   waterRequirement: 50
+  dieTroughDehydrationThresholdinMinutes: 1
   sunlightRequirement: 1
   nutrientRequirement: 30
   harvestYield: 4

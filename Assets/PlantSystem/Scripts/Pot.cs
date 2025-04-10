@@ -10,18 +10,16 @@ public class Pot : MonoBehaviour
     public float CurrentSunlightLevel => sunlightLevel;
     public float CurrentNutrientLevel => nutrientLevel;
 
-    public event System.Action OnStateChanged;
 
     void Update()
     {
-        UpdateEnvironment(Time.deltaTime);
+        //UpdateEnvironment(Time.deltaTime);
     }
 
     public void UpdateEnvironment(float deltaTime)
     {
         // Example: water evaporation over time
         waterLevel = Mathf.Max(0, waterLevel - 0.5f * deltaTime);
-        OnStateChanged?.Invoke();
     }
 
     public void AddWater(float amount)
@@ -32,7 +30,26 @@ public class Pot : MonoBehaviour
             return;
         }
         waterLevel += amount;
-        OnStateChanged?.Invoke();
+    }
+
+    public void ConsumeWater(float amount)
+    {
+        if(amount < 0)
+        {
+            Debug.LogWarning("Cannot consume a negative amount of water.");
+            return;
+        }
+        waterLevel = Mathf.Max(0, waterLevel - amount);
+    }
+
+    public void AddNutrients(float amount)
+    {
+        if(amount < 0)
+        {
+            Debug.LogWarning("Cannot add a negative amount of nutrients.");
+            return;
+        }
+        nutrientLevel += amount;
     }
 
     public void ConsumeNutrients(float amount)
@@ -43,6 +60,5 @@ public class Pot : MonoBehaviour
             return;
         }
         nutrientLevel = Mathf.Max(0, nutrientLevel - amount);
-        OnStateChanged?.Invoke();
     }
 }

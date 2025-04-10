@@ -213,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 192198025}
   - component: {fileID: 192198026}
+  - component: {fileID: 192198027}
   m_Layer: 0
   m_Name: PlantObject
   m_TagString: Untagged
@@ -249,6 +250,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantData: {fileID: 11400000, guid: 2a88ed8eb09ccf145ab094415aad995a, type: 2}
   pot: {fileID: 789294612}
+  dehydrationColorChanger: {fileID: 192198027}
+--- !u!114 &192198027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192198023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2e314c81db14d4396c0da9a3de44ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &782911958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a9e4f3fc7be012643b7628327b0dfd82, type: 3}
