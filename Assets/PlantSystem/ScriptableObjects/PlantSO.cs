@@ -12,6 +12,8 @@ public class PlantSO : ScriptableObject
     public float harvestYield;
     public float growthRate;
 
+    // Max Stage of the plant
+    // This is the number of different growth stages the plant has.
     public int MaxStage{
         get
         {
@@ -19,6 +21,7 @@ public class PlantSO : ScriptableObject
         }
     }
 
+    // This method returns the prefab for the given growth stage.
     public GameObject GetPlantPrefab(int stage)
     {
         if (stage < 0 || stage >= MaxStage)

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    // Optional: Using a static instance to easily access the TimeManager from elsewhere.
     public static TimeManager Instance;
 
     // List to hold all registered plant objects.
@@ -11,7 +10,7 @@ public class TimeManager : MonoBehaviour
 
     void Awake()
     {
-        // Singleton pattern setup. Only one TimeManager should exist.
+        // Singleton pattern
         if (Instance == null)
         {
             Instance = this;
