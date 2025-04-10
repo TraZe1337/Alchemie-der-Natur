@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
@@ -9,12 +10,20 @@ public class DehydrationColorChanger : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
     public void UpdateDehydrationColor(float value)
     {
-        CeckForChildren();
-        Debug.Log("Dehydration Value: " + value + "will set new color");
+        if (transform.childCount >= 1)
+        {
+            CeckForChildren();
+        }
+        else
+        {
+            return;
+        }
+
+        //Debug.Log("Dehydration Value: " + value + " will set new color");
         if (value == 1)
         {
             // If the value is 1, set the color to the target color directly
@@ -43,13 +52,7 @@ public class DehydrationColorChanger : MonoBehaviour
 
     private void CeckForChildren()
     {
-        // Check if the object has any children
-        if (transform.childCount >= 1)
-        {
-            dehydrationRendererOfChildPlants = GetComponentsInChildren<Renderer>();
-        } else {
-            Debug.LogError("No Renderer found in child objects.");
-            return; 
-        }
+        dehydrationRendererOfChildPlants = GetComponentsInChildren<Renderer>();
+
     }
 }

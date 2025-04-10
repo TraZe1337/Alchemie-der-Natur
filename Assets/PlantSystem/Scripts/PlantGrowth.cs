@@ -30,7 +30,8 @@ public class PlantGrowth : MonoBehaviour
         float growthSpeed = plantData.growthRate * Mathf.Clamp01(waterFactor);
         currentGrowth += growthSpeed * deltaTime;
 
-        CheckHydration(waterFactor);
+        CheckHydration();
+        Consume();
 
         // Growth stage
         if (currentStage < plantData.MaxGrowthStage && currentGrowth >= (currentStage + 1) * 10f)
@@ -46,11 +47,11 @@ public class PlantGrowth : MonoBehaviour
         currentStage++;
     }
 
-    private void CheckHydration(float waterFactor)
+    private void CheckHydration()
     {
         // Calculate dehydration value based on waterFactor
         // The closer waterFactor is to 0, the higher the dehydrationValue
-        float dehydrationRate = 1f - Mathf.Pow(waterFactor, 2);
+        float dehydrationRate = 1f - Mathf.Pow(pot.CurrentWaterLevel / plantData.minSoilMoisture, 2);
         // dehydrationValue between 0 and 1
         dehydrationRate = Mathf.Clamp01(dehydrationRate);
         //Debug.Log("Dehydration Value: " + dehydrationRate);
@@ -121,5 +122,16 @@ public class PlantGrowth : MonoBehaviour
 
         // Destroy this PlantGrowth game object
         Destroy(gameObject);
+    }
+
+    private void Consume() {
+        //TODO: Add nutrient consumption logic here
+        // Consume water and nutrients based on the growth rate
+        float waterConsumption = plantData.waterConusmptionRate * Time.deltaTime;
+        //float nutrientConsumption = plantData.nutrientRequirement * Time.deltaTime;
+
+        pot.ConsumeWater(waterConsumption);
+        //pot.ConsumeNutrients(nutrientConsumption);
+        Debug.Log("Water Level: " + pot.CurrentWaterLevel + " Nutrient Level: " + pot.CurrentNutrientLevel);
     }
 }

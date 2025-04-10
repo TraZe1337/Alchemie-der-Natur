@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,13 +29,19 @@ public class TimeManager : MonoBehaviour
         float deltaTime = Time.deltaTime;
 
         // Update each registered plant's growth progress.
-        if (plantGrowths.Count > 0)
-        {
-            foreach (PlantGrowth plantGrowth in plantGrowths)
+        
+            try
             {
-                plantGrowth.TickGrowth(deltaTime);
+                foreach (PlantGrowth plantGrowth in plantGrowths)
+                {
+                    plantGrowth.TickGrowth(deltaTime);
+                }
             }
-        }
+            catch (InvalidOperationException)
+            {
+                Debug.Log("No plant in System");
+            }
+        
     }
 
     // Method for plant objects to register themselves
