@@ -56,6 +56,7 @@ public class PlantGrowth : MonoBehaviour
     // Called each frame
     public void TickGrowth(float deltaTime)
     {
+        //TODO: When biggest GrowthStage is reached, the plant should not grow anymore. However there has to be a health check to see if the plant still has enough water and nutrients.
         float waterLevel = pot.CurrentWaterLevel;
         float sunlightLevel = pot.CurrentSunlightLevel;
         float nutrientLevel = pot.CurrentNutrientLevel;
