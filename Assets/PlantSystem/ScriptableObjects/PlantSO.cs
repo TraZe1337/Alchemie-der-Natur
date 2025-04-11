@@ -10,10 +10,12 @@ public class PlantSO : ScriptableObject
 
     [Header("Water Settings")]
     // Minimal Optimal water required for full growth speed.
-    public float waterRequirement;
+    public float minMoisturePreference;
+    public float maxMoisturePreference;
     [Min(0.1f)]
     // Minimum moisture level in the soil that the plant can tolerate before it starts to dehydrate.
-    public float minSoilMoisture;
+    public float minMoistureRequirement;
+    public float maxMoistureRequirement;
     // Amount of water consumed per TimeManager Tick.
     [Min(0.1f)]
     public float waterConusmptionRate;
@@ -22,10 +24,15 @@ public class PlantSO : ScriptableObject
     public float dieTroughDehydrationThresholdinMinutes;
 
     [Header("Environmental Requirements")]
-    public float sunlightRequirement;
+    public float minSunlightPreference;
+    public float maxSunlightPreference;
+    public float minSunlightRequirement;
+    public float maxSunlightRequirement;
 
     [Header("Nutrient Settings")]
-    public float nutrientRequirement;
+    // Nutrient amount in soil for extra growth speed.
+    public float minNutrientsPreference;
+    public float minNutrientsRequirement;
 
     [Header("Production & Growth")]
     public float harvestYield;
@@ -55,16 +62,16 @@ public class PlantSO : ScriptableObject
     // Validation to ensure minSoilMoisture is not greater than waterRequirement.
     private void OnValidate()
     {
-        if (minSoilMoisture > waterRequirement)
-        {
-            Debug.LogWarning("minSoilMoisture cannot be greater than waterRequirement in " + name + ". Adjusting minSoilMoisture to waterRequirement.");
-            minSoilMoisture = waterRequirement;
-        }
-
-        if (waterRequirement <= 0)
-        {
-            Debug.LogWarning("waterRequirement cannot be negative or 0 in " + name + ". Setting it to 0.5.");
-            waterRequirement = 0.5f;
-        }
+        //if (minSoilMoisture > minMoisturePreference)
+        //{
+        //    Debug.LogWarning("minSoilMoisture cannot be greater than waterRequirement in " + name + ". Adjusting minSoilMoisture to waterRequirement.");
+        //    minSoilMoisture = minMoisturePreference;
+        //}
+//
+        //if (minMoisturePreference <= 0)
+        //{
+        //    Debug.LogWarning("waterRequirement cannot be negative or 0 in " + name + ". Setting it to 0.5.");
+        //    minMoisturePreference = 0.5f;
+        //}'
     }
 }

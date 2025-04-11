@@ -20,9 +20,17 @@ MonoBehaviour:
   - {fileID: 6757992140131076885, guid: 395022f833396154eb1a5d118cbbb3a1, type: 3}
   - {fileID: 5209674874404093584, guid: 0bf9c0246b376a74e8aef26bb0810528, type: 3}
   - {fileID: 1763139113147507057, guid: a88d5f7345281704ab1f15f415b997c2, type: 3}
-  waterRequirement: 50
+  minMoisturePreference: 40
+  maxMoisturePreference: 50
+  minMoistureRequirement: 10
+  maxMoistureRequirement: 70
+  waterConusmptionRate: 0.5
   dieTroughDehydrationThresholdinMinutes: 1
-  sunlightRequirement: 1
-  nutrientRequirement: 30
+  minSunlightPreference: 10
+  maxSunlightPreference: 20
+  minSunlightRequirement: 5
+  maxSunlightRequirement: 25
+  minNutrientsPreference: 10
+  minNutrientsRequirement: 5
   harvestYield: 4
   growthRate: 2
