@@ -4,7 +4,7 @@ public class PlantGrowth : MonoBehaviour
 {
     public PlantSO plantData;
     public Pot pot;
-    public DehydrationColorChanger dehydrationColorChanger;
+    public NegativeHealthEffectVisualizer negativeHealthEffectVisualizer;
 
     private float currentGrowth = 0f;
     private float currentDehydration = 0f;
@@ -56,49 +56,55 @@ public class PlantGrowth : MonoBehaviour
     // Called each frame
     public void TickGrowth(float deltaTime)
     {
-        //TODO: When biggest GrowthStage is reached, the plant should not grow anymore. However there has to be a health check to see if the plant still has enough water and nutrients.
-        float waterLevel = pot.CurrentWaterLevel;
-        float sunlightLevel = pot.CurrentSunlightLevel;
-        float nutrientLevel = pot.CurrentNutrientLevel;
-
-        // Calculate satisfaction factors using the updated formulas.
-        float waterFactor = CalculateEnvironmentalFactor(waterLevel,
-                             plantData.minMoistureRequirement,
-                             plantData.minMoisturePreference,
-                             plantData.maxMoisturePreference,
-                             plantData.maxMoistureRequirement);
-
-        float sunlightFactor = CalculateEnvironmentalFactor(sunlightLevel,
-                               plantData.minSunlightRequirement,
-                               plantData.minSunlightPreference,
-                               plantData.maxSunlightPreference,
-                               plantData.maxSunlightRequirement);
-
-        float nutriScore = CalculateNutriScore(nutrientLevel,
-                               plantData.minSunlightRequirement,
-                               plantData.minSunlightPreference);
-
-        // Combine the factors with a weighted geometric mean.
-        // Weights: Water = 0.5, Sunlight = 0.3, Nutrients = 0.2.
-        float overallFactor = Mathf.Pow(waterFactor, 0.5f) *
-                              Mathf.Pow(sunlightFactor, 0.3f) *
-                              Mathf.Pow(nutriScore, 0.2f);
-
-        // Compute current growth speed in units per second.
-        float growthSpeed = plantData.growthRate * overallFactor;
-
-        // Apply growth over the deltaTime.
-        currentGrowth += growthSpeed * deltaTime;
-        Debug.Log("Current GrowthSpeed: " + growthSpeed + " Current Growth: " + currentGrowth + " Current Stage: " + currentStage);
-
-        CheckHydration();
-        //Consume();
-
-        // Growth stage
-        if (currentStage < plantData.MaxGrowthStage && currentGrowth >= (currentStage + 1) * 10f)
+        if (currentStage < plantData.MaxGrowthStage)
         {
-            AdvanceGrowthStage();
+            float waterLevel = pot.CurrentWaterLevel;
+            float sunlightLevel = pot.CurrentSunlightLevel;
+            float nutrientLevel = pot.CurrentNutrientLevel;
+
+            // Calculate satisfaction factors using the updated formulas.
+            float waterFactor = CalculateEnvironmentalFactor(waterLevel,
+                                 plantData.minMoistureRequirement,
+                                 plantData.minMoisturePreference,
+                                 plantData.maxMoisturePreference,
+                                 plantData.maxMoistureRequirement);
+
+            float sunlightFactor = CalculateEnvironmentalFactor(sunlightLevel,
+                                   plantData.minSunlightRequirement,
+                                   plantData.minSunlightPreference,
+                                   plantData.maxSunlightPreference,
+                                   plantData.maxSunlightRequirement);
+
+            float nutriScore = CalculateNutriScore(nutrientLevel,
+                                   plantData.minSunlightRequirement,
+                                   plantData.minSunlightPreference);
+
+            // Combine the factors with a weighted geometric mean.
+            // Weights: Water = 0.5, Sunlight = 0.3, Nutrients = 0.2.
+            float overallFactor = Mathf.Pow(waterFactor, 0.5f) *
+                                  Mathf.Pow(sunlightFactor, 0.3f) *
+                                  Mathf.Pow(nutriScore, 0.2f);
+
+            // Compute current growth speed in units per second.
+            float growthSpeed = plantData.growthRate * overallFactor;
+
+            // Apply growth over the deltaTime.
+            currentGrowth += growthSpeed * deltaTime;
+            //Debug.Log("Current GrowthSpeed: " + growthSpeed + " Current Growth: " + currentGrowth + " Current Stage: " + currentStage);
+
+            //Consume();
+
+            // Growth stage
+            if (currentGrowth >= (currentStage + 1) * 10f)
+            {
+                AdvanceGrowthStage();
+            }
+        } else {
+            //Plant is fully grown
+            //TODO: Check if fully grown plant has enough water, nutrients and sunlight. If not, show dehydration effect.
+            Debug.Log("Plant is fully grown: " + currentStage);
         }
+        HealthCheck();
     }
 
     private void AdvanceGrowthStage()
@@ -108,35 +114,42 @@ public class PlantGrowth : MonoBehaviour
         currentStage++;
     }
 
-    private void CheckHydration()
+    private void HealthCheck()
     {
-        //// Calculate dehydration value based on waterFactor
-        //// The closer waterFactor is to 0, the higher the dehydrationValue
-        //float dehydrationRate = 1f - Mathf.Pow(pot.CurrentWaterLevel / plantData.minSoilMoisture, 2);
-        //// dehydrationValue between 0 and 1
-        //dehydrationRate = Mathf.Clamp01(dehydrationRate);
-        ////Debug.Log("Dehydration Value: " + dehydrationRate);
-//
-        //if (dehydrationRate > 0)
-        //{
-        //    currentDehydration += dehydrationRate * Time.deltaTime;
-        //    if (currentDehydration >= plantData.dieTroughDehydrationThresholdinMinutes * 60f)
-        //    {
-        //        Die();
-        //    }
-        //    else
-        //    {
-        //        //TODO: When TimeManager gets slower it my take a while before dehydration effect is shown when new growth state is triggered.
-        //        ShowDehydrationEffect(Mathf.Lerp(0f, 1f, currentDehydration / (plantData.dieTroughDehydrationThresholdinMinutes * 60f)));
-        //    }
-        //}
-        //else
-        //{
-        //    //TODO: Should the plants dehydration be reset to 0 directly when water is sufficient?
-        //    currentDehydration = 0f; // Reset dehydration if water is sufficient
-        //}
 
+        // Check Hydration
+        if (pot.CurrentWaterLevel < plantData.minMoistureRequirement)
+        {
+            //Plant is dehydrated
+            ShowNegativeHealthEffect(PlantHeathStages.Dehydration, pot.CurrentWaterLevel, plantData.minMoistureRequirement, 0f);
+        }
+        else if (pot.CurrentWaterLevel > plantData.maxMoistureRequirement)
+        {
+            //Plant is overwatered
+            ShowNegativeHealthEffect(PlantHeathStages.Dehydration, pot.CurrentWaterLevel, 0f, plantData.maxMoistureRequirement);
+        } else {
+            //Plant is thriving
+            //TODO: Should the plants dehydration be reset to 0 directly when water is sufficient?
+            currentDehydration = 0f; // Reset dehydration if water is sufficient
+        }
 
+        // Check Light Exposure
+        if (pot.CurrentSunlightLevel < plantData.minSunlightRequirement)
+        {
+            //Plant is in the dark
+        }
+        else if (pot.CurrentSunlightLevel > plantData.maxSunlightRequirement)
+        {
+            //Plant is overexposed to sunlight
+        } else {
+            //Plant is thriving
+        }
+
+        // Check Nutrient Level
+        if (pot.CurrentNutrientLevel < plantData.minNutrientsRequirement)
+        {
+            //Plant is starving for nutrients
+        }
     }
 
     private void SpawnNewPlantState(int state)
@@ -167,11 +180,29 @@ public class PlantGrowth : MonoBehaviour
         }
     }
 
-    private void ShowDehydrationEffect(float effectIntensity)
+    private void ShowNegativeHealthEffect(PlantHeathStages healthStage, float currentVal, float lowerLimit, float upperLimit)
     {
-        //Debug.Log("Dehydration effect triggered for: " + gameObject.name);
-        dehydrationColorChanger.UpdateDehydrationColor(effectIntensity);
+        float negativeHealthRate = 0f;
+        if (upperLimit == 0f) {
+            negativeHealthRate = Mathf.Clamp01(1f - Mathf.Pow(currentVal / lowerLimit, 2));
+        } else if (lowerLimit == 0f) {
+            negativeHealthRate = Mathf.Clamp01(Mathf.Pow(currentVal / upperLimit, 2));
+        }
+
+        currentDehydration += negativeHealthRate * Time.deltaTime;
+        negativeHealthEffectVisualizer.UpdateHealthEffectColor(healthStage, 
+                                        Mathf.Lerp(0f, 1f, currentDehydration / (plantData.dieTroughDehydrationThresholdinMinutes * 60f)));
+
+        RemoveTheDead();
     }
+
+    private void RemoveTheDead() {
+        if (currentDehydration >= plantData.dieTroughDehydrationThresholdinMinutes * 60f)
+            {
+                Die();
+            }
+    }
+
 
     private void Die()
     {
@@ -187,13 +218,12 @@ public class PlantGrowth : MonoBehaviour
 
     private void Consume()
     {
-        //TODO: Add nutrient consumption logic here
-        // Consume water and nutrients based on the growth rate
+        //TODO: Consume water and nutrients based on the growth rate
         float waterConsumption = plantData.waterConusmptionRate * Time.deltaTime;
-        //float nutrientConsumption = plantData.nutrientRequirement * Time.deltaTime;
+        float nutrientConsumption = plantData.nutrientConsumptionRate * Time.deltaTime;
 
         pot.ConsumeWater(waterConsumption);
-        //pot.ConsumeNutrients(nutrientConsumption);
+        pot.ConsumeNutrients(nutrientConsumption);
         //Debug.Log("Water Level: " + pot.CurrentWaterLevel + " Nutrient Level: " + pot.CurrentNutrientLevel);
     }
 }

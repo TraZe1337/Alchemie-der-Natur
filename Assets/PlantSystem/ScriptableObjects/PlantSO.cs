@@ -33,6 +33,7 @@ public class PlantSO : ScriptableObject
     // Nutrient amount in soil for extra growth speed.
     public float minNutrientsPreference;
     public float minNutrientsRequirement;
+    public float nutrientConsumptionRate;
 
     [Header("Production & Growth")]
     public float harvestYield;
