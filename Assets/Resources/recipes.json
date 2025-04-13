@@ -1,0 +1,24 @@
+{
+    "recipes": [
+        {
+            "title": "Potion of Healing",
+            "description": "A potion that restores health.",
+            "ingredients": ["Herb", "Water", "Crystal Shard"]
+        },
+        {
+            "title": "Elixir of Strength",
+            "description": "A potion that increases strength.",
+            "ingredients": ["Root", "Mushroom", "Dragon Scale"]
+        },
+        {
+            "title": "Elixir of Strength",
+            "description": "A potion that increases strength.",
+            "ingredients": ["Root", "Mushroom", "Dragon Scale"]
+        },
+        {
+            "title": "Elixir of Strength",
+            "description": "A potion that increases strength.",
+            "ingredients": ["Root", "Mushroom", "Dragon Scale"]
+        }
+    ]
+}
