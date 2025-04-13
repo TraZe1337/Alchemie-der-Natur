@@ -2,12 +2,16 @@ using UnityEngine;
 using System.Collections.Generic;
 using RedstoneinventeGameStudio;
 using System;
+using TMPro;
+using System.Collections;
 
 public class BrewingScript : MonoBehaviour
 {
     [SerializeField] private CardManager[] itemSlots; // Array of item slots (3 slots).
     [SerializeField] private List<Recipe> recipes; // List of valid recipes.
     [SerializeField] private CardManager[] inventorySlots; // Array of inventory slots.
+    [SerializeField] private GameObject popupText; // Reference to the TextMeshPro UI text for feedback.
+    [SerializeField] private float popupDuration = 2f; // Duration for which the popup text is visible.
 
     // Represents a recipe with required items and the resulting potion.
     [System.Serializable]
@@ -24,6 +28,16 @@ public class BrewingScript : MonoBehaviour
         if (itemSlots.Length != 3)
         {
             Debug.LogError("Brewing requires exactly 3 item slots.");
+        }
+
+        // Ensure the popup text is initially hidden.
+        if (popupText != null)
+        {
+            popupText.gameObject.SetActive(false); // Hide the popup text at the start.
+        }
+        else
+        {
+            Debug.LogError("Popup text reference is not assigned.");
         }
     }
 
@@ -46,6 +60,10 @@ public class BrewingScript : MonoBehaviour
             if (itemSlots[i].itemData == null)
             {
                 Debug.Log("One or more slots are empty.");
+
+                popupText.gameObject.SetActive(true); // Ensure the popup is visible.
+                popupText.GetComponentInChildren<TextMeshProUGUI>().text = "One or more slots are empty.";
+                StartCoroutine(HidePopupAfterDelay()); // Start coroutine to hide the popup.
                 return;
             }
             itemsInSlots[i] = itemSlots[i].itemData;
@@ -57,6 +75,10 @@ public class BrewingScript : MonoBehaviour
             if (IsMatchingRecipe(itemsInSlots, recipe.requiredItems))
             {
                 Debug.Log($"Potion brewed: {recipe.resultingPotion.name}");
+
+                popupText.gameObject.SetActive(true); // Ensure the popup is visible.
+                popupText.GetComponentInChildren<TextMeshProUGUI>().text = $"Potion brewed: {recipe.resultingPotion.name}"; // Show success message.
+                StartCoroutine(HidePopupAfterDelay()); // Start coroutine to hide the popup.
                 ClearSlots();
                 AddPotionToInventory(recipe.resultingPotion); // Add the resulting potion to the inventory.
                 // Optionally, you can also play a brewing sound or show a visual effect here.
@@ -65,9 +87,17 @@ public class BrewingScript : MonoBehaviour
         }
 
         Debug.Log("No matching recipe found.");
+        popupText.GetComponentInChildren<TextMeshProUGUI>().text = "No matching recipe found."; // Show failure message.
+        popupText.gameObject.SetActive(true); // Ensure the popup is visible.
+        StartCoroutine(HidePopupAfterDelay()); // Start coroutine to hide the popup.
     }
 
-
+    // Coroutine to hide the popup text after a delay.
+    private IEnumerator HidePopupAfterDelay()
+    {
+        yield return new WaitForSeconds(popupDuration);
+        popupText.gameObject.SetActive(false); // Hide the popup text.
+    }
 
     private bool IsMatchingRecipe(InventoryItemData[] itemsInSlots, InventoryItemData[] requiredItems)
     {
@@ -107,6 +137,7 @@ public class BrewingScript : MonoBehaviour
             {
                 slot.SetItem(resultingPotion); // Place the potion in the free slot.
                 Debug.Log($"Added {resultingPotion.name} to inventory.");
+
                 return;
             }
         }
