@@ -9,7 +9,7 @@ public class NegativeHealthEffectVisualizer : MonoBehaviour
 
     }
 
-    public void UpdateHealthEffectColor(PlantHeathStages stage, float value) {
+    public void UpdateHealthEffectColor(PlantHealthStages stage, float value) {
         if (transform.childCount >= 1)
         {
             CeckForChildren();
@@ -25,16 +25,16 @@ public class NegativeHealthEffectVisualizer : MonoBehaviour
 
         switch (stage)
         {
-            case PlantHeathStages.Dehydration:                
+            case PlantHealthStages.Dehydration:                
                 targetColor = new Color(1f, 152f / 255f, 0f, 1f);           // (255,152,0,255)
                 break;
-            case PlantHeathStages.Overwatered:
-                targetColor = new Color(84f / 255f, 84f / 255f, 84f / 255f, 255f);  
+            case PlantHealthStages.Overwatered:
+                targetColor = new Color(138f / 255f, 97f / 255f, 0f, 255f);  
                 break;
-            case PlantHeathStages.InTheDark:
+            case PlantHealthStages.InTheDark:
                 // Show in the dark effect
                 break;
-            case PlantHeathStages.OverexposedToSunlight:
+            case PlantHealthStages.OverexposedToSunlight:
                 // Show overexposed to sunlight effect
                 break;
         }

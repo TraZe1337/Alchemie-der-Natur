@@ -1,8 +1,14 @@
 using UnityEngine;
-public enum PlantHeathStages
+public enum PlantHealthStages
 {
     Dehydration,
+    MoreWaterPrefered,
     Overwatered,
+    LessWaterPrefered,
     InTheDark,
+    MoreSunlightPrefered,
     OverexposedToSunlight,
+    LessSunlightPrefered,
+    NutrientDeficiency,
+    MoreNutrientsPrefered
 }

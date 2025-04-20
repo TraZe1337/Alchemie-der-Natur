@@ -19,9 +19,6 @@ public class PlantSO : ScriptableObject
     // Amount of water consumed per TimeManager Tick.
     [Min(0.1f)]
     public float waterConusmptionRate;
-    // Max Value (in Minutes) the plant can survive without any water.
-    [Min(0.1f)]
-    public float dieTroughDehydrationThresholdinMinutes;
 
     [Header("Environmental Requirements")]
     public float minSunlightPreference;
@@ -39,6 +36,10 @@ public class PlantSO : ScriptableObject
     public float harvestYield;
      // Growth rate per second when conditions are optimal.
     public float growthRate;
+
+    [Header("Plant Health")]
+    //Time in minutes a plant dies when it's requirements is not met.
+    public float robustness;
 
     // Max Stage of the plant
     // This is the number of different growth stages the plant has.

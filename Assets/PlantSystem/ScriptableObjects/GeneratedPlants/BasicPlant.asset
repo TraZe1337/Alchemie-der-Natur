@@ -25,12 +25,13 @@ MonoBehaviour:
   minMoistureRequirement: 10
   maxMoistureRequirement: 70
   waterConusmptionRate: 0.5
-  dieTroughDehydrationThresholdinMinutes: 1
   minSunlightPreference: 10
   maxSunlightPreference: 20
   minSunlightRequirement: 5
   maxSunlightRequirement: 25
   minNutrientsPreference: 10
   minNutrientsRequirement: 5
+  nutrientConsumptionRate: 0.25
   harvestYield: 4
   growthRate: 2
+  robustness: 5

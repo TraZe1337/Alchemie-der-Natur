@@ -1,15 +1,28 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 public class PlantGrowth : MonoBehaviour
 {
     public PlantSO plantData;
     public Pot pot;
     public NegativeHealthEffectVisualizer negativeHealthEffectVisualizer;
+    public HealthStatusUI healthStatusUI;
+
+    public List<EffectSO> negativeHealthEffectList;
 
     private float currentGrowth = 0f;
-    private float currentDehydration = 0f;
+    private float plantDeathRate = 0f;
+
     private int currentStage = 0;
     private GameObject currentPlantInstance;
+
+    private List<EffectSO> currentNegativeHealthEffects;
+
+    void Start()
+    {
+        currentNegativeHealthEffects = new List<EffectSO>();
+    }
 
     private void OnEnable()
     {
@@ -24,31 +37,74 @@ public class PlantGrowth : MonoBehaviour
     }
 
     // For water and sunlight, this method now incorporates the upper requirement.
-    private float CalculateEnvironmentalFactor(float current, float minRequirement, float minPreference, float maxPreference, float maxRequirement)
+    private float CalculateWaterFactor(float current, float minRequirement, float minPreference, float maxPreference, float maxRequirement)
     {
         if (current < minRequirement)
+        {
+            currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.Dehydration));
             return 0f; // Too little: no growth.
+        }
 
         if (current < minPreference)
+        {
+            currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.MoreWaterPrefered));
             return (current - minRequirement) / (minPreference - minRequirement);
+        }
 
         if (current <= maxPreference)
             return 1f; // Optimal growth conditions.
 
         if (current < maxRequirement)
+        {
+            currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.LessWaterPrefered));
             return (maxRequirement - current) / (maxRequirement - maxPreference);
+        }
 
+        currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.Overwatered));
+        return 0f; // Exceeds upper bound: no growth.
+    }
+
+    private float CalculateSunlightFactor(float current, float minRequirement, float minPreference, float maxPreference, float maxRequirement)
+    {
+        if (current < minRequirement)
+        {
+            currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.InTheDark));
+            return 0f; // Too little: no growth.
+        }
+
+        if (current < minPreference)
+        {
+            currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.MoreSunlightPrefered));
+            return (current - minRequirement) / (minPreference - minRequirement);
+        }
+
+        if (current <= maxPreference)
+            return 1f; // Optimal growth conditions.
+
+
+        if (current < maxRequirement)
+        {
+            currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.LessSunlightPrefered));
+            return (maxRequirement - current) / (maxRequirement - maxPreference);
+        }
+
+        currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.OverexposedToSunlight));
         return 0f; // Exceeds upper bound: no growth.
     }
 
     // For nutrients, since there's no upper limit, we use the simpler calculation.
     float CalculateNutriScore(float current, float minRequirement, float minPreference)
     {
-        if (current < minRequirement)
+        if (current < minRequirement) {
+            currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.NutrientDeficiency));
             return 0f;
+        }
+             
 
-        if (current < minPreference)
+        if (current < minPreference) {
+            currentNegativeHealthEffects.Add(GetEffectSO(PlantHealthStages.MoreNutrientsPrefered));
             return (current - minRequirement) / (minPreference - minRequirement);
+        }
 
         return 1f;
     }
@@ -56,29 +112,31 @@ public class PlantGrowth : MonoBehaviour
     // Called each frame
     public void TickGrowth(float deltaTime)
     {
+                        //Debug.Log("negativeHealthEffectList length:" + negativeHealthEffectList.Count);
+        currentNegativeHealthEffects.Clear();
+        float waterLevel = pot.CurrentWaterLevel;
+        float sunlightLevel = pot.CurrentSunlightLevel;
+        float nutrientLevel = pot.CurrentNutrientLevel;
+
+        // Calculate satisfaction factors.
+        float waterFactor = CalculateWaterFactor(waterLevel,
+                             plantData.minMoistureRequirement,
+                             plantData.minMoisturePreference,
+                             plantData.maxMoisturePreference,
+                             plantData.maxMoistureRequirement);
+
+        float sunlightFactor = CalculateSunlightFactor(sunlightLevel,
+                               plantData.minSunlightRequirement,
+                               plantData.minSunlightPreference,
+                               plantData.maxSunlightPreference,
+                               plantData.maxSunlightRequirement);
+
+        float nutriScore = CalculateNutriScore(nutrientLevel,
+                               plantData.minSunlightRequirement,
+                               plantData.minSunlightPreference);
+
         if (currentStage < plantData.MaxGrowthStage)
         {
-            float waterLevel = pot.CurrentWaterLevel;
-            float sunlightLevel = pot.CurrentSunlightLevel;
-            float nutrientLevel = pot.CurrentNutrientLevel;
-
-            // Calculate satisfaction factors using the updated formulas.
-            float waterFactor = CalculateEnvironmentalFactor(waterLevel,
-                                 plantData.minMoistureRequirement,
-                                 plantData.minMoisturePreference,
-                                 plantData.maxMoisturePreference,
-                                 plantData.maxMoistureRequirement);
-
-            float sunlightFactor = CalculateEnvironmentalFactor(sunlightLevel,
-                                   plantData.minSunlightRequirement,
-                                   plantData.minSunlightPreference,
-                                   plantData.maxSunlightPreference,
-                                   plantData.maxSunlightRequirement);
-
-            float nutriScore = CalculateNutriScore(nutrientLevel,
-                                   plantData.minSunlightRequirement,
-                                   plantData.minSunlightPreference);
-
             // Combine the factors with a weighted geometric mean.
             // Weights: Water = 0.5, Sunlight = 0.3, Nutrients = 0.2.
             float overallFactor = Mathf.Pow(waterFactor, 0.5f) *
@@ -93,13 +151,15 @@ public class PlantGrowth : MonoBehaviour
             //Debug.Log("Current GrowthSpeed: " + growthSpeed + " Current Growth: " + currentGrowth + " Current Stage: " + currentStage);
 
             //Consume();
-
+            
             // Growth stage
             if (currentGrowth >= (currentStage + 1) * 10f)
             {
                 AdvanceGrowthStage();
             }
-        } else {
+        }
+        else
+        {
             //Plant is fully grown
             //TODO: Check if fully grown plant has enough water, nutrients and sunlight. If not, show dehydration effect.
             Debug.Log("Plant is fully grown: " + currentStage);
@@ -116,39 +176,38 @@ public class PlantGrowth : MonoBehaviour
 
     private void HealthCheck()
     {
-
-        // Check Hydration
-        if (pot.CurrentWaterLevel < plantData.minMoistureRequirement)
+        if (currentNegativeHealthEffects.Count > 0)
         {
-            //Plant is dehydrated
-            ShowNegativeHealthEffect(PlantHeathStages.Dehydration, pot.CurrentWaterLevel, plantData.minMoistureRequirement, 0f);
-        }
-        else if (pot.CurrentWaterLevel > plantData.maxMoistureRequirement)
-        {
-            //Plant is overwatered
-            ShowNegativeHealthEffect(PlantHeathStages.Dehydration, pot.CurrentWaterLevel, 0f, plantData.maxMoistureRequirement);
+            foreach (EffectSO effect in currentNegativeHealthEffects)
+            {
+                // TOTO: When death effect the effect is showed via color change, via icon is shown by ever effect
+                PlantHealthStages currentStage = effect.effectType;
+                switch (currentStage)
+                {
+                    case PlantHealthStages.Dehydration:
+                        CalcNegativeHealthEffect(currentStage, pot.CurrentWaterLevel, plantData.minMoistureRequirement, plantData.maxMoistureRequirement);
+                        break;
+                    case PlantHealthStages.InTheDark:
+                        CalcNegativeHealthEffect(currentStage, pot.CurrentSunlightLevel, plantData.minSunlightRequirement, plantData.maxSunlightRequirement);
+                        break;
+                    case PlantHealthStages.NutrientDeficiency:
+                        CalcNegativeHealthEffect(currentStage, pot.CurrentNutrientLevel, plantData.minNutrientsRequirement, 0f);
+                        break;
+                    case PlantHealthStages.Overwatered:
+                        CalcNegativeHealthEffect(currentStage, pot.CurrentWaterLevel, plantData.minMoistureRequirement, plantData.maxMoistureRequirement);
+                        break;
+                    case PlantHealthStages.OverexposedToSunlight:
+                        CalcNegativeHealthEffect(currentStage, pot.CurrentSunlightLevel, plantData.minSunlightRequirement, plantData.maxSunlightRequirement);
+                        break;
+                    default:
+                        Debug.LogWarning("Unhandled health stage: " + currentStage);
+                        break;
+                }
+                healthStatusUI.AddEffect(currentNegativeHealthEffects);
+            }
         } else {
-            //Plant is thriving
-            //TODO: Should the plants dehydration be reset to 0 directly when water is sufficient?
-            currentDehydration = 0f; // Reset dehydration if water is sufficient
-        }
-
-        // Check Light Exposure
-        if (pot.CurrentSunlightLevel < plantData.minSunlightRequirement)
-        {
-            //Plant is in the dark
-        }
-        else if (pot.CurrentSunlightLevel > plantData.maxSunlightRequirement)
-        {
-            //Plant is overexposed to sunlight
-        } else {
-            //Plant is thriving
-        }
-
-        // Check Nutrient Level
-        if (pot.CurrentNutrientLevel < plantData.minNutrientsRequirement)
-        {
-            //Plant is starving for nutrients
+            // Clear all effects if no negative health effects are present.
+            healthStatusUI.ClearEffects();
         }
     }
 
@@ -180,34 +239,41 @@ public class PlantGrowth : MonoBehaviour
         }
     }
 
-    private void ShowNegativeHealthEffect(PlantHeathStages healthStage, float currentVal, float lowerLimit, float upperLimit)
+
+    private void CalcNegativeHealthEffect(PlantHealthStages healthStage, float currentVal, float lowerLimit, float upperLimit)
     {
         float negativeHealthRate = 0f;
-        if (upperLimit == 0f) {
+        if (currentVal < lowerLimit)
+        {
             negativeHealthRate = Mathf.Clamp01(1f - Mathf.Pow(currentVal / lowerLimit, 2));
-        } else if (lowerLimit == 0f) {
+        }
+        else if (currentVal > upperLimit)
+        {
             negativeHealthRate = Mathf.Clamp01(Mathf.Pow(currentVal / upperLimit, 2));
         }
 
-        currentDehydration += negativeHealthRate * Time.deltaTime;
-        negativeHealthEffectVisualizer.UpdateHealthEffectColor(healthStage, 
-                                        Mathf.Lerp(0f, 1f, currentDehydration / (plantData.dieTroughDehydrationThresholdinMinutes * 60f)));
+        plantDeathRate += negativeHealthRate * Time.deltaTime;
+        //Debug.Log("plantDeathRate: " + plantDeathRate + "with rate of: " + negativeHealthRate);
+        negativeHealthEffectVisualizer.UpdateHealthEffectColor(healthStage,
+                                        Mathf.Lerp(0f, 1f, plantDeathRate / (plantData.robustness * 60f)));
 
         RemoveTheDead();
     }
 
-    private void RemoveTheDead() {
-        if (currentDehydration >= plantData.dieTroughDehydrationThresholdinMinutes * 60f)
-            {
-                Die();
-            }
+    private void RemoveTheDead()
+    {
+
+        if (plantDeathRate >= plantData.robustness * 60f)
+        {
+            Die();
+        }
     }
 
 
     private void Die()
     {
         Debug.Log("Plant died: " + gameObject.name);
-
+        Destroy(healthStatusUI.gameObject);
         // Destroy any current plant instance
         if (currentPlantInstance != null)
             Destroy(currentPlantInstance);
@@ -225,5 +291,17 @@ public class PlantGrowth : MonoBehaviour
         pot.ConsumeWater(waterConsumption);
         pot.ConsumeNutrients(nutrientConsumption);
         //Debug.Log("Water Level: " + pot.CurrentWaterLevel + " Nutrient Level: " + pot.CurrentNutrientLevel);
+    }
+
+    private EffectSO GetEffectSO(PlantHealthStages healthStage)
+    {
+        foreach (EffectSO effect in negativeHealthEffectList)
+        {
+            if (effect.effectType == healthStage)
+            {
+                return effect;
+            }
+        }
+        return null;
     }
 }
