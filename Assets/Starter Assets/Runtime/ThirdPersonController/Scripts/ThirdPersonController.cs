@@ -75,6 +75,10 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [Header("UI Settings")]
+        public GameObject Inventorycanvas; // The canvas that opens when the button is pressed
+        public GameObject player; // The player
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -139,18 +143,24 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
-        #if ENABLE_INPUT_SYSTEM
+#if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
-        #else
+#else
             Debug.LogError("Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
-        #endif
+#endif
 
             AssignAnimationIDs();
 
             _controller.stepOffset = 0.5f;
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            Inventorycanvas.SetActive(false); // Ensure the inventory canvas is initially closed
+            Debug.Log("Inventory canvas is set to inactive at start.");
         }
+
+        // Add a private variable to track the previous state of IsInventoryOpen
+        private bool _wasInventoryOpen = false;
 
         private void Update()
         {
@@ -159,6 +169,12 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            // Check if the inventory state has changed
+            if (_input.IsInventoryOpen != _wasInventoryOpen)
+            {
+                OpenCloseInventory();
+                _wasInventoryOpen = _input.IsInventoryOpen; // Update the previous state
+            }
         }
 
         private void LateUpdate()
@@ -346,6 +362,59 @@ namespace StarterAssets
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
+        }
+        private void OpenCloseInventory()
+        {
+            if (_input.IsInventoryOpen)
+            {
+                // Open inventory logic here
+                Debug.Log("Inventory opened.");
+                OpenCanvas();
+            }
+            else
+            {
+                // Close inventory logic here
+                Debug.Log("Inventory closed.");
+                CloseCanvas();
+            }
+
+        }
+
+        void OpenCanvas()
+        {
+            Inventorycanvas.SetActive(true);
+            Debug.Log("Canvas opened.");
+
+
+            LockCameraPosition = true;
+            this.GetComponent<StarterAssetsInputs>().cursorInputForLook = false;
+            this.GetComponent<StarterAssetsInputs>().cursorLocked = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None; // Unlock the cursor
+
+            // Disable player movement
+            player.GetComponent<StarterAssetsInputs>().move = Vector2.zero; // Stop movement
+
+            // Stop walking animation
+            Animator animator = this.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetFloat("Speed", 0f); // Assuming "Speed" controls the walking animation
+            }
+
+        }
+
+        void CloseCanvas()
+        {
+            Inventorycanvas.SetActive(false);
+            Debug.Log("Canvas closed.");
+
+            LockCameraPosition = false;
+            this.GetComponent<StarterAssetsInputs>().cursorInputForLook = true;
+            this.GetComponent<StarterAssetsInputs>().cursorLocked = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
