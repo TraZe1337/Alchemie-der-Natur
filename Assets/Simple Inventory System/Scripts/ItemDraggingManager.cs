@@ -40,7 +40,7 @@ namespace RedstoneinventeGameStudio
             }
 
             dragCard.transform.position = Input.mousePosition + draggingCardOffset;
-            TooltipManagerInventory.instance.transform.position = Input.mousePosition + tooltipOffset;
+            // TooltipManagerInventory.instance.transform.position = Input.mousePosition + tooltipOffset;
         }
     }
 

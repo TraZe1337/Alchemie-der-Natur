@@ -7,7 +7,7 @@ using System.Collections;
 
 public class BrewingScript : MonoBehaviour
 {
-    [SerializeField] private CardManager[] itemSlots; // Array of item slots (3 slots).
+    [SerializeField] private CardManager[] cauldronSlots; // Array of item slots (3 slots).
     [SerializeField] private List<Recipe> recipes; // List of valid recipes.
     [SerializeField] private CardManager[] inventorySlots; // Array of inventory slots.
     [SerializeField] private GameObject popupText; // Reference to the TextMeshPro UI text for feedback.
@@ -25,7 +25,7 @@ public class BrewingScript : MonoBehaviour
     void Start()
     {
         // Ensure there are exactly 3 item slots.
-        if (itemSlots.Length != 3)
+        if (cauldronSlots.Length != 3)
         {
             Debug.LogError("Brewing requires exactly 3 item slots.");
         }
@@ -54,10 +54,10 @@ public class BrewingScript : MonoBehaviour
     public void BrewPotion()
     {
         // Collect items from the slots.
-        InventoryItemData[] itemsInSlots = new InventoryItemData[itemSlots.Length];
-        for (int i = 0; i < itemSlots.Length; i++)
+        InventoryItemData[] itemsInSlots = new InventoryItemData[cauldronSlots.Length];
+        for (int i = 0; i < cauldronSlots.Length; i++)
         {
-            if (itemSlots[i].itemData == null)
+            if (cauldronSlots[i].itemData == null)
             {
                 Debug.Log("One or more slots are empty.");
 
@@ -66,7 +66,7 @@ public class BrewingScript : MonoBehaviour
                 StartCoroutine(HidePopupAfterDelay()); // Start coroutine to hide the popup.
                 return;
             }
-            itemsInSlots[i] = itemSlots[i].itemData;
+            itemsInSlots[i] = cauldronSlots[i].itemData;
         }
 
         // Check if the items match any recipe.
@@ -80,7 +80,7 @@ public class BrewingScript : MonoBehaviour
                 popupText.GetComponentInChildren<TextMeshProUGUI>().text = $"Potion brewed: {recipe.resultingPotion.name}"; // Show success message.
                 StartCoroutine(HidePopupAfterDelay()); // Start coroutine to hide the popup.
                 ClearSlots();
-                AddPotionToInventory(recipe.resultingPotion); // Add the resulting potion to the inventory.
+                AddItemToInventory(recipe.resultingPotion); // Add the resulting potion to the inventory.
                 // Optionally, you can also play a brewing sound or show a visual effect here.
                 return;
             }
@@ -120,23 +120,34 @@ public class BrewingScript : MonoBehaviour
         return true;
     }
 
-    private void ClearSlots()
+    public void ClearSlots()
     {
         // Clear all item slots after brewing.
-        foreach (var slot in itemSlots)
+        foreach (var slot in cauldronSlots)
         {
             slot.UnSetItem();
         }
     }
+    public void ClearSlotsToInventory()
+    {
+        // Clear all item slots after brewing.
+        foreach (var slot in cauldronSlots)
+        {
 
-    private void AddPotionToInventory(InventoryItemData resultingPotion)
+            AddItemToInventory(slot.itemData); // Add the item back to the inventory.
+            slot.UnSetItem();
+        }
+
+    }
+
+    private void AddItemToInventory(InventoryItemData item)
     {
         foreach (var slot in inventorySlots)
         {
             if (!slot.isOccupied) // Check if the slot is free.
             {
-                slot.SetItem(resultingPotion); // Place the potion in the free slot.
-                Debug.Log($"Added {resultingPotion.name} to inventory.");
+                slot.SetItem(item); // Place the potion in the free slot.
+                Debug.Log($"Added {item.name} to inventory.");
 
                 return;
             }
