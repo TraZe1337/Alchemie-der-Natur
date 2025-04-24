@@ -20,15 +20,20 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		[Header("UI Settings")]
+		public bool IsInventoryOpen = false; // Initialize the inventory state
+
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
 		{
+			if (IsInventoryOpen) return; // Ignore input if inventory is open
 			MoveInput(value.Get<Vector2>());
 		}
 
 		public void OnLook(InputValue value)
 		{
-			if(cursorInputForLook)
+			if (IsInventoryOpen) return; // Ignore input if inventory is open
+			if (cursorInputForLook)
 			{
 				LookInput(value.Get<Vector2>());
 			}
@@ -36,12 +41,20 @@ namespace StarterAssets
 
 		public void OnJump(InputValue value)
 		{
+			if (IsInventoryOpen) return; // Ignore input if inventory is open
 			JumpInput(value.isPressed);
 		}
 
 		public void OnSprint(InputValue value)
 		{
+			if (IsInventoryOpen) return; // Ignore input if inventory is open
 			SprintInput(value.isPressed);
+		}
+
+		public void OnOpenCloseInventory(InputValue value)
+		{
+			Debug.Log("Inventory button pressed." + value.isPressed);
+			IsInventoryOpen = !IsInventoryOpen; // Toggle the inventory state
 		}
 #endif
 
@@ -49,7 +62,7 @@ namespace StarterAssets
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
-		} 
+		}
 
 		public void LookInput(Vector2 newLookDirection)
 		{
@@ -65,7 +78,7 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
-		
+
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
@@ -76,5 +89,5 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
-	
+
 }

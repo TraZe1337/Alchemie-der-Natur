@@ -568,6 +568,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Open/Close Inventory",
+                    "type": "Button",
+                    "id": "fc843827-f8ff-4f19-ae29-2d2384fddb4d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Open/Close Alchemy Menu",
+                    "type": "Button",
+                    "id": "112f9ddb-394d-49c1-bd75-e122fc4c0a61",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -986,6 +1004,28 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "424fef0b-34f5-46e1-8476-38b841bb33c7",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Open/Close Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7dee565a-ffca-4c3d-8a19-d2217db2dd48",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Open/Close Alchemy Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
