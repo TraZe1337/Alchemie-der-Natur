@@ -211,6 +211,7 @@ public class PlantGrowth : MonoBehaviour
         }
     }
 
+    // Spawns a new plant prefab based on the current growth stage
     private void SpawnNewPlantState(int state)
     {
         if (state < 0 || state >= plantData.MaxGrowthStage)
