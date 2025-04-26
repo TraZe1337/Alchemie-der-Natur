@@ -1,10 +1,24 @@
 using UnityEngine;
+using System;
 
 public class Pot : MonoBehaviour
 {
     [SerializeField] private float waterLevel = 100f;
     [SerializeField] private float sunlightLevel = 1f;
     [SerializeField] private float nutrientLevel = 50f;
+    [SerializeField] private bool _playerInRange = false;
+    public event Action<bool> OnPlayerInRangeChanged;
+    public bool PlayerInRange
+    {
+        get => _playerInRange;
+        set
+        {
+            if (_playerInRange == value) return;  
+            _playerInRange = value;
+            Debug.Log($"Player in range: {_playerInRange}");
+            OnPlayerInRangeChanged?.Invoke(_playerInRange);
+        }
+    }
 
     public float CurrentWaterLevel => waterLevel;
     public float CurrentSunlightLevel => sunlightLevel;
@@ -60,5 +74,23 @@ public class Pot : MonoBehaviour
             return;
         }
         nutrientLevel = Mathf.Max(0, nutrientLevel - amount);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerInRange = true;
+            Debug.Log("Player entered the pot area.");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerInRange = false;
+            Debug.Log("Player exited the pot area.");
+        }
     }
 }

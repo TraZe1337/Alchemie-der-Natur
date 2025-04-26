@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 public class HealthStatusUI : MonoBehaviour
 {
     public Transform mainCamera;
+    [SerializeField] private Pot pot;
     public List<Image> images;
     private List<EffectSO> negativeHealthEffects;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -63,6 +64,24 @@ public class HealthStatusUI : MonoBehaviour
         }
     }
 
+    private void HandlePlayerInRangeChanged(bool isInRange)
+    {
+        Debug.Log("Player in range changed: " + isInRange);
+        
+        if (isInRange)
+        {
+            // Player is in range, show the UI
+            //gameObject.SetActive(true);
+            Debug.Log("HealthStatusUI activated.");
+        }
+        else
+        {
+            // Player is out of range, hide the UI
+            gameObject.SetActive(false);
+            Debug.Log("HealthStatusUI deactivated.");
+        }
+    }
+
     private bool EffectsMatch(List<EffectSO> effects)
     {
         if (effects == null || negativeHealthEffects == null)
@@ -87,12 +106,23 @@ public class HealthStatusUI : MonoBehaviour
         
         return effectTypes.SetEquals(uiEffectTypes);
     }
-
-    
-
     void LateUpdate()
     {
         Quaternion targetRotation = Quaternion.LookRotation(transform.position - mainCamera.position);
         transform.rotation = targetRotation;
     }
+
+    private void OnEnable()
+    {
+        if (pot != null)
+            pot.OnPlayerInRangeChanged += HandlePlayerInRangeChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (pot != null)
+            pot.OnPlayerInRangeChanged -= HandlePlayerInRangeChanged;
+    }
+
+
 }

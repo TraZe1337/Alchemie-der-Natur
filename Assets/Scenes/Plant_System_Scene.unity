@@ -202,6 +202,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9e4f3fc7be012643b7628327b0dfd82, type: 3}
       insertIndex: -1
       addedObject: {fileID: 789294612}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9e4f3fc7be012643b7628327b0dfd82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 789294613}
+    - targetCorrespondingSourceObject: {fileID: 1872943214745793517, guid: a9e4f3fc7be012643b7628327b0dfd82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1128427740}
   m_SourcePrefab: {fileID: 100100000, guid: a9e4f3fc7be012643b7628327b0dfd82, type: 3}
 --- !u!1 &117964365
 GameObject:
@@ -557,6 +563,28 @@ MonoBehaviour:
   waterLevel: 45
   sunlightLevel: 15
   nutrientLevel: 50
+  _playerInRange: 0
+--- !u!135 &789294613
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782911958}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &939182825
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +687,33 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1128427736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1872943214745793517, guid: a9e4f3fc7be012643b7628327b0dfd82, type: 3}
+  m_PrefabInstance: {fileID: 46539311}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1128427740
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128427736}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4732279427155544219, guid: a9e4f3fc7be012643b7628327b0dfd82, type: 3}
 --- !u!1 &1243342210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,6 +1172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  pot: {fileID: 789294612}
   images:
   - {fileID: 1709698748}
   - {fileID: 117964367}
