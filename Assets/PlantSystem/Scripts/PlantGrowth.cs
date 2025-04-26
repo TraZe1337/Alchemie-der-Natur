@@ -162,7 +162,7 @@ public class PlantGrowth : MonoBehaviour
         {
             //Plant is fully grown
             //TODO: Check if fully grown plant has enough water, nutrients and sunlight. If not, show dehydration effect.
-            Debug.Log("Plant is fully grown: " + currentStage);
+            //Debug.Log("Plant is fully grown: " + currentStage);
         }
         HealthCheck();
     }

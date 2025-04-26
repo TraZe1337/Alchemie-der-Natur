@@ -6,25 +6,25 @@ public class Pot : MonoBehaviour
     [SerializeField] private float waterLevel = 100f;
     [SerializeField] private float sunlightLevel = 1f;
     [SerializeField] private float nutrientLevel = 50f;
-    [SerializeField] private bool _playerInRange = false;
+    [SerializeField] private GameObject healthStatusUI; // Reference to the HealthStatusUI script
+    private bool _playerInRange = false;
+    public float CurrentWaterLevel => waterLevel;
+    public float CurrentSunlightLevel => sunlightLevel;
+    public float CurrentNutrientLevel => nutrientLevel;
     public event Action<bool> OnPlayerInRangeChanged;
-    public bool PlayerInRange
+
+    private bool PlayerInRange
     {
         get => _playerInRange;
         set
         {
-            if (_playerInRange == value) return;  
-            _playerInRange = value;
-            Debug.Log($"Player in range: {_playerInRange}");
-            OnPlayerInRangeChanged?.Invoke(_playerInRange);
+            if (_playerInRange != value)
+            {
+                _playerInRange = value;
+                OnPlayerInRangeChanged?.Invoke(_playerInRange);
+            }
         }
     }
-
-    public float CurrentWaterLevel => waterLevel;
-    public float CurrentSunlightLevel => sunlightLevel;
-    public float CurrentNutrientLevel => nutrientLevel;
-
-
     void Update()
     {
         //UpdateEnvironment(Time.deltaTime);
@@ -81,6 +81,7 @@ public class Pot : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerInRange = true;
+            healthStatusUI.SetActive(true);
             Debug.Log("Player entered the pot area.");
         }
     }
@@ -90,6 +91,7 @@ public class Pot : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerInRange = false;
+            healthStatusUI.SetActive(false);
             Debug.Log("Player exited the pot area.");
         }
     }
