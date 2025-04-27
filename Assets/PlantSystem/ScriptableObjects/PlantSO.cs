@@ -6,6 +6,7 @@ public class PlantSO : ScriptableObject
 {
     [Header("General Settings")]
     public string plantName;
+    public string plantDescription;
     public List<GameObject> plantPrefabs;
 
     [Header("Water Settings")]

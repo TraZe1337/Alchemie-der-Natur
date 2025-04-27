@@ -1,17 +1,21 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using UnityEngine.UIElements;
 
 public class HealthStatusUI : MonoBehaviour
 {
     public Transform mainCamera;
     [SerializeField] private Pot pot;
-    public List<Image> images;
+    public List<UnityEngine.UI.Image> images;
     private List<EffectSO> negativeHealthEffects;
+    [SerializeField] private GameObject plantPreviewGameObject;
+    [SerializeField] private GameObject plantPreviewCamera;
+    private UIDocument plantPreviewUIDocument; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        plantPreviewCamera.SetActive(false);
+        plantPreviewUIDocument = plantPreviewGameObject.GetComponent<UIDocument>();
         negativeHealthEffects = new List<EffectSO>();
         // Get Main Camera transform
         mainCamera = Camera.main?.transform; // Safely get the main camera's transform
@@ -33,6 +37,16 @@ public class HealthStatusUI : MonoBehaviour
             RestockEffectImages();
         }
     }
+
+    private List<VisualElement> FillUIDocumentEffectImagesList() {
+        List<VisualElement> effectImagesInUIDocument = new List<VisualElement>();  
+        VisualElement root = plantPreviewUIDocument.rootVisualElement;
+        effectImagesInUIDocument.Add(root.Query<VisualElement>("Middle"));
+        effectImagesInUIDocument.Add(root.Query<VisualElement>("Left"));
+        effectImagesInUIDocument.Add(root.Query<VisualElement>("Right"));
+
+        return effectImagesInUIDocument;
+    }
     
     public void ClearEffects()
     {
@@ -48,9 +62,21 @@ public class HealthStatusUI : MonoBehaviour
         }
     }
 
+    private void ClearUIDocumentImages(List<VisualElement> uIIamgesList) {
+        foreach (var image in uIIamgesList)
+        {
+            // TODO: Clear the image in the UI Document
+        }
+    }
+
     private void RestockEffectImages() {
+        List<VisualElement> uIIamgesList = new List<VisualElement>();
         // Clear existing images
         ClearImages();
+        if (plantPreviewGameObject.activeSelf) {
+            uIIamgesList =  FillUIDocumentEffectImagesList();
+            ClearUIDocumentImages(uIIamgesList);
+        }
         for (int i = 0; i < negativeHealthEffects.Count; i++)
         {
             if (negativeHealthEffects[i] == null)
@@ -61,6 +87,10 @@ public class HealthStatusUI : MonoBehaviour
             {
                 images[i].sprite = negativeHealthEffects[i].effectImage;
                 images[i].enabled = true;
+
+                if (plantPreviewGameObject.activeSelf) {
+                    uIIamgesList[i].style.backgroundImage = negativeHealthEffects[i].effectImage.texture;
+                }
             }
         }
     }
@@ -88,6 +118,76 @@ public class HealthStatusUI : MonoBehaviour
         }
         
         return effectTypes.SetEquals(uiEffectTypes);
+    }
+
+    private void SetupPlantPreviewUI() {
+        VisualElement root = plantPreviewUIDocument.rootVisualElement;
+        root.Q<Label>("PlantName").text = pot.PlantName;
+        root.Q<Label>("PlantInfoText").text = pot.PlantDescription;
+
+        VisualElement quitBtn = root.Q<VisualElement>("CloseButton");
+        quitBtn.RegisterCallback<ClickEvent>(ev => {ClosePlantPreviewUI();});
+
+        UpdatePlantPreviewUI();
+    }
+
+    private void UpdatePlantPreviewUI() {
+        VisualElement root = plantPreviewUIDocument.rootVisualElement;
+        ProgressBar healthBar = root.Q<ProgressBar>("PlantHealthProgress");
+        healthBar.lowValue  = 0;
+        healthBar.highValue = 100;
+        healthBar.value     = 75; // TODO: Update with actual health value (Implement Health Value)
+        healthBar.title = healthBar.value.ToString("F0");
+
+        ProgressBar nutritBar = root.Q<ProgressBar>("NutriScoreProgress");
+        nutritBar.lowValue  = 0;
+        nutritBar.highValue = pot.MaxNutrientsLevel;
+        nutritBar.value     = pot.CurrentNutrientLevel;
+        nutritBar.title = nutritBar.value.ToString("F0");
+
+        ProgressBar waterBar = root.Q<ProgressBar>("WaterLvlProgress");
+        waterBar.lowValue  = 0;
+        waterBar.highValue = pot.MaxWaterLevel;
+        waterBar.value     = pot.CurrentWaterLevel;
+        waterBar.title = waterBar.value.ToString("F0");
+
+        Label sunlightLabel = root.Q<Label>("SunlightLvlLabel");
+        sunlightLabel.text = pot.CurrentSunlightLevel.ToString("F0");
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (plantPreviewGameObject.activeSelf)
+            {
+                ClosePlantPreviewUI();
+            }
+            else
+            {
+                plantPreviewCamera.SetActive(true);
+                plantPreviewGameObject.SetActive(true);
+                RestockEffectImages();
+                SetupPlantPreviewUI();
+
+                UnityEngine.Cursor.lockState = CursorLockMode.None;
+                UnityEngine.Cursor.visible = true;
+            }
+        }
+
+        if (plantPreviewGameObject.activeSelf)
+        {
+            UpdatePlantPreviewUI();
+        }
+    }
+
+    private void ClosePlantPreviewUI() {
+        plantPreviewCamera.SetActive(false);
+        plantPreviewGameObject.SetActive(false);
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
     }
     void LateUpdate()
     {

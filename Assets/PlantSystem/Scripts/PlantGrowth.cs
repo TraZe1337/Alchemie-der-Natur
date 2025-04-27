@@ -233,6 +233,7 @@ public class PlantGrowth : MonoBehaviour
             // Instantiate the new plant prefab and store the reference
             currentPlantInstance = Instantiate(plantPrefab, transform);
             currentPlantInstance.transform.SetParent(transform);
+            currentPlantInstance.layer = gameObject.layer; // Set the layer to match the parent for PlantPreview Cam
         }
         else
         {
