@@ -66,6 +66,7 @@ public class HealthStatusUI : MonoBehaviour
         foreach (var image in uIIamgesList)
         {
             // TODO: Clear the image in the UI Document
+            image.style.backgroundImage = new StyleBackground((Texture2D)null);
         }
     }
 
