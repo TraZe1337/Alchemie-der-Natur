@@ -162,7 +162,7 @@ public class PlantGrowth : MonoBehaviour
         {
             //Plant is fully grown
             //TODO: Check if fully grown plant has enough water, nutrients and sunlight. If not, show dehydration effect.
-            Debug.Log("Plant is fully grown: " + currentStage);
+            //Debug.Log("Plant is fully grown: " + currentStage);
         }
         HealthCheck();
     }
@@ -211,6 +211,7 @@ public class PlantGrowth : MonoBehaviour
         }
     }
 
+    // Spawns a new plant prefab based on the current growth stage
     private void SpawnNewPlantState(int state)
     {
         if (state < 0 || state >= plantData.MaxGrowthStage)
@@ -232,6 +233,7 @@ public class PlantGrowth : MonoBehaviour
             // Instantiate the new plant prefab and store the reference
             currentPlantInstance = Instantiate(plantPrefab, transform);
             currentPlantInstance.transform.SetParent(transform);
+            currentPlantInstance.layer = gameObject.layer; // Set the layer to match the parent for PlantPreview Cam
         }
         else
         {

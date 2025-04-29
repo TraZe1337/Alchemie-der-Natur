@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: BasicPlant
   m_EditorClassIdentifier: 
   plantName: Wasserdost
+  plantDescription: "Wasserdost (Eupatorium cannabinum) thrives in moist to wet soils,
+    often along streams, pond edges or in damp meadows. It prefers full sun to partial
+    shade to develop its clusters of pinkish-lilac summer flowers. Consistent moisture
+    is key\u2014keep the soil evenly damp but ensure good drainage to prevent stagnation.
+    In moderately fertile, humus-rich substrates it will achieve its best growth
+    and bloom."
   plantPrefabs:
   - {fileID: 3796498864760674873, guid: bb8c1901e51b30940b64129e1e3e9291, type: 3}
   - {fileID: 396796632403519401, guid: 115d0d64b829e9449b2b6e740cc652e3, type: 3}
