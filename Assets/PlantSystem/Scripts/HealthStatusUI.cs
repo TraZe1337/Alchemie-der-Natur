@@ -29,10 +29,8 @@ public class HealthStatusUI : MonoBehaviour
 
     public void AddEffect(List<EffectSO> effects)
     {
-        Debug.Log("EffectsMatch: " + EffectsMatch(effects));
         if (!EffectsMatch(effects))
         {
-            Debug.Log("Effects do not match, updating UI with " + effects.Count + " effects.");
             negativeHealthEffects = new List<EffectSO>(effects);
             RestockEffectImages();
         }
@@ -41,9 +39,9 @@ public class HealthStatusUI : MonoBehaviour
     private List<VisualElement> FillUIDocumentEffectImagesList() {
         List<VisualElement> effectImagesInUIDocument = new List<VisualElement>();  
         VisualElement root = plantPreviewUIDocument.rootVisualElement;
-        effectImagesInUIDocument.Add(root.Query<VisualElement>("Middle"));
-        effectImagesInUIDocument.Add(root.Query<VisualElement>("Left"));
-        effectImagesInUIDocument.Add(root.Query<VisualElement>("Right"));
+        effectImagesInUIDocument.Add(root.Q<VisualElement>("Middle"));
+        effectImagesInUIDocument.Add(root.Q<VisualElement>("Left"));
+        effectImagesInUIDocument.Add(root.Q<VisualElement>("Right"));
 
         return effectImagesInUIDocument;
     }
@@ -51,7 +49,8 @@ public class HealthStatusUI : MonoBehaviour
     public void ClearEffects()
     {
         ClearImages();
-        negativeHealthEffects.Clear();
+        ClearUIEffects();
+        negativeHealthEffects.Clear();   
     }
 
     private void ClearImages()
@@ -62,22 +61,26 @@ public class HealthStatusUI : MonoBehaviour
         }
     }
 
-    private void ClearUIDocumentImages(List<VisualElement> uIIamgesList) {
-        foreach (var image in uIIamgesList)
-        {
-            // TODO: Clear the image in the UI Document
-            image.style.backgroundImage = new StyleBackground((Texture2D)null);
-        }
-    }
-
-    private void RestockEffectImages() {
+    private List<VisualElement> ClearUIEffects()
+    {
         List<VisualElement> uIIamgesList = new List<VisualElement>();
+        if (plantPreviewGameObject.activeSelf)
+        {
+            uIIamgesList = FillUIDocumentEffectImagesList();
+            foreach (VisualElement image in uIIamgesList)
+            {
+                image.style.backgroundImage = new StyleBackground((Texture2D)null);
+                image.style.backgroundColor = new StyleColor(Color.white);
+            }
+            return uIIamgesList;
+        }
+        return null;
+    }
+    private void RestockEffectImages() {
+        List<VisualElement> uIIamgesList;
         // Clear existing images
         ClearImages();
-        if (plantPreviewGameObject.activeSelf) {
-            uIIamgesList =  FillUIDocumentEffectImagesList();
-            ClearUIDocumentImages(uIIamgesList);
-        }
+        uIIamgesList = ClearUIEffects();
         for (int i = 0; i < negativeHealthEffects.Count; i++)
         {
             if (negativeHealthEffects[i] == null)
@@ -89,7 +92,7 @@ public class HealthStatusUI : MonoBehaviour
                 images[i].sprite = negativeHealthEffects[i].effectImage;
                 images[i].enabled = true;
 
-                if (plantPreviewGameObject.activeSelf) {
+                if (uIIamgesList != null) {
                     uIIamgesList[i].style.backgroundImage = negativeHealthEffects[i].effectImage.texture;
                 }
             }

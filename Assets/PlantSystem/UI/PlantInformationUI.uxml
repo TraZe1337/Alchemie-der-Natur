@@ -14,9 +14,8 @@
                         </engine:VisualElement>
                     </engine:VisualElement>
                     <engine:VisualElement name="PlantPreviewBox" style="flex-grow: 1; background-color: rgb(255, 255, 255); flex-shrink: 1; background-image: url(&quot;project://database/Assets/PlantSystem/UI/PlantPreviewTexture.renderTexture?fileID=8400000&amp;guid=37ca4e2bcb46c0340bf4813bacabed80&amp;type=2#PlantPreviewTexture&quot;); min-width: auto; max-width: none;">
-                        <engine:VisualElement name="SunIconBox" style="flex-grow: 1; position: absolute; top: 1%; left: 1%; right: 80%; bottom: 80%; background-image: url(&quot;project://database/Assets/PlantSystem/UI/sun_icon.png?fileID=2800000&amp;guid=7fd78629d1b0cea4591d7e8400fa3266&amp;type=3#sun_icon&quot;);">
-                            <engine:Label text="56" name="SunlightLvlLabel" style="position: absolute; top: 35%; left: 75%;" />
-                        </engine:VisualElement>
+                        <engine:VisualElement name="SunIconBox" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 80%; bottom: 80%; background-image: url(&quot;project://database/Assets/PlantSystem/UI/sun_icon.png?fileID=2800000&amp;guid=7fd78629d1b0cea4591d7e8400fa3266&amp;type=3#sun_icon&quot;); flex-shrink: 1;" />
+                        <engine:Label text="56" name="SunlightLvlLabel" style="position: absolute; top: 3%; left: 20%; -unity-font-style: bold; font-size: 40%;" />
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="PlantInformationBox" style="flex-grow: 1; background-color: rgb(255, 255, 255); align-items: stretch; max-width: 65%;">
@@ -30,7 +29,7 @@
                         <engine:VisualElement name="Middle" style="flex-grow: 1; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);" />
                         <engine:VisualElement name="Right" style="flex-grow: 1; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);" />
                     </engine:VisualElement>
-                    <engine:Label text="Info-text about Plant&#10;" name="PlantInfoText" parse-escape-sequences="true" style="flex-shrink: 1; flex-grow: 1; font-size: initial; -unity-text-align: middle-center; text-overflow: ellipsis; white-space: normal;" />
+                    <engine:Label text="Info-text about Plant&#10;" name="PlantInfoText" parse-escape-sequences="true" style="flex-shrink: 1; flex-grow: 1; font-size: 15%; -unity-text-align: middle-center; text-overflow: ellipsis; white-space: normal;" />
                 </engine:VisualElement>
             </engine:VisualElement>
             <engine:VisualElement name="CloseButtonBox" style="flex-grow: 0; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(255, 255, 255); flex-shrink: 1;">
