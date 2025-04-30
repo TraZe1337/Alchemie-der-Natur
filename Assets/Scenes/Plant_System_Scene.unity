@@ -504,6 +504,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0441f14576e3b384db6c963f7a2f2c6b, type: 3}
+--- !u!1 &527045718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1926216279123716149, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+  m_PrefabInstance: {fileID: 1811108850}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &637578057 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 5542111180780342640, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
@@ -772,6 +777,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SFHW_Watering_Can 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3165138638087804786, guid: 0441f14576e3b384db6c963f7a2f2c6b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226573785981301797, guid: 0441f14576e3b384db6c963f7a2f2c6b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -786,7 +799,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917142672}
-  m_Layer: 0
+  - component: {fileID: 917142673}
+  m_Layer: 7
   m_Name: WateringCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,6 +824,24 @@ Transform:
   - {fileID: 1452726472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &917142673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917142671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52c880cfca2a7940aa41fef3e9180ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionType: 0
+  dropDistance: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  groundCheckHeight: 2
 --- !u!1 &939182825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1683,10 @@ PrefabInstance:
       value: SFHW_Watering_Can
       objectReference: {fileID: 0}
     - target: {fileID: 4210915612456128292, guid: 49698282101a19044a2142dd3e454d86, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4210915612456128292, guid: 49698282101a19044a2142dd3e454d86, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1757,8 +1793,35 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5151736696236005906, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 801911826}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 974238578668270704, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1811108860}
   m_SourcePrefab: {fileID: 100100000, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+--- !u!1 &1811108851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 974238578668270704, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+  m_PrefabInstance: {fileID: 1811108850}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1811108860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811108851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c3f2eaef1a19c45938089adf43e328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 637578057}
+  playerChest: {fileID: 527045718}
+  interactRange: 3
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  holdPoint: {fileID: 1316139967}
 --- !u!1 &1817946457
 GameObject:
   m_ObjectHideFlags: 0
