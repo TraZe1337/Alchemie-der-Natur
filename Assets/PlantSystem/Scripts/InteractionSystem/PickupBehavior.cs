@@ -40,7 +40,7 @@ public class PickupBehavior : MonoBehaviour, IInteractable
         parentTransform.SetParent(holdPoint);
 
         parentTransform.localPosition = Vector3.zero;
-        parentTransform.localRotation = Quaternion.identity;
+        parentTransform.localRotation = Quaternion.identity * Quaternion.Euler(31.136f, 180f, 0.124f);
 
         rb.isKinematic = true;
         isHeld = true;
