@@ -14,28 +14,49 @@ public class PlayerInteraction : MonoBehaviour
 
     [Tooltip("Transform where picked-up items will attach (e.g., hand)")]
     public Transform holdPoint;
+    private bool isHoldingItem = false;
+    private IInteractable currentInteractable = null;
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Y)) {
+        if (Input.GetKeyDown(KeyCode.X)) {
             HandleInteraction(InteractionType.Primary);
         }
-        if (Input.GetKeyDown(KeyCode.X)) {
+        if (Input.GetKeyDown(KeyCode.C)) {
             HandleInteraction(InteractionType.Secondary);
         }
     }
 
-    private void HandleInteraction(InteractionType type) {
-    Ray ray = new Ray(playerChest.transform.position, playerCamera.transform.forward);
-    Debug.DrawRay(ray.origin, ray.direction * interactRange, Color.red, 1f);
-    
-    
-    if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayer)) {
-        var interactable = hit.collider.GetComponentInParent<IInteractable>();
-        Debug.Log($"Hit: {hit.collider.name}, Interactable: {interactable}");
-        Debug.Log("Hit GameObject: " + hit.collider.gameObject.name);
-        if (interactable != null) {
-            interactable.Interact(type, this);
+    private void HandleInteraction(InteractionType type)
+    {
+        if (type == InteractionType.Primary && isHoldingItem)
+        {
+            Debug.Log($"Already holding an item, dropping it instead of interacting.");
+            currentInteractable.Interact(type, this);
+            isHoldingItem = false;
+            currentInteractable = null;
+            return;
         }
-    }
+        
+        Debug.Log($"Handling interaction of type {type}");
+        Ray ray = new Ray(playerChest.transform.position, playerCamera.transform.forward);
+        Debug.DrawRay(ray.origin, ray.direction * interactRange, Color.red, 1f);
+
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayer))
+        {
+            var interactable = hit.collider.GetComponentInParent<IInteractable>();
+            Debug.Log($"Hit: {hit.collider.name}, Interactable: {interactable}");
+            Debug.Log("Hit GameObject: " + hit.collider.gameObject.name);
+            if (interactable != null)
+            {
+                interactable.Interact(type, this);
+
+                if (type == InteractionType.Primary)
+                {
+                    currentInteractable = interactable;
+                    isHoldingItem = true;
+                }
+            }
+        }
     }
 }

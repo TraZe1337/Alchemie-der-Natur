@@ -13,6 +13,10 @@ public class PickupBehavior : MonoBehaviour, IInteractable
 
     [Tooltip("Maximum height above drop point to start ground check")]
     [SerializeField] private float groundCheckHeight = 2f;
+    [Tooltip("Point where the object will be held (e.g., player's hand)")]
+    [SerializeField] private Transform parentTransform;
+    [SerializeField] private Transform childTransform;
+
 
     private Rigidbody rb;
     private bool isHeld;
@@ -23,25 +27,31 @@ public class PickupBehavior : MonoBehaviour, IInteractable
     }
 
     public void Interact(InteractionType type, PlayerInteraction interactor) {
+        Debug.Log($"Interact called on {gameObject.name} with type {type} by {interactor.gameObject.name}");
         if (type != interactionType) return;
-
+        Debug.Log($"Interaction type matched: {type}");
         if (!isHeld) PickUp(interactor);
         else DropNextToPlayer(interactor);
     }
 
     private void PickUp(PlayerInteraction interactor) {
+        Debug.Log($"Picking up {gameObject.name} by {interactor.gameObject.name}");
         holdPoint = interactor.holdPoint;
-        transform.SetParent(holdPoint);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        parentTransform.SetParent(holdPoint);
+
+        parentTransform.localPosition = Vector3.zero;
+        parentTransform.localRotation = Quaternion.identity;
 
         rb.isKinematic = true;
         isHeld = true;
     }
 
     private void DropNextToPlayer(PlayerInteraction interactor) {
-        transform.SetParent(null);
+        Debug.Log($"Dropping {gameObject.name} by {interactor.gameObject.name}");
+        parentTransform.SetParent(null);
 
+        float yOffset = parentTransform.position.y - childTransform.localPosition.y;
+        Debug.Log($"Y Offset: {yOffset}");
         // Calculate drop position in front of player
         Vector3 origin = interactor.transform.position;
         Vector3 forward = interactor.transform.forward;
@@ -49,15 +59,18 @@ public class PickupBehavior : MonoBehaviour, IInteractable
 
         // Raycast down to find ground
         if (Physics.Raycast(start, Vector3.down, out RaycastHit hit, groundCheckHeight * 2f, groundLayer)) {
-            transform.position = hit.point;
+            parentTransform.position = hit.point + Vector3.up * yOffset;
+            //parentTransform.position = hit.point;
+            Debug.Log($"EXACTELY Dropped {gameObject.name} at {hit.point}");
         } else {
-            transform.position = origin + forward * dropDistance;
+            parentTransform.position = origin + Vector3.up * yOffset + forward * dropDistance;
+            Debug.Log($"Dropped {gameObject.name} at {hit.point}");
         }
 
         rb.isKinematic = false;
         isHeld = false;
 
         // Optional: add forward toss
-        rb.AddForce(forward * 2f, ForceMode.VelocityChange);
+        //rb.AddForce(forward * 2f, ForceMode.VelocityChange);
     }
 }
