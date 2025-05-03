@@ -14,7 +14,6 @@ public class PlayerInteraction : MonoBehaviour
     public LayerMask interactLayer;
 
     [Tooltip("Transform where picked-up items will attach (e.g., hand)")]
-    public Transform holdPoint;
     private bool isHoldingItem = false;
     private IInteractable currentInteractable = null;
 
@@ -51,6 +50,13 @@ public class PlayerInteraction : MonoBehaviour
                         break;
                     case UsageType.Fertilizer:
                         usable.AddNutrients(pb.gameObject.GetComponent<Fertilizer>().DispenseFertilizer(Time.deltaTime));
+                        break;
+                    case UsageType.Harvesting:
+                        float harvest = usable.HarvestPotPlant();
+                        Debug.Log($"Harvested {harvest} from {collider.gameObject.name}");
+                        if (harvest > 0) {
+                            // TODO: Add harvested item to inventory or something
+                        }
                         break;
                 }
             }

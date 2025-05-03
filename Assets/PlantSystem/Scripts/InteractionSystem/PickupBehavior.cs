@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PickupBehavior : MonoBehaviour, IInteractable
 {
-       [Tooltip("InteractionType that triggers pick up / drop (default: Primary)")]
+    [Tooltip("InteractionType that triggers pick up / drop (default: Primary)")]
     [SerializeField] private InteractionType interactionType = InteractionType.Primary;
 
     [Tooltip("Distance from player to drop the object")]
@@ -17,9 +18,10 @@ public class PickupBehavior : MonoBehaviour, IInteractable
     [SerializeField] private UsageType type;
     public UsageType UsageType => type;
     [SerializeField] private Transform childTransform;
+    [SerializeField] private Rig rigComponent;
     private Rigidbody rb;
     private bool isHeld;
-    private Transform holdPoint;
+    public Transform holdPoint;
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
@@ -35,8 +37,15 @@ public class PickupBehavior : MonoBehaviour, IInteractable
 
     private void PickUp(PlayerInteraction interactor) {
         Debug.Log($"Picking up {gameObject.name} by {interactor.gameObject.name}");
-        holdPoint = interactor.holdPoint;
+
         transform.SetParent(holdPoint);
+        switch (type) {
+            case UsageType.None:
+                if (rigComponent != null) {
+                    rigComponent.weight = 1f;
+                }
+                break;
+        }
 
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity * Quaternion.Euler(31.136f, 180f, 0.124f);
@@ -47,7 +56,15 @@ public class PickupBehavior : MonoBehaviour, IInteractable
 
     private void DropNextToPlayer(PlayerInteraction interactor) {
         Debug.Log($"Dropping {gameObject.name} by {interactor.gameObject.name}");
+        
         transform.SetParent(null);
+        switch (type) {
+            case UsageType.None:
+                if (rigComponent != null) {
+                    rigComponent.weight = 0f;
+                }
+                break;
+        }
 
         float yOffset = transform.position.y - childTransform.localPosition.y;
         Debug.Log($"Y Offset: {yOffset}");

@@ -9,7 +9,8 @@ public class Pot : MonoBehaviour, IUsable
     [SerializeField] private float nutrientLevel = 50f;
     [SerializeField] private readonly float maxNutrientsLevel = 200f;
     [SerializeField] private GameObject healthStatusUI; // Reference to the HealthStatusUI script
-    [SerializeField] private PlantSO myPotPlant; // TODO: The plant will be added dynamically via the use by planting a plant (not hardcoded via the editor)
+    [SerializeField] private PlantSO myPotPlant; // TEMPORARY | TODO: The plant will be added dynamically via the use by planting a plant (not hardcoded via the editor)
+    [SerializeField] private PlantGrowth myPlant; // TEMPORARY | TODO: The plant will be added dynamically via the use by planting a plant (not hardcoded via the editor)
     private bool _playerInRange = false;
     public float CurrentWaterLevel => waterLevel;
     public float MaxWaterLevel => maxWaterLevel;
@@ -41,6 +42,11 @@ public class Pot : MonoBehaviour, IUsable
     {
         // Example: water evaporation over time
         waterLevel = Mathf.Max(0, waterLevel - 0.5f * deltaTime);
+    }
+
+    public void SetPlant(PlantSO plantType)
+    {
+        // TODO: Implement logic to set the plant in the pot (Spawn GameObject, etc.)
     }
 
     public void AddWater(float amount)
@@ -100,6 +106,23 @@ public class Pot : MonoBehaviour, IUsable
             PlayerInRange = false;
             healthStatusUI.SetActive(false);
             Debug.Log("Player exited the pot area.");
+        }
+    }
+
+    public int HarvestPotPlant()
+    {
+        if (myPotPlant == null)
+        {
+            Debug.LogWarning("No plant in the pot to harvest.");
+            return 0;
+        }
+        Debug.Log($"Harvesting {myPlant} from the pot.");
+        
+        try {
+            return myPlant.Harvest(); 
+        } catch (Exception e) {
+            Debug.Log($"Normal while harvesting plant (plant already harvested because method called each frame): {e.Message}");
+            return 0;
         }
     }
 }

@@ -324,9 +324,16 @@ public class PlantGrowth : MonoBehaviour
 
     public int Harvest()
     {
-        Die();
-        // TODO: Insert harvest into inventory
-        return Mathf.RoundToInt(plantData.harvestYield * (currentHealth / 100f));
+        if (currentStage == plantData.MaxGrowthStage)
+        {
+            Debug.Log("Harvesting plant: " + gameObject.name);
+            Die();
+            // TODO: Insert harvest into inventory
+            return Mathf.RoundToInt(plantData.harvestYield * (currentHealth / 100f));
+        } else {
+            Debug.Log("Plant is not ready for harvest: " + gameObject.name);
+            return 0;
+        }
     }
 
     private EffectSO GetEffectSO(PlantHealthStages healthStage)
