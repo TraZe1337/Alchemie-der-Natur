@@ -14,10 +14,9 @@ public class PickupBehavior : MonoBehaviour, IInteractable
     [Tooltip("Maximum height above drop point to start ground check")]
     [SerializeField] private float groundCheckHeight = 2f;
     [Tooltip("Point where the object will be held (e.g., player's hand)")]
-    [SerializeField] private Transform parentTransform;
+    [SerializeField] private UsageType type;
+    public UsageType UsageType => type;
     [SerializeField] private Transform childTransform;
-
-
     private Rigidbody rb;
     private bool isHeld;
     private Transform holdPoint;
@@ -37,10 +36,10 @@ public class PickupBehavior : MonoBehaviour, IInteractable
     private void PickUp(PlayerInteraction interactor) {
         Debug.Log($"Picking up {gameObject.name} by {interactor.gameObject.name}");
         holdPoint = interactor.holdPoint;
-        parentTransform.SetParent(holdPoint);
+        transform.SetParent(holdPoint);
 
-        parentTransform.localPosition = Vector3.zero;
-        parentTransform.localRotation = Quaternion.identity * Quaternion.Euler(31.136f, 180f, 0.124f);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity * Quaternion.Euler(31.136f, 180f, 0.124f);
 
         rb.isKinematic = true;
         isHeld = true;
@@ -48,9 +47,9 @@ public class PickupBehavior : MonoBehaviour, IInteractable
 
     private void DropNextToPlayer(PlayerInteraction interactor) {
         Debug.Log($"Dropping {gameObject.name} by {interactor.gameObject.name}");
-        parentTransform.SetParent(null);
+        transform.SetParent(null);
 
-        float yOffset = parentTransform.position.y - childTransform.localPosition.y;
+        float yOffset = transform.position.y - childTransform.localPosition.y;
         Debug.Log($"Y Offset: {yOffset}");
         // Calculate drop position in front of player
         Vector3 origin = interactor.transform.position;
@@ -59,11 +58,11 @@ public class PickupBehavior : MonoBehaviour, IInteractable
 
         // Raycast down to find ground
         if (Physics.Raycast(start, Vector3.down, out RaycastHit hit, groundCheckHeight * 2f, groundLayer)) {
-            parentTransform.position = hit.point + Vector3.up * yOffset;
+            transform.position = hit.point + Vector3.up * yOffset;
             //parentTransform.position = hit.point;
             Debug.Log($"EXACTELY Dropped {gameObject.name} at {hit.point}");
         } else {
-            parentTransform.position = origin + Vector3.up * yOffset + forward * dropDistance;
+            transform.position = origin + Vector3.up * yOffset + forward * dropDistance;
             Debug.Log($"Dropped {gameObject.name} at {hit.point}");
         }
 

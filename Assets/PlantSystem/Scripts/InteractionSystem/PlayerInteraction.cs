@@ -8,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
 
     [Tooltip("Maximum distance for raycast interactions")]
     public float interactRange = 4f;
+    public float usageOfHoldingObjectRange = 0.5f;
 
     [Tooltip("Which layers contain interactable objects")]
     public LayerMask interactLayer;
@@ -18,14 +19,64 @@ public class PlayerInteraction : MonoBehaviour
     private IInteractable currentInteractable = null;
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.X)) {
-            HandleInteraction(InteractionType.Primary);
+        // Use holding object interactions | Order is IMPORTANT because BUtton C is also used for info interactions
+        if (isHoldingItem) {
+            if (Input.GetKey(KeyCode.C)) {
+                UseHoldingObject();
+                return;
+            }
+
+            if (Input.GetKeyUp(KeyCode.C)) {
+                Debug.Log("Stopped using holding object.");
+                StopAllHoldingObjectEffects();
+                return;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.C)) {
-            HandleInteraction(InteractionType.Secondary);
+        // Pickup / drop and info interactions
+        if (Input.GetKeyDown(KeyCode.X)) HandleInteraction(InteractionType.Primary); // Pickup / drop
+        if (Input.GetKeyDown(KeyCode.C)) HandleInteraction(InteractionType.Secondary);
+    }
+
+    private void UseHoldingObject() {
+        Debug.Log($"Using holding object: {currentInteractable}");
+        Collider[] colliders = Physics.OverlapSphere(playerChest.transform.position, usageOfHoldingObjectRange);
+        foreach (Collider collider in colliders) {
+            if (collider.TryGetComponent(out IUsable usable)) {
+                Debug.Log($"Using holding object on: {collider.gameObject.name}");
+                PickupBehavior pb = currentInteractable as PickupBehavior;
+                Debug.Log($"PickupBehavior: {pb}");
+                switch (pb.UsageType) {
+                    case UsageType.Watering:
+                        usable.AddWater(pb.gameObject.GetComponent<WateringCan>().DispenseWater(Time.deltaTime));
+                        break;
+                    case UsageType.Fertilizer:
+                        usable.AddNutrients(pb.gameObject.GetComponent<Fertilizer>().DispenseFertilizer(Time.deltaTime));
+                        break;
+                }
+            }
         }
     }
 
+    private void StopAllHoldingObjectEffects() {
+        PickupBehavior pb = currentInteractable as PickupBehavior;
+        switch (pb.UsageType) {
+            case UsageType.Watering:
+                Debug.Log($"Stopping watering effect on: {pb.gameObject.name}");
+                pb.gameObject.GetComponent<WateringCan>().StopWatering();
+                break;
+            case UsageType.Fertilizer:
+                pb.gameObject.GetComponent<Fertilizer>().StopFertilizing();
+                break;
+        }
+        
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        // draw a wire sphere at this object’s position
+        Gizmos.DrawWireSphere(transform.position, usageOfHoldingObjectRange);
+    }
     private void HandleInteraction(InteractionType type)
     {
         if (type == InteractionType.Primary && isHoldingItem)

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class Pot : MonoBehaviour
+public class Pot : MonoBehaviour, IUsable
 {
     [SerializeField] private float waterLevel = 100f;
     [SerializeField] private readonly float maxWaterLevel = 200f;
@@ -50,13 +50,7 @@ public class Pot : MonoBehaviour
             Debug.LogWarning("Cannot add a negative amount of water.");
             return;
         }
-        if (waterLevel + amount > maxWaterLevel)
-        {
-            Debug.LogWarning("Water level exceeds maximum capacity. Setting to max.");
-            waterLevel = maxWaterLevel;
-            return;
-        }
-        waterLevel += amount;
+        waterLevel = Mathf.Min(waterLevel + amount, maxWaterLevel);
     }
 
     public void ConsumeWater(float amount)
@@ -76,7 +70,7 @@ public class Pot : MonoBehaviour
             Debug.LogWarning("Cannot add a negative amount of nutrients.");
             return;
         }
-        nutrientLevel += amount;
+        nutrientLevel = Mathf.Min(nutrientLevel + amount, maxNutrientsLevel);
     }
 
     public void ConsumeNutrients(float amount)
