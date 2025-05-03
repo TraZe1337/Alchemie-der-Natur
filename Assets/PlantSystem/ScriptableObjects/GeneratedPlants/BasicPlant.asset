@@ -41,3 +41,4 @@ MonoBehaviour:
   harvestYield: 4
   growthRate: 2
   robustness: 5
+  healingRate: 1

@@ -41,6 +41,8 @@ public class PlantSO : ScriptableObject
     [Header("Plant Health")]
     //Time in minutes a plant dies when it's requirements is not met.
     public float robustness;
+    //Value added per seconds a plant gets to regain full harvest yield after beeing mistreated.
+    public float healingRate;
 
     // Max Stage of the plant
     // This is the number of different growth stages the plant has.

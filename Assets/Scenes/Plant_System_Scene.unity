@@ -376,6 +376,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bc4ef754ca29c23408b913d55373adc2, type: 2}
   - {fileID: 11400000, guid: c22b244bda576244786ea36797055d49, type: 2}
   - {fileID: 11400000, guid: 047e7112ef64f0a45bf5d0fb536cb62b, type: 2}
+  weightWater: 0.5
+  weightSunlight: 0.3
+  weightNutrients: 0.2
+  currentHealth: 100
 --- !u!114 &192198027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1825,6 +1829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1587789158}
   pot: {fileID: 789294612}
+  growth: {fileID: 192198026}
   images:
   - {fileID: 1709698748}
   - {fileID: 117964367}

@@ -19,6 +19,15 @@ public class PlantGrowth : MonoBehaviour
 
     private List<EffectSO> currentNegativeHealthEffects;
 
+    [Header("Stress & Health Settings")]
+    [SerializeField] private float weightWater = 0.5f;
+    [SerializeField] private float weightSunlight = 0.3f;
+    [SerializeField] private float weightNutrients = 0.2f;
+
+    private float cumulativeStressArea = 0f;
+    private float cumulativeHealArea = 0f;
+    public float currentHealth = 100f;    // 0 to 100
+
     void Start()
     {
         currentNegativeHealthEffects = new List<EffectSO>();
@@ -135,13 +144,25 @@ public class PlantGrowth : MonoBehaviour
                                plantData.minSunlightRequirement,
                                plantData.minSunlightPreference);
 
+        float stressLevel = weightWater * (1f - waterFactor)
+                          + weightSunlight * (1f - sunlightFactor)
+                          + weightNutrients * (1f - nutriScore);
+        
+        float stressOrHealLevel = (stressLevel == 0f) ? -plantData.healingRate  :  stressLevel;
+        
+        // Positive = stress, Negative = healing
+        cumulativeStressArea += Mathf.Max(0f, stressOrHealLevel) * deltaTime;
+        cumulativeHealArea   += Mathf.Max(0f, -stressOrHealLevel)  * deltaTime;
+
+        currentHealth = Mathf.Clamp(100f - cumulativeStressArea + cumulativeHealArea, 0f, 100f);
+
         if (currentStage < plantData.MaxGrowthStage)
         {
             // Combine the factors with a weighted geometric mean.
             // Weights: Water = 0.5, Sunlight = 0.3, Nutrients = 0.2.
-            float overallFactor = Mathf.Pow(waterFactor, 0.5f) *
-                                  Mathf.Pow(sunlightFactor, 0.3f) *
-                                  Mathf.Pow(nutriScore, 0.2f);
+            float overallFactor = Mathf.Pow(waterFactor, weightWater) *
+                                  Mathf.Pow(sunlightFactor, weightSunlight) *
+                                  Mathf.Pow(nutriScore, weightNutrients);
 
             // Compute current growth speed in units per second.
             float growthSpeed = plantData.growthRate * overallFactor;
@@ -162,7 +183,7 @@ public class PlantGrowth : MonoBehaviour
         {
             //Plant is fully grown
             //TODO: Check if fully grown plant has enough water, nutrients and sunlight. If not, show dehydration effect.
-            //Debug.Log("Plant is fully grown: " + currentStage);
+            Debug.Log("Plant is fully grown: " + currentStage);
         }
         HealthCheck();
     }
@@ -176,6 +197,12 @@ public class PlantGrowth : MonoBehaviour
 
     private void HealthCheck()
     {
+        if (currentHealth <= 0f)
+        {
+            Die();
+            return;
+        }
+
         if (currentNegativeHealthEffects.Count > 0)
         {
             foreach (EffectSO effect in currentNegativeHealthEffects)
@@ -256,7 +283,7 @@ public class PlantGrowth : MonoBehaviour
 
         plantDeathRate += negativeHealthRate * Time.deltaTime;
         //Debug.Log("plantDeathRate: " + plantDeathRate + "with rate of: " + negativeHealthRate);
-        negativeHealthEffectVisualizer.UpdateHealthEffectColor(healthStage,
+        negativeHealthEffectVisualizer.UpdateHealthEffectColor(
                                         Mathf.Lerp(0f, 1f, plantDeathRate / (plantData.robustness * 60f)));
 
         RemoveTheDead();
@@ -293,6 +320,13 @@ public class PlantGrowth : MonoBehaviour
         pot.ConsumeWater(waterConsumption);
         pot.ConsumeNutrients(nutrientConsumption);
         //Debug.Log("Water Level: " + pot.CurrentWaterLevel + " Nutrient Level: " + pot.CurrentNutrientLevel);
+    }
+
+    public int Harvest()
+    {
+        Die();
+        // TODO: Insert harvest into inventory
+        return Mathf.RoundToInt(plantData.harvestYield * (currentHealth / 100f));
     }
 
     private EffectSO GetEffectSO(PlantHealthStages healthStage)

@@ -6,6 +6,7 @@ public class HealthStatusUI : MonoBehaviour
 {
     public Transform mainCamera;
     [SerializeField] private Pot pot;
+    [SerializeField] private PlantGrowth growth;
     public List<UnityEngine.UI.Image> images;
     private List<EffectSO> negativeHealthEffects;
     [SerializeField] private GameObject plantPreviewGameObject;
@@ -140,7 +141,7 @@ public class HealthStatusUI : MonoBehaviour
         ProgressBar healthBar = root.Q<ProgressBar>("PlantHealthProgress");
         healthBar.lowValue  = 0;
         healthBar.highValue = 100;
-        healthBar.value     = 75; // TODO: Update with actual health value (Implement Health Value)
+        healthBar.value     = growth.currentHealth;
         healthBar.title = healthBar.value.ToString("F0");
 
         ProgressBar nutritBar = root.Q<ProgressBar>("NutriScoreProgress");

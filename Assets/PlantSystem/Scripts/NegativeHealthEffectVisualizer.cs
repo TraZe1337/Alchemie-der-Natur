@@ -9,7 +9,7 @@ public class NegativeHealthEffectVisualizer : MonoBehaviour
 
     }
 
-    public void UpdateHealthEffectColor(PlantHealthStages stage, float value) {
+    public void UpdateHealthEffectColor(float value) {
         if (transform.childCount >= 1)
         {
             CeckForChildren();
@@ -20,24 +20,8 @@ public class NegativeHealthEffectVisualizer : MonoBehaviour
         }
 
         Color startColor = new Color(1f, 1f, 1f, 1f);              
-        Color targetColor = new Color(1f, 1f, 1f, 1f);            
-
-
-        switch (stage)
-        {
-            case PlantHealthStages.Dehydration:                
-                targetColor = new Color(1f, 152f / 255f, 0f, 1f);           // (255,152,0,255)
-                break;
-            case PlantHealthStages.Overwatered:
-                targetColor = new Color(138f / 255f, 97f / 255f, 0f, 255f);  
-                break;
-            case PlantHealthStages.InTheDark:
-                // Show in the dark effect
-                break;
-            case PlantHealthStages.OverexposedToSunlight:
-                // Show overexposed to sunlight effect
-                break;
-        }
+        Color targetColor = new Color(1f, 1f, 1f, 1f);     
+        targetColor = new Color(1f, 152f / 255f, 0f, 1f);          
 
         // Interpolate between the two colors based on the given value
         Color newColor = Color.Lerp(startColor, targetColor, value);
