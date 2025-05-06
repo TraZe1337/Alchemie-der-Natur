@@ -11,7 +11,7 @@ public class BrewingScript : MonoBehaviour
     [SerializeField] private List<Recipe> recipes; // List of valid recipes.
     [SerializeField] private CardManager[] inventorySlots; // Array of inventory slots.
     [SerializeField] private GameObject popupText; // Reference to the TextMeshPro UI text for feedback.
-    [SerializeField] private float popupDuration = 2f; // Duration for which the popup text is visible.
+    [SerializeField] private float popupDuration = 1f; // Duration for which the popup text is visible.
 
     // Represents a recipe with required items and the resulting potion.
     [System.Serializable]
