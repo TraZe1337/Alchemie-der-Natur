@@ -133,7 +133,7 @@ public class BrewingScript : MonoBehaviour
         // Clear all item slots after brewing.
         foreach (var slot in cauldronSlots)
         {
-
+            if (slot.itemData == null) continue; // Skip empty slots.
             AddItemToInventory(slot.itemData); // Add the item back to the inventory.
             slot.UnSetItem();
         }
