@@ -151,7 +151,7 @@ namespace StarterAssets
 
             AssignAnimationIDs();
 
-            _controller.stepOffset = 0.5f;
+            _controller.stepOffset = 0.2f;
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
 
