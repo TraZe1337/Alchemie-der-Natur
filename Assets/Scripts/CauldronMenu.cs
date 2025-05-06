@@ -7,6 +7,7 @@ public class CauldronMenu : MonoBehaviour
     public GameObject openUi_button; // The UI button that appears
     public GameObject closeUi_button; // The UI button that appears
     public GameObject canvas; // The canvas that opens when the button is pressed
+    public GameObject inventoryCanvas; // The canvas that opens when the button is pressed
     public GameObject MainCam;
     public GameObject CauldronCam; // The camera used in alchemy mode
     public Transform playerPos; // Position of player in alchemy mode
@@ -31,9 +32,9 @@ public class CauldronMenu : MonoBehaviour
 
     void Update()
     {
-        if (isInRange && Input.GetKeyDown(KeyCode.F))
+        if (isInRange && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("Player pressed 'F' while in range.");
+            Debug.Log("Player pressed 'E' while in range.");
 
             if (canvas.activeSelf)
             {
@@ -56,6 +57,8 @@ public class CauldronMenu : MonoBehaviour
     {
         canvas.SetActive(true);
         Debug.Log("Canvas opened.");
+
+        OpenInventory(); // Open the inventory when the cauldron is opened
 
         CauldronCam.GetComponent<Camera>().enabled = true;
         MainCam.GetComponent<Camera>().enabled = false;
@@ -80,7 +83,7 @@ public class CauldronMenu : MonoBehaviour
         }
 
         player.transform.position = playerPos.position;
-        player.transform.rotation = Quaternion.Euler(0, 0, 0); // Adjust rotation as needed
+        player.transform.rotation = Quaternion.Euler(0, 75, 0); // Adjust rotation as needed
         Debug.Log("Player moved to alchemy position.");
     }
 
@@ -88,6 +91,8 @@ public class CauldronMenu : MonoBehaviour
     {
         canvas.SetActive(false);
         Debug.Log("Canvas closed.");
+
+        CloseInventory(); // Close the inventory if it's open
 
         CauldronCam.GetComponent<Camera>().enabled = false;
         MainCam.GetComponent<Camera>().enabled = true;
@@ -102,6 +107,20 @@ public class CauldronMenu : MonoBehaviour
         // Re-enable player movement
         player.GetComponent<ThirdPersonController>().enabled = true;
         player.GetComponent<StarterAssetsInputs>().move = Vector2.zero; // Reset movement
+    }
+
+    void OpenInventory()
+    {
+        inventoryCanvas.SetActive(true);
+        Debug.Log("Canvas opened.");
+
+    }
+
+    void CloseInventory()
+    {
+        inventoryCanvas.SetActive(false);
+        Debug.Log("Canvas closed.");
+
     }
 
     private void OnTriggerEnter(Collider other)
