@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Super Potion
   itemDescription: TODO
   itemTooltip: Super Potion
-  itemIcon: {fileID: 21300000, guid: 7fd78629d1b0cea4591d7e8400fa3266, type: 3}
+  itemIcon: {fileID: 641866465, guid: 05e0567213a58c840a3ea79a4409bdfd, type: 3}

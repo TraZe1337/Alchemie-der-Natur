@@ -65,14 +65,14 @@ public class CauldronMenu : MonoBehaviour
         Debug.Log("Switched to CauldronCam.");
 
 
-        player.GetComponent<ThirdPersonController>().LockCameraPosition = true;
+        // player.GetComponent<FirstPersonController>().LockCameraPosition = true;
         player.GetComponent<StarterAssetsInputs>().cursorInputForLook = false;
         player.GetComponent<StarterAssetsInputs>().cursorLocked = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None; // Unlock the cursor
 
         // Disable player movement
-        player.GetComponent<ThirdPersonController>().enabled = false;
+        player.GetComponent<FirstPersonController>().enabled = false;
         player.GetComponent<StarterAssetsInputs>().move = Vector2.zero; // Stop movement
 
         // Stop walking animation
@@ -98,14 +98,14 @@ public class CauldronMenu : MonoBehaviour
         MainCam.GetComponent<Camera>().enabled = true;
         Debug.Log("Switched back to MainCam.");
 
-        player.GetComponent<ThirdPersonController>().LockCameraPosition = false;
+        // player.GetComponent<FirstPersonController>().LockCameraPosition = false;
         player.GetComponent<StarterAssetsInputs>().cursorInputForLook = true;
         player.GetComponent<StarterAssetsInputs>().cursorLocked = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         // Re-enable player movement
-        player.GetComponent<ThirdPersonController>().enabled = true;
+        player.GetComponent<FirstPersonController>().enabled = true;
         player.GetComponent<StarterAssetsInputs>().move = Vector2.zero; // Reset movement
     }
 
