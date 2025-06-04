@@ -16,3 +16,4 @@ MonoBehaviour:
   itemDescription: TODO
   itemTooltip: Healing Potion
   itemIcon: {fileID: 21300012, guid: 215687feeab0b7445b4a1cd86c82c2e1, type: 3}
+  actionMethodName: HealPlayer

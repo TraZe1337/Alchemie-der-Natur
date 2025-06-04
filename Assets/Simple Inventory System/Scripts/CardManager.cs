@@ -30,6 +30,7 @@ namespace RedstoneinventeGameStudio
         [SerializeField] Image itemIcon; // UI element for displaying the item's icon.
 
         [SerializeField] bool notDraggable; // Prevents items from being dragged into this slot if true.
+        [SerializeField] bool isHotbarSlot;
 
         /// <summary>
         /// Initializes the card's state on awake.
@@ -127,6 +128,13 @@ namespace RedstoneinventeGameStudio
                 return false;
             }
 
+            // Prevent placing items with an empty or null actionMethodName in the hotbar.
+            if (isHotbarSlot && string.IsNullOrEmpty(itemData.actionMethodName))
+            {
+                Debug.LogWarning($"Item '{itemData.itemName}' cannot be placed in the hotbar because it has no assigned action.");
+                return false;
+            }
+
             // Update the card's item data and UI elements.
             this.itemData = itemData;
             this.itemName.text = itemData.name;
@@ -157,6 +165,31 @@ namespace RedstoneinventeGameStudio
         {
             // Show or hide the empty card UI element based on whether the card is occupied.
             emptyCard.SetActive(!isOccupied);
+        }
+
+        /// <summary>
+        /// Executes the item's action if it has one
+        /// </summary>
+        public void UseItem()
+        {
+            if (itemData != null && !string.IsNullOrEmpty(itemData.actionMethodName))
+            {
+                HotBarActions.ExecuteAction(itemData.actionMethodName, itemName.text);
+            }
+            else
+            {
+                Debug.LogWarning("No item data or action assigned to this card.");
+            }
+        }
+
+        void HealPlayer(int amount)
+        {
+            Debug.Log($"Player healed by {amount} HP.");
+        }
+
+        void RestoreMana(int amount)
+        {
+
         }
     }
 }

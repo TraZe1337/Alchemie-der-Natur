@@ -1,4 +1,5 @@
 using UnityEngine;
+using System; // Required for Action
 
 namespace RedstoneinventeGameStudio
 {
@@ -7,8 +8,9 @@ namespace RedstoneinventeGameStudio
     {
         public string itemName;
         public string itemDescription;
-
         public string itemTooltip;
         public Sprite itemIcon;
+
+        public string actionMethodName; // Name of the method to execute
     }
 }
