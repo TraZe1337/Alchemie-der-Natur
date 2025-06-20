@@ -4,11 +4,11 @@ using RedstoneinventeGameStudio;
 using System;
 using TMPro;
 using System.Collections;
+using System.IO;
 
 public class BrewingScript : MonoBehaviour
 {
     [SerializeField] private CardManager[] cauldronSlots; // Array of item slots (3 slots).
-    [SerializeField] private List<Recipe> recipes; // List of valid recipes.
     [SerializeField] private CardManager[] inventorySlots; // Array of inventory slots.
     [SerializeField] private GameObject popupText; // Reference to the TextMeshPro UI text for feedback.
     [SerializeField] private float popupDuration = 1f; // Duration for which the popup text is visible.
@@ -20,6 +20,20 @@ public class BrewingScript : MonoBehaviour
         public InventoryItemData[] requiredItems; // Items required for the recipe.
         public InventoryItemData resultingPotion; // Resulting potion from the recipe.
     }
+    [Serializable]
+    public class RecipeJson
+    {
+        public string title;
+        public string description;
+        public string[] ingredients;
+    }
+    [Serializable]
+    public class RecipeListJson
+    {
+        public RecipeJson[] recipes;
+    }
+
+    private List<Recipe> loadedRecipes = new List<Recipe>(); // Recipes loaded from JSON
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +53,77 @@ public class BrewingScript : MonoBehaviour
         {
             Debug.LogError("Popup text reference is not assigned.");
         }
+    }
+
+    private void Awake()
+    {
+        LoadRecipesFromJson();
+    }
+
+    private void LoadRecipesFromJson()
+    {
+        loadedRecipes.Clear();
+        TextAsset jsonAsset = Resources.Load<TextAsset>("recipes");
+        if (jsonAsset == null)
+        {
+            Debug.LogError("Could not find recipes.json in Resources!");
+            return;
+        }
+        Debug.Log($"Loaded recipes.json: {jsonAsset.text.Length} characters");
+        RecipeListJson recipeList = JsonUtility.FromJson<RecipeListJson>(jsonAsset.text);
+        if (recipeList == null || recipeList.recipes == null)
+        {
+            Debug.LogError("Failed to parse recipes.json!");
+            return;
+        }
+        Debug.Log($"Found {recipeList.recipes.Length} recipes in JSON");
+        foreach (var recipeJson in recipeList.recipes)
+        {
+            var requiredItems = new List<InventoryItemData>();
+            foreach (var ingredient in recipeJson.ingredients)
+            {
+                var item = LoadInventoryItemByFileName(ingredient);
+                if (item != null)
+                    requiredItems.Add(item);
+                else
+                    Debug.LogWarning($"Ingredient asset not found: {ingredient}");
+            }
+            var resultPotion = LoadInventoryItemByFileName(recipeJson.title);
+            if (resultPotion == null)
+            {
+                Debug.LogWarning($"Resulting potion asset not found: {recipeJson.title}");
+                continue;
+            }
+            Debug.Log($"Loaded recipe: {recipeJson.title} -> [{string.Join(", ", recipeJson.ingredients)}]");
+            loadedRecipes.Add(new Recipe { requiredItems = requiredItems.ToArray(), resultingPotion = resultPotion });
+        }
+        Debug.Log($"Total loadedRecipes: {loadedRecipes.Count}");
+    }
+    private InventoryItemData LoadInventoryItemByFileName(string fileName)
+    {
+        // Search in Potions and Ingredients folders
+        string[] searchPaths = new string[] {
+            "InventoryObjects/Potions/" + fileName,
+            "InventoryObjects/Ingredients/" + fileName,
+            "InventoryObjects/Plants/" + fileName
+        };
+        foreach (var path in searchPaths)
+        {
+            Debug.Log($"Searching for item at path: {path}");
+            var item = Resources.Load<InventoryItemData>(path);
+            if (item != null)
+            {
+                Debug.Log($"Found item: {item.name} at path: {path}");
+                return item; // Return the first found item.
+            }
+            else
+            {
+                Debug.LogWarning($"Item not found at path: {path}");
+            }
+            if (item != null)
+                return item;
+        }
+        return null;
     }
 
     // Update is called once per frame
@@ -70,8 +155,9 @@ public class BrewingScript : MonoBehaviour
         }
 
         // Check if the items match any recipe.
-        foreach (var recipe in recipes)
+        foreach (var recipe in loadedRecipes)
         {
+            Debug.Log($"Checking recipe: {recipe.resultingPotion.name} with required items: {string.Join(", ", Array.ConvertAll(recipe.requiredItems, item => item.name))}");
             if (IsMatchingRecipe(itemsInSlots, recipe.requiredItems))
             {
                 Debug.Log($"Potion brewed: {recipe.resultingPotion.name}");

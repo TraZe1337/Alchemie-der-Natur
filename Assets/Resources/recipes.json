@@ -1,24 +1,39 @@
 {
     "recipes": [
         {
-            "title": "Potion of Healing",
-            "description": "A potion that restores health.",
-            "ingredients": ["Herb", "Water", "Crystal Shard"]
+            "title": "Heiltrank",
+            "description": "Braut einen Heiltrank.",
+            "ingredients": ["Silbernes Mondblatt", "Sonnenkristall-Splitter", "Verdichteter Erdstaub"]
         },
         {
-            "title": "Elixir of Strength",
-            "description": "A potion that increases strength.",
-            "ingredients": ["Root", "Mushroom", "Dragon Scale"]
+            "title": "Schattentrank",
+            "description": "Braut einen Schattentrank.",
+            "ingredients": ["Schattenessenz", "Schattenessenz", "Silbernes Mondblatt"]
         },
         {
-            "title": "Elixir of Strength",
-            "description": "A potion that increases strength.",
-            "ingredients": ["Root", "Mushroom", "Dragon Scale"]
+            "title": "Glutgebräu",
+            "description": "Braut ein Glutgebräu.",
+            "ingredients": ["Flammenlilien-Pollen", "Schattenessenz", "Sonnenkristall-Splitter"]
         },
         {
-            "title": "Elixir of Strength",
-            "description": "A potion that increases strength.",
-            "ingredients": ["Root", "Mushroom", "Dragon Scale"]
+            "title": "Frostschutz",
+            "description": "Braut einen Frostschutz.",
+            "ingredients": ["Gefrorener Tautropfen", "Gefrorener Tautropfen", "Silbernes Mondblatt"]
+        },
+        {
+            "title": "Sinnes-Elixier",
+            "description": "Braut ein Sinnes-Elixier.",
+            "ingredients": ["Sonnenkristall-Splitter", "Silbernes Mondblatt", "Gefrorener Tautropfen"]
+        },
+        {
+            "title": "Steinhaut-Essenz",
+            "description": "Braut eine Steinhaut-Essenz.",
+            "ingredients": ["Verdichteter Erdstaub", "Verdichteter Erdstaub", "Schattenessenz"]
+        },
+        {
+            "title": "Harmoniephiole",
+            "description": "Braut eine Harmoniephiole.",
+            "ingredients": ["Flammenlilien-Pollen", "Gefrorener Tautropfen", "Sonnenkristall-Splitter"]
         }
     ]
 }
