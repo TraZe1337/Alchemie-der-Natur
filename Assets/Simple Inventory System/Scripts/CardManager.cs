@@ -181,15 +181,5 @@ namespace RedstoneinventeGameStudio
                 Debug.LogWarning("No item data or action assigned to this card.");
             }
         }
-
-        void HealPlayer(int amount)
-        {
-            Debug.Log($"Player healed by {amount} HP.");
-        }
-
-        void RestoreMana(int amount)
-        {
-
-        }
     }
 }

@@ -16,11 +16,13 @@ namespace RedstoneinventeGameStudio
         {
             if (Input.GetKeyUp(KeyCode.Mouse0) && fromCard != default)
             {
-                if (toCard != default)
+                bool placed = false;
+                if (toCard != default && toCard != fromCard)
                 {
-                    toCard.SetItem(dragCard.itemData);
+                    placed = toCard.SetItem(dragCard.itemData);
                 }
-                else if (fromCard != default)
+
+                if (!placed && fromCard != default)
                 {
                     fromCard.SetItem(dragCard.itemData);
                 }

@@ -4,7 +4,6 @@ using RedstoneinventeGameStudio;
 
 public class HotBarManager : MonoBehaviour
 {
-    public GameObject inventoryCanvas; // The canvas that opens when the button is pressed
 
     [Header("Hotbar Slots")]
     [SerializeField] private CardManager[] hotbarCardManagers = new CardManager[5]; // Corresponding CardManagers
