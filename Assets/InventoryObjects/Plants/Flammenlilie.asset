@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Mushroom
+  m_Name: Flammenlilie
   m_EditorClassIdentifier: 
-  itemName: Wildpilz
-  itemDescription: "Ein frisch geernteter Wildpilz mit erdigem Duft und zarter Konsistenz,
-    der vielen Gerichten eine w\xFCrzige Note verleiht. "
-  itemTooltip: Wildpilz
-  itemIcon: {fileID: 21300000, guid: 2afdbb56b98a5154a85ee3db07d07528, type: 3}
+  itemName: Flammenlilie
+  itemDescription: "Eine feuerrote Lilie, deren Bl\xFCtenbl\xE4tter an z\xFCngelnde
+    Flammen erinnern. Sie strahlt eine sp\xFCrbare W\xE4rme ab und gedeiht in vulkanischer
+    oder sehr warmer Umgebung."
+  itemTooltip: Flammenlilie
+  itemIcon: {fileID: 21300000, guid: 36327e04958f20b45ae745fd5f79a7f9, type: 3}
   actionMethodName: 

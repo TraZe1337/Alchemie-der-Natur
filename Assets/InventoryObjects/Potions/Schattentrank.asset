@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Mushroom
+  m_Name: Schattentrank
   m_EditorClassIdentifier: 
-  itemName: Wildpilz
-  itemDescription: "Ein frisch geernteter Wildpilz mit erdigem Duft und zarter Konsistenz,
-    der vielen Gerichten eine w\xFCrzige Note verleiht. "
-  itemTooltip: Wildpilz
-  itemIcon: {fileID: 21300000, guid: 2afdbb56b98a5154a85ee3db07d07528, type: 3}
-  actionMethodName: 
+  itemName: 'Schattentrank '
+  itemDescription: "Macht kurzzeitig schwerer sichtbar und verbessert Schleichf\xE4higkeit
+    signifikant."
+  itemTooltip: 'Schattentrank '
+  itemIcon: {fileID: 21300000, guid: 39995e1a3a6d3e54689832f19494d7de, type: 3}
+  actionMethodName: StealthPlayer

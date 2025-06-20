@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Mushroom
+  m_Name: "Glutgebr\xE4u"
   m_EditorClassIdentifier: 
-  itemName: Wildpilz
-  itemDescription: "Ein frisch geernteter Wildpilz mit erdigem Duft und zarter Konsistenz,
-    der vielen Gerichten eine w\xFCrzige Note verleiht. "
-  itemTooltip: Wildpilz
-  itemIcon: {fileID: 21300000, guid: 2afdbb56b98a5154a85ee3db07d07528, type: 3}
-  actionMethodName: 
+  itemName: "Glutgebr\xE4u"
+  itemDescription: "Erh\xF6ht kurzzeitig physischen Schaden und verleiht Angriffen
+    Feuerschaden-Bonus."
+  itemTooltip: "Glutgebr\xE4u"
+  itemIcon: {fileID: 21300000, guid: 717a36a31aa3eab4a9841a5779d09ae0, type: 3}
+  actionMethodName: IncreaseDamagePlayer

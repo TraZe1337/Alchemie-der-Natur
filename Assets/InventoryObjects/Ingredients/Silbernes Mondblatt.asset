@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Mushroom
+  m_Name: Silbernes Mondblatt
   m_EditorClassIdentifier: 
-  itemName: Wildpilz
-  itemDescription: "Ein frisch geernteter Wildpilz mit erdigem Duft und zarter Konsistenz,
-    der vielen Gerichten eine w\xFCrzige Note verleiht. "
-  itemTooltip: Wildpilz
-  itemIcon: {fileID: 21300000, guid: 2afdbb56b98a5154a85ee3db07d07528, type: 3}
+  itemName: Silbernes Mondblatt
+  itemDescription: "Ein einzelnes, silbrig schimmerndes Blatt der Mondlichtranke.
+    F\xFChlt sich k\xFChl an, leuchtet schwach im Dunkeln. Enth\xE4lt konzentrierte
+    Mondenergie."
+  itemTooltip: Silbernes Mondblatt
+  itemIcon: {fileID: 21300000, guid: 730a748ebfba9e74eb09d50b68d752ef, type: 3}
   actionMethodName: 
