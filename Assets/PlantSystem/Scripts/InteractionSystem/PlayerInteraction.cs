@@ -95,7 +95,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         
         Debug.Log($"Handling interaction of type {type}");
-        Ray ray = new Ray(playerChest.transform.position, playerCamera.transform.forward);
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * interactRange, Color.red, 1f);
 
 

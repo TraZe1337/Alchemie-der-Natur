@@ -56,6 +56,8 @@ namespace StarterAssets
 		public GameObject Inventorycanvas;
 		[Tooltip("Reference to the player GameObject for disabling movement")]
 		public GameObject player;
+		[Tooltip("Reference to the crosshair GameObject for hiding/showing during inventory")]
+		private GameObject crosshair;
 
 		// cinemachine
 		private float _cinemachineTargetPitch;
@@ -123,6 +125,8 @@ namespace StarterAssets
 				Inventorycanvas.SetActive(false);
 				Debug.Log("Inventory canvas is set to inactive at start.");
 			}
+
+			crosshair = GameObject.FindGameObjectWithTag("Crosshair");
 		}
 
 		private void Update()
@@ -235,6 +239,7 @@ namespace StarterAssets
 		private void OpenCloseInventory()
 		{
 			if (_input.IsInventoryOpen)
+			
 				OpenCanvas();
 			else
 				CloseCanvas();
@@ -250,6 +255,7 @@ namespace StarterAssets
 			_input.cursorLocked = false;
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
+			crosshair.SetActive(false);
 
 			player.GetComponent<StarterAssetsInputs>().move = Vector2.zero;
 		}
@@ -264,6 +270,7 @@ namespace StarterAssets
 			_input.cursorLocked = true;
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
+			crosshair.SetActive(true);
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

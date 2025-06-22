@@ -14,6 +14,7 @@ public class CauldronMenu : MonoBehaviour
 
     GameObject player; // The player
     private bool isInRange = false; // Flag to check if player is in trigger area
+    private GameObject crosshair; // Reference to the crosshair GameObject
 
     void Start()
     {
@@ -28,6 +29,8 @@ public class CauldronMenu : MonoBehaviour
         MainCam = GameObject.FindGameObjectWithTag("MainCamera");
 
         CauldronCam = GameObject.FindGameObjectWithTag("CauldronCam");
+
+        crosshair = GameObject.FindGameObjectWithTag("Crosshair");
     }
 
     void Update()
@@ -85,6 +88,8 @@ public class CauldronMenu : MonoBehaviour
         player.transform.position = playerPos.position;
         player.transform.rotation = Quaternion.Euler(0, 75, 0); // Adjust rotation as needed
         Debug.Log("Player moved to alchemy position.");
+
+        crosshair.SetActive(false); // Hide the crosshair when the canvas is open
     }
 
     void CloseCanvas()
@@ -107,6 +112,8 @@ public class CauldronMenu : MonoBehaviour
         // Re-enable player movement
         player.GetComponent<FirstPersonController>().enabled = true;
         player.GetComponent<StarterAssetsInputs>().move = Vector2.zero; // Reset movement
+
+        crosshair.SetActive(true); // Show the crosshair when the canvas is closed
     }
 
     void OpenInventory()
