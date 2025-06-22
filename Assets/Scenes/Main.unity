@@ -11831,6 +11831,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 62974871}
     - target: {fileID: 8000801454888736787, guid: ae88bcce359f67245b761d057214a469, type: 3}
+      propertyPath: groundCheckHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000801454888736787, guid: ae88bcce359f67245b761d057214a469, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 65
       objectReference: {fileID: 0}
@@ -14832,7 +14836,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2927382676411533450, guid: 0fc52e40f5e41c04ea5c7f2697b7d749, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.425
+      value: 1.059
       objectReference: {fileID: 0}
     - target: {fileID: 2927382676411533450, guid: 0fc52e40f5e41c04ea5c7f2697b7d749, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14881,6 +14885,10 @@ PrefabInstance:
     - target: {fileID: 4837819595747991441, guid: 0fc52e40f5e41c04ea5c7f2697b7d749, type: 3}
       propertyPath: parentTransform
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4837819595747991441, guid: 0fc52e40f5e41c04ea5c7f2697b7d749, type: 3}
+      propertyPath: groundCheckHeight
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4837819595747991441, guid: 0fc52e40f5e41c04ea5c7f2697b7d749, type: 3}
       propertyPath: groundLayer.m_Bits
@@ -55122,6 +55130,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 62974871}
     - target: {fileID: 5507979538940235535, guid: 87e507cccf37a7c4b9a5825a35e1fd63, type: 3}
+      propertyPath: groundCheckHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5507979538940235535, guid: 87e507cccf37a7c4b9a5825a35e1fd63, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 65
       objectReference: {fileID: 0}
@@ -93592,7 +93604,7 @@ Light:
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

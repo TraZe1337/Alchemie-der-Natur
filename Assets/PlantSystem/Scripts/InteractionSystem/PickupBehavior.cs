@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.UIElements;
 
 public class PickupBehavior : MonoBehaviour, IInteractable
 {
@@ -66,8 +67,22 @@ public class PickupBehavior : MonoBehaviour, IInteractable
                 break;
         }
 
-        float yOffset = transform.position.y - childTransform.localPosition.y;
-        Debug.Log($"Y Offset: {yOffset}");
+
+        float colliderHeight = 0f;
+        BoxCollider boxCollider = null;
+        try
+        {
+            boxCollider = GetComponent<BoxCollider>();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"No BoxCollider found on {gameObject.name}. Error: {e.Message}");
+            colliderHeight = transform.position.y - childTransform.localPosition.y;
+        }
+        colliderHeight = boxCollider.size.y;
+        Debug.Log($"Y Offset: {colliderHeight}");
+
+        
         // Calculate drop position in front of player
         Vector3 origin = interactor.transform.position;
         Vector3 forward = interactor.transform.forward;
@@ -75,11 +90,11 @@ public class PickupBehavior : MonoBehaviour, IInteractable
 
         // Raycast down to find ground
         if (Physics.Raycast(start, Vector3.down, out RaycastHit hit, groundCheckHeight * 2f, groundLayer)) {
-            transform.position = hit.point + Vector3.up * yOffset;
+            transform.position = hit.point + Vector3.up * colliderHeight;
             //parentTransform.position = hit.point;
             Debug.Log($"EXACTELY Dropped {gameObject.name} at {hit.point}");
         } else {
-            transform.position = origin + Vector3.up * yOffset + forward * dropDistance;
+            transform.position = origin + Vector3.up * colliderHeight + forward * dropDistance;
             Debug.Log($"Dropped {gameObject.name} at {hit.point}");
         }
 
