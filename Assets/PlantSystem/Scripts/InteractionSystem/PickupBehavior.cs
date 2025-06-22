@@ -49,6 +49,7 @@ public class PickupBehavior : MonoBehaviour, IInteractable
         }
 
         transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
         //transform.localRotation = Quaternion.identity * Quaternion.Euler(31.136f, 180f, 0.124f);
 
         rb.isKinematic = true;
@@ -82,7 +83,7 @@ public class PickupBehavior : MonoBehaviour, IInteractable
         colliderHeight = boxCollider.size.y;
         Debug.Log($"Y Offset: {colliderHeight}");
 
-        
+
         // Calculate drop position in front of player
         Vector3 origin = interactor.transform.position;
         Vector3 forward = interactor.transform.forward;
