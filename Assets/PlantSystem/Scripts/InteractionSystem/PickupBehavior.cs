@@ -48,7 +48,7 @@ public class PickupBehavior : MonoBehaviour, IInteractable
         }
 
         transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity * Quaternion.Euler(31.136f, 180f, 0.124f);
+        //transform.localRotation = Quaternion.identity * Quaternion.Euler(31.136f, 180f, 0.124f);
 
         rb.isKinematic = true;
         isHeld = true;
