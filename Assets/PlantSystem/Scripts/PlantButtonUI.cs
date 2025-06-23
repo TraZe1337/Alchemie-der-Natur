@@ -6,6 +6,7 @@ public class PlantButtonUI : MonoBehaviour
 {
     public Transform mainCamera;
     [SerializeField] private Pot pot;
+    [SerializeField] private GameObject PlantToPlantUI;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,6 +24,14 @@ public class PlantButtonUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
+            if (PlantToPlantUI.activeSelf)
+            {
+                PlantToPlantUI.SetActive(false);
+            }
+            else
+            {
+                PlantToPlantUI.SetActive(true);
+            }
             Debug.Log("P key pressed, should Plant a new plant in the pot.");
         }
     }

@@ -1,12 +1,14 @@
 using UnityEngine;
+using RedstoneinventeGameStudio;
 
 public class PlantSpawner : MonoBehaviour
 {
     [SerializeField] private PlantSO plantSO;
+    [SerializeField] private CardManager plantSlot; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+      
     }
 
     // Update is called once per frame
