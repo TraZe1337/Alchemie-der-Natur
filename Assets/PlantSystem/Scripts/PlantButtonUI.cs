@@ -7,6 +7,7 @@ public class PlantButtonUI : MonoBehaviour
     public Transform mainCamera;
     [SerializeField] private Pot pot;
     [SerializeField] private GameObject PlantToPlantUI;
+    public GameObject inventoryCanvas; // The canvas that opens when the button is pressed
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,12 +28,17 @@ public class PlantButtonUI : MonoBehaviour
             if (PlantToPlantUI.activeSelf)
             {
                 PlantToPlantUI.SetActive(false);
+                CloseInventory();
+                UnityEngine.Cursor.visible = false;
+                UnityEngine.Cursor.lockState = UnityEngine.CursorLockMode.Locked;
             }
             else
             {
                 PlantToPlantUI.SetActive(true);
+                OpenInventory();
+                UnityEngine.Cursor.visible = true;
+                UnityEngine.Cursor.lockState = UnityEngine.CursorLockMode.None;
             }
-            Debug.Log("P key pressed, should Plant a new plant in the pot.");
         }
     }
 
@@ -41,5 +47,20 @@ public class PlantButtonUI : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(transform.position - mainCamera.position);
         transform.rotation = targetRotation;
     }
+
+        void OpenInventory()
+    {
+        inventoryCanvas.SetActive(true);
+        Debug.Log("Canvas opened.");
+
+    }
+
+    void CloseInventory()
+    {
+        inventoryCanvas.SetActive(false);
+        Debug.Log("Canvas closed.");
+
+    }
+
 
 }

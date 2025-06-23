@@ -15405,7 +15405,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 62974871}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 0}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fc52e40f5e41c04ea5c7f2697b7d749, type: 3}
@@ -15425,7 +15426,6 @@ Transform:
   - {fileID: 936619760}
   - {fileID: 352297895}
   - {fileID: 1515588894}
-  - {fileID: 405471288}
   - {fileID: 997272445}
   - {fileID: 790885087}
   m_Father: {fileID: 1956755538}
@@ -24366,37 +24366,6 @@ Transform:
   - {fileID: 2061987790}
   m_Father: {fileID: 1560024035}
   m_LocalEulerAnglesHint: {x: 0, y: -59.122, z: 0}
---- !u!1 &405471287
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 68533452766712408, guid: 0fc52e40f5e41c04ea5c7f2697b7d749, type: 3}
-  m_PrefabInstance: {fileID: 306013783}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 405471288}
-  m_Layer: 7
-  m_Name: PlantRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &405471288
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7431078686072383155, guid: 0fc52e40f5e41c04ea5c7f2697b7d749, type: 3}
-  m_PrefabInstance: {fileID: 306013783}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405471287}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.146, y: 0.114, z: 0.018}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 306013784}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &414182483
 GameObject:
   m_ObjectHideFlags: 0
@@ -54893,6 +54862,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   pot: {fileID: 936619758}
   PlantToPlantUI: {fileID: 790885086}
+  inventoryCanvas: {fileID: 1894710076}
 --- !u!114 &997272447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54908,6 +54878,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   pot: {fileID: 0}
   PlantToPlantUI: {fileID: 0}
+  inventoryCanvas: {fileID: 0}
 --- !u!1001 &998019411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57766,7 +57737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_Pivot.y
@@ -57774,7 +57745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_AnchorMax.y
@@ -57782,7 +57753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_AnchorMin.y
@@ -57818,7 +57789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22.000017
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_LocalRotation.w
@@ -57838,7 +57809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000028133392
+      value: -32
       objectReference: {fileID: 0}
     - target: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       propertyPath: m_AnchoredPosition.y
