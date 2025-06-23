@@ -9,6 +9,7 @@ public class Pot : MonoBehaviour, IUsable
     [SerializeField] private float nutrientLevel = 50f;
     [SerializeField] private readonly float maxNutrientsLevel = 200f;
     [SerializeField] private GameObject healthStatusUI; // Reference to the HealthStatusUI script
+    [SerializeField] private GameObject plantButton; // Reference to the PlantButton UI element
     [SerializeField] private PlantSO myPotPlant; // TEMPORARY | TODO: The plant will be added dynamically via the use by planting a plant (not hardcoded via the editor)
     [SerializeField] private PlantGrowth myPlant; // TEMPORARY | TODO: The plant will be added dynamically via the use by planting a plant (not hardcoded via the editor)
     private bool _playerInRange = false;
@@ -95,7 +96,12 @@ public class Pot : MonoBehaviour, IUsable
         {
             PlayerInRange = true;
             healthStatusUI.SetActive(true);
+            plantButton.SetActive(false);
             Debug.Log("Player entered the pot area.");
+        }
+        else if (other.CompareTag("Player") && myPlant == null)
+        {
+            plantButton.SetActive(true);
         }
     }
 
@@ -106,6 +112,10 @@ public class Pot : MonoBehaviour, IUsable
             PlayerInRange = false;
             healthStatusUI.SetActive(false);
             Debug.Log("Player exited the pot area.");
+        }
+        else if (other.CompareTag("Player") && myPlant == null)
+        {
+            plantButton.SetActive(false);
         }
     }
 
