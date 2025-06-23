@@ -91,7 +91,7 @@ public class Pot : MonoBehaviour, IUsable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && myPlant != null)
         {
             PlayerInRange = true;
             healthStatusUI.SetActive(true);
@@ -101,7 +101,7 @@ public class Pot : MonoBehaviour, IUsable
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && myPlant != null)
         {
             PlayerInRange = false;
             healthStatusUI.SetActive(false);
