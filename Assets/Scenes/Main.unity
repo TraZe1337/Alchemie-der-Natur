@@ -10117,6 +10117,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6246387199621216000, guid: f718446ea5d677447a139064f29e7304, type: 3}
   m_PrefabInstance: {fileID: 144223985}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &145678544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4490273257874889415, guid: 389cb32f52ba4934591c088d79590516, type: 3}
+  m_PrefabInstance: {fileID: 570844514}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &149165065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34169,7 +34174,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4494820213052644134, guid: 389cb32f52ba4934591c088d79590516, type: 3}
       insertIndex: -1
       addedObject: {fileID: 496921642}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4490273257874889415, guid: 389cb32f52ba4934591c088d79590516, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 570844520}
   m_SourcePrefab: {fileID: 100100000, guid: 389cb32f52ba4934591c088d79590516, type: 3}
 --- !u!224 &570844515 stripped
 RectTransform:
@@ -34181,6 +34189,44 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8068684800041793015, guid: 389cb32f52ba4934591c088d79590516, type: 3}
   m_PrefabInstance: {fileID: 570844514}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &570844520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145678544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab520eb10af8364caddcc15f8915296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryCardManagers:
+  - {fileID: 1358879878}
+  - {fileID: 760972260}
+  - {fileID: 713303358}
+  - {fileID: 1087450882}
+  - {fileID: 168749793}
+  - {fileID: 1036469223}
+  - {fileID: 1905485213}
+  - {fileID: 870267233}
+  - {fileID: 1434206292}
+  - {fileID: 312201342}
+  - {fileID: 174656749}
+  - {fileID: 1316296214}
+  - {fileID: 1979079393}
+  - {fileID: 378658671}
+  - {fileID: 2022149100}
+  - {fileID: 2066219537}
+  - {fileID: 1071356901}
+  - {fileID: 1650561830}
+  - {fileID: 1291446972}
+  - {fileID: 922634544}
+  - {fileID: 1014772602}
+  - {fileID: 767586009}
+  - {fileID: 888787077}
+  - {fileID: 44107070}
+  - {fileID: 429805749}
 --- !u!1001 &571922182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98912,6 +98958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 7948581612046663834}
   playerChest: {fileID: 1328458605772680588}
+  inventoryManager: {fileID: 570844520}
   interactRange: 3
   usageOfHoldingObjectRange: 1.01
   interactLayer:

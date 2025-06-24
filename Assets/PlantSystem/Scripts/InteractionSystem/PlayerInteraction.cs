@@ -5,6 +5,7 @@ public class PlayerInteraction : MonoBehaviour
     [Tooltip("Camera used for aiming interactions (e.g., the third-person camera)")]
     public Camera playerCamera;
     public GameObject playerChest;
+    public InventoryManager inventoryManager;
 
     [Tooltip("Maximum distance for raycast interactions")]
     public float interactRange = 4f;
@@ -50,12 +51,16 @@ public class PlayerInteraction : MonoBehaviour
                         break;
                     case UsageType.Fertilizer:
                         usable.AddNutrients(pb.gameObject.GetComponent<Fertilizer>().DispenseFertilizer(Time.deltaTime));
-                        break;
-                    case UsageType.Harvesting:
-                        float harvest = usable.HarvestPotPlant();
-                        Debug.Log($"Harvested {harvest} from {collider.gameObject.name}");
-                        if (harvest > 0) {
-                            // TODO: Add harvested item to inventory or something
+                        break;                    case UsageType.Harvesting:
+                        (float harvest, PlantSO plantType) = usable.HarvestPotPlant();
+                        int harvestAmount = (int)harvest; // Convert float to int (truncates decimal)
+                        Debug.Log($"Harvested {harvestAmount} from {collider.gameObject.name}");
+                        if (harvestAmount > 0 && plantType != null)
+                        {
+                            for (int i = 0; i < (int)harvest; i++)
+                            {
+                                inventoryManager.AddItemToInventory(plantType.plantItemData);
+                            }
                         }
                         break;
                 }

@@ -308,7 +308,8 @@ public class PlantGrowth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Plant died: " + gameObject.name);
-        Destroy(healthStatusUI.gameObject);
+        healthStatusUI.gameObject.SetActive(false);
+        //Destroy(healthStatusUI.gameObject);
         // Destroy any current plant instance
         if (currentPlantInstance != null)
             Destroy(currentPlantInstance);

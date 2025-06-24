@@ -127,23 +127,23 @@ public class Pot : MonoBehaviour, IUsable
          
     }
 
-    public int HarvestPotPlant()
+    public (int, PlantSO) HarvestPotPlant()
     {
         if (myPotPlant == null)
         {
             Debug.LogWarning("No plant in the pot to harvest.");
-            return 0;
+            return (0, null);
         }
         Debug.Log($"Harvesting {myPlant} from the pot.");
 
         try
         {
-            return myPlant.Harvest();
+            return (myPlant.Harvest(), myPotPlant);
         }
         catch (Exception e)
         {
             Debug.Log($"Normal while harvesting plant (plant already harvested because method called each frame): {e.Message}");
-            return 0;
+            return (0, null);
         }
     }
 
