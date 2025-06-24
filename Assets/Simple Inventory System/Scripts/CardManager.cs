@@ -32,6 +32,10 @@ namespace RedstoneinventeGameStudio
         [SerializeField] bool notDraggable; // Prevents items from being dragged into this slot if true.
         [SerializeField] bool isHotbarSlot;
 
+        [Header("Selection")]
+        [SerializeField] private GameObject selectionHighlight; // z.B. ein Rahmen, der standardmäßig deaktiviert ist
+
+
         /// <summary>
         /// Initializes the card's state on awake.
         /// </summary>
@@ -98,6 +102,15 @@ namespace RedstoneinventeGameStudio
             {
                 ItemDraggingManager.toCard = this;
             }
+        }
+
+        /// <summary>
+        /// Visuelles Ein-/Ausblenden des Auswahlrahmens.
+        /// </summary>
+        public void ToggleSelection(bool isSelected)
+        {
+            if (selectionHighlight != null)
+            selectionHighlight.SetActive(isSelected);
         }
 
         /// <summary>

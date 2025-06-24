@@ -11,6 +11,12 @@ public class HotBarManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool showDebugMessages = true;
 
+
+    [SerializeField] private RectTransform selectionHighlight;
+
+    private int selectedIndex = 0;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,62 +35,69 @@ public class HotBarManager : MonoBehaviour
                 Debug.LogWarning($"Hotbar slot {i} has no CardManager assigned!");
             }
         }
+        SelectSlot(0);
     }
 
-    /// <summary>
-    /// Uses the item in the specified hotbar slot
+     /// <summary>
+    /// Forwardet den Aufruf an den CardManager des aktuell ausgewählten Slots.
     /// </summary>
-    /// <param name="slotIndex">The index of the hotbar slot (0-4)</param>
     public void UseHotbarItem(int slotIndex)
     {
-        if (slotIndex >= 0 && slotIndex < hotbarCardManagers.Length && hotbarCardManagers[slotIndex] != null)
+        var card = hotbarCardManagers[slotIndex];
+        if (card != null && card.isOccupied && card.itemData != null)
         {
-            CardManager cardManager = hotbarCardManagers[slotIndex];
-
-            // If this slot has an item, use it
-            if (cardManager.isOccupied && cardManager.itemData != null)
-            {
-                if (showDebugMessages)
-                {
-                    Debug.Log($"Using hotbar slot {slotIndex}");
-                }
-
-                // Forward call to the CardManager's UseItem method
-                cardManager.UseItem();
-            }
-            else
-            {
-                if (showDebugMessages)
-                {
-                    Debug.Log($"Hotbar slot {slotIndex} is empty or has no item assigned");
-                }
-            }
+            if (showDebugMessages)
+                Debug.Log($"Benutze Hotbar Slot {slotIndex}");
+            card.UseItem();
+        }
+        else if (showDebugMessages)
+        {
+            Debug.Log($"Slot {slotIndex} ist leer oder nicht bevölkert");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Hotkey support using only the number keys above the letters (Alpha keys)
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // 1.–5. Slot auswählen mit den Zahlentasten
+        for (int i = 0; i < hotbarCardManagers.Length; i++)
         {
-            UseHotbarItem(0);
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            {
+                SelectSlot(i);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+
+        // Benutzen-Taste (hier E), nutzt das gerade ausgewählte Item
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            UseHotbarItem(1);
+            UseHotbarItem(selectedIndex);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            UseHotbarItem(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            UseHotbarItem(3);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            UseHotbarItem(4);
-        }
+    }
+    
+     /// <summary>
+    /// Hebt die Auswahl am alten Slot auf und setzt sie am neuen.
+    /// </summary>
+    private void SelectSlot(int newIndex)
+    {
+        if (newIndex < 0 || newIndex >= hotbarCardManagers.Length) return;
+        var slotRT = hotbarCardManagers[newIndex].GetComponent<RectTransform>();
+        if (slotRT == null) return;
+
+        // 1) Parent wechseln (false = behält lokale Werte bei)
+        selectionHighlight.SetParent(slotRT, false);
+
+        // 2) Hinter alle anderen Kinder schieben
+        selectionHighlight.SetAsFirstSibling();
+
+        // 3) Voll auf den Slot stretchen
+        selectionHighlight.anchorMin = Vector2.zero;
+        selectionHighlight.anchorMax = Vector2.one;
+        selectionHighlight.anchoredPosition = Vector2.zero;
+        selectionHighlight.sizeDelta = Vector2.zero;
+
+        // Optional: Debug
+        if (showDebugMessages)
+            Debug.Log($"Highlight unter Slot {newIndex} verschoben");
     }
 }
