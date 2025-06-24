@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace RedstoneinventeGameStudio
 {
@@ -36,6 +38,15 @@ namespace RedstoneinventeGameStudio
         [SerializeField] private GameObject selectionHighlight; // z.B. ein Rahmen, der standardmäßig deaktiviert ist
 
 
+        [Header("Use Settings")]
+        [SerializeField] private AudioClip useSound;        // Ton, der abgespielt werden soll
+        [SerializeField] private bool   consumable = true; // ob das Item nach Gebrauch verschwindet
+
+        private AudioSource audioSource;
+
+        private bool isInUse = false;
+
+
         /// <summary>
         /// Initializes the card's state on awake.
         /// </summary>
@@ -58,6 +69,8 @@ namespace RedstoneinventeGameStudio
             {
                 SetItem(itemData);
             }
+
+            audioSource = GetComponent<AudioSource>();
         }
 
         /// <summary>
@@ -185,14 +198,45 @@ namespace RedstoneinventeGameStudio
         /// </summary>
         public void UseItem()
         {
-            if (itemData != null && !string.IsNullOrEmpty(itemData.actionMethodName))
-            {
-                HotBarActions.ExecuteAction(itemData.actionMethodName, itemName.text);
-            }
-            else
+
+            if (isInUse) 
+            return;
+
+            if (itemData == null || string.IsNullOrEmpty(itemData.actionMethodName))
             {
                 Debug.LogWarning("No item data or action assigned to this card.");
+                return;
             }
+
+            isInUse = true;
+
+            // 1) Sound abspielen
+            if (useSound != null)
+            {
+                if (audioSource != null)
+                    audioSource.PlayOneShot(useSound);
+                else
+                    AudioSource.PlayClipAtPoint(useSound, Camera.main.transform.position);
+            }
+
+            // 2) Coroutine starten, die nach 3 Sekunden die Aktion ausführt
+            StartCoroutine(DelayedUse());
+        }
+
+        private IEnumerator DelayedUse()
+        {
+            // 3 Sekunden warten
+            yield return new WaitForSeconds(2f);
+
+            // 3) Aktion ausführen
+            HotBarActions.ExecuteAction(itemData.actionMethodName, itemName.text);
+
+            // 4) Slot leeren, falls Verbrauchsobjekt
+            if (consumable)
+                UnSetItem();
+
+
+            isInUse = false;
         }
     }
 }

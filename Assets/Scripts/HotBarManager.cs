@@ -43,16 +43,24 @@ public class HotBarManager : MonoBehaviour
     /// </summary>
     public void UseHotbarItem(int slotIndex)
     {
+        Debug.Log($"UseHotbarItem called with index={slotIndex}; " +
+                $"arrayLength={hotbarCardManagers.Length}; " +
+                $"cardRef={(hotbarCardManagers[slotIndex] == null ? "null" : "ok")}");
         var card = hotbarCardManagers[slotIndex];
-        if (card != null && card.isOccupied && card.itemData != null)
+        if (card == null)
         {
-            if (showDebugMessages)
-                Debug.Log($"Benutze Hotbar Slot {slotIndex}");
+            Debug.LogError($"🔥 Hotbar slot {slotIndex} hat gar keinen CardManager zugewiesen!");
+            return;
+        }
+        Debug.Log($"  isOccupied={card.isOccupied}, itemData={(card.itemData!=null)}");
+        if (card.isOccupied && card.itemData != null)
+        {
+            Debug.Log($"👉 Verwende Hotbar Slot {slotIndex}");
             card.UseItem();
         }
-        else if (showDebugMessages)
+        else
         {
-            Debug.Log($"Slot {slotIndex} ist leer oder nicht bevölkert");
+            Debug.LogWarning($"Slot {slotIndex} ist leer oder nicht bevölkert");
         }
     }
 
@@ -98,6 +106,9 @@ public class HotBarManager : MonoBehaviour
 
         // Optional: Debug
         if (showDebugMessages)
+        {
             Debug.Log($"Highlight unter Slot {newIndex} verschoben");
+            selectedIndex = newIndex;
+        }
     }
 }
