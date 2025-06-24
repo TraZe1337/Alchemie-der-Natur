@@ -21,6 +21,7 @@ public class Pot : MonoBehaviour, IUsable
     public String PlantName => myPotPlant.plantName;
     public String PlantDescription => myPotPlant.plantDescription;
     public event Action<bool> OnPlayerInRangeChanged;
+    private bool has_semen = false; // Flag to check if the pot has a seed planted
 
     private bool PlayerInRange
     {
@@ -52,7 +53,7 @@ public class Pot : MonoBehaviour, IUsable
 
     public void AddWater(float amount)
     {
-        if(amount < 0)
+        if (amount < 0)
         {
             Debug.LogWarning("Cannot add a negative amount of water.");
             return;
@@ -62,7 +63,7 @@ public class Pot : MonoBehaviour, IUsable
 
     public void ConsumeWater(float amount)
     {
-        if(amount < 0)
+        if (amount < 0)
         {
             Debug.LogWarning("Cannot consume a negative amount of water.");
             return;
@@ -72,7 +73,7 @@ public class Pot : MonoBehaviour, IUsable
 
     public void AddNutrients(float amount)
     {
-        if(amount < 0)
+        if (amount < 0)
         {
             Debug.LogWarning("Cannot add a negative amount of nutrients.");
             return;
@@ -82,7 +83,7 @@ public class Pot : MonoBehaviour, IUsable
 
     public void ConsumeNutrients(float amount)
     {
-        if(amount < 0)
+        if (amount < 0)
         {
             Debug.LogWarning("Cannot consume a negative amount of nutrients.");
             return;
@@ -92,31 +93,38 @@ public class Pot : MonoBehaviour, IUsable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && myPlant != null)
+        if (other.CompareTag("Player") && (myPlant != null || has_semen))
         {
-            PlayerInRange = true;
             healthStatusUI.SetActive(true);
             plantButton.SetActive(false);
             Debug.Log("Player entered the pot area.");
         }
         else if (other.CompareTag("Player") && myPlant == null)
         {
+            //healthStatusUI.SetActive(false);
+            Debug.Log("Player entered the pot area, but no plant is present.");
+            // Show the plant button only if there is no plant in the pot
             plantButton.SetActive(true);
+
         }
+        PlayerInRange = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && myPlant != null)
+        if (other.CompareTag("Player") && (myPlant != null || has_semen))
         {
-            PlayerInRange = false;
             healthStatusUI.SetActive(false);
+            plantButton.SetActive(false);
             Debug.Log("Player exited the pot area.");
         }
         else if (other.CompareTag("Player") && myPlant == null)
         {
             plantButton.SetActive(false);
+            Debug.Log("Player exited the pot area, but no plant is present.");
         }
+        PlayerInRange = false;
+         
     }
 
     public int HarvestPotPlant()
@@ -127,12 +135,27 @@ public class Pot : MonoBehaviour, IUsable
             return 0;
         }
         Debug.Log($"Harvesting {myPlant} from the pot.");
-        
-        try {
-            return myPlant.Harvest(); 
-        } catch (Exception e) {
+
+        try
+        {
+            return myPlant.Harvest();
+        }
+        catch (Exception e)
+        {
             Debug.Log($"Normal while harvesting plant (plant already harvested because method called each frame): {e.Message}");
             return 0;
         }
+    }
+
+    public bool CheckForSeemen()
+    {
+        return has_semen;
+    }
+    
+    public void SetInSemen(bool semen)
+    {
+        has_semen = semen;
+        myPlant = GetComponentInChildren<PlantGrowth>();
+        Debug.Log($"Pot has semen set to: {has_semen}");
     }
 }

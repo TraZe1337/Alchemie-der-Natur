@@ -247,6 +247,12 @@ public class PlantGrowth : MonoBehaviour
             return;
         }
 
+        if (state == 0)
+        {
+            pot.SetInSemen(false);
+            Debug.Log("Plant is in initial state, the first prefab will be spawned.");
+        }
+
         // Destroy the previous plant instance if it exists
         if (currentPlantInstance != null)
         {

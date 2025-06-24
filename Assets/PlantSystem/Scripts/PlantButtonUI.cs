@@ -7,7 +7,7 @@ public class PlantButtonUI : MonoBehaviour
     public Transform mainCamera;
     [SerializeField] private Pot pot;
     [SerializeField] private GameObject PlantToPlantUI;
-    public GameObject inventoryCanvas; // The canvas that opens when the button is pressed
+    private GameObject inventoryCanvas; // The canvas that opens when the button is pressed
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +17,7 @@ public class PlantButtonUI : MonoBehaviour
         {
             Debug.LogError("Main Camera not found. Please ensure a camera is tagged as 'MainCamera'.");
         }
+        inventoryCanvas = GameObject.FindGameObjectWithTag("InventoryCanvas");
         gameObject.SetActive(false);
     }
 
@@ -27,10 +28,7 @@ public class PlantButtonUI : MonoBehaviour
         {
             if (PlantToPlantUI.activeSelf)
             {
-                PlantToPlantUI.SetActive(false);
-                CloseInventory();
-                UnityEngine.Cursor.visible = false;
-                UnityEngine.Cursor.lockState = UnityEngine.CursorLockMode.Locked;
+                CloseUI();
             }
             else
             {
@@ -48,7 +46,7 @@ public class PlantButtonUI : MonoBehaviour
         transform.rotation = targetRotation;
     }
 
-        void OpenInventory()
+    void OpenInventory()
     {
         inventoryCanvas.SetActive(true);
         Debug.Log("Canvas opened.");
@@ -60,6 +58,20 @@ public class PlantButtonUI : MonoBehaviour
         inventoryCanvas.SetActive(false);
         Debug.Log("Canvas closed.");
 
+    }
+
+    private void OnDisable()
+    {
+        CloseUI();
+    }
+
+
+    public void CloseUI()
+    { 
+        PlantToPlantUI.SetActive(false);
+        CloseInventory();
+        UnityEngine.Cursor.visible = false;
+        UnityEngine.Cursor.lockState = UnityEngine.CursorLockMode.Locked;
     }
 
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RedstoneinventeGameStudio;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlantSO", menuName = "Scriptable Objects/PlantSO")]
@@ -7,6 +8,7 @@ public class PlantSO : ScriptableObject
     [Header("General Settings")]
     public string plantName;
     public string plantDescription;
+    public InventoryItemData plantItemData; // Item data for the plant, used for inventory and UI representation.
     public List<GameObject> plantPrefabs;
 
     [Header("Water Settings")]

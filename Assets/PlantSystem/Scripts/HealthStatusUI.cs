@@ -172,11 +172,11 @@ public class HealthStatusUI : MonoBehaviour
             }
             else
             {
+                growth = pot.GetComponentInChildren<PlantGrowth>();
                 plantPreviewCamera.SetActive(true);
                 plantPreviewGameObject.SetActive(true);
                 RestockEffectImages();
                 SetupPlantPreviewUI();
-
                 UnityEngine.Cursor.lockState = CursorLockMode.None;
                 UnityEngine.Cursor.visible = true;
             }

@@ -12,5 +12,6 @@ namespace RedstoneinventeGameStudio
         public Sprite itemIcon;
 
         public string actionMethodName; // Name of the method to execute
+        public PlantSO plantData; // Reference to the PlantSO for plant items
     }
 }

@@ -19,6 +19,7 @@ MonoBehaviour:
     is key\u2014keep the soil evenly damp but ensure good drainage to prevent stagnation.
     In moderately fertile, humus-rich substrates it will achieve its best growth
     and bloom."
+  plantItemData: {fileID: 11400000, guid: 0ed3cf172d942844f96504c0861e9088, type: 2}
   plantPrefabs:
   - {fileID: 3796498864760674873, guid: bb8c1901e51b30940b64129e1e3e9291, type: 3}
   - {fileID: 396796632403519401, guid: 115d0d64b829e9449b2b6e740cc652e3, type: 3}

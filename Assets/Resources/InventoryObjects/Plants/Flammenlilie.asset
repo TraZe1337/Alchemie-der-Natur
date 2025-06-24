@@ -19,3 +19,4 @@ MonoBehaviour:
   itemTooltip: Flammenlilie
   itemIcon: {fileID: 21300000, guid: 36327e04958f20b45ae745fd5f79a7f9, type: 3}
   actionMethodName: 
+  plantData: {fileID: 11400000, guid: 2a88ed8eb09ccf145ab094415aad995a, type: 2}

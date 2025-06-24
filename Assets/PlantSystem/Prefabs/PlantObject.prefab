@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4428280437777696273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7370533812496179379}
+  - component: {fileID: 4391473460132413913}
+  - component: {fileID: 7093195393260413413}
+  m_Layer: 3
+  m_Name: PlantObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7370533812496179379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428280437777696273}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4391473460132413913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428280437777696273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc9288f8d16dec4891e56b383581f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantData: {fileID: 0}
+  pot: {fileID: 0}
+  negativeHealthEffectVisualizer: {fileID: 7093195393260413413}
+  healthStatusUI: {fileID: 0}
+  negativeHealthEffectList:
+  - {fileID: 11400000, guid: db60e64d24af7254da89e74a870ce226, type: 2}
+  - {fileID: 11400000, guid: d2d277e162566334996ebba31faff5e6, type: 2}
+  - {fileID: 11400000, guid: 9ecfa4524783c3f4bb67de37cebef92c, type: 2}
+  - {fileID: 11400000, guid: e07c71ada05c9fe4b9dea7938313e574, type: 2}
+  - {fileID: 11400000, guid: 32fcfee32ae35974fa603d1bef31c826, type: 2}
+  - {fileID: 11400000, guid: 8ad4f313240a50b41aea16050a7ecb15, type: 2}
+  - {fileID: 11400000, guid: 78c868efa3004574c87d0c79dac4f139, type: 2}
+  - {fileID: 11400000, guid: bc4ef754ca29c23408b913d55373adc2, type: 2}
+  - {fileID: 11400000, guid: c22b244bda576244786ea36797055d49, type: 2}
+  - {fileID: 11400000, guid: 047e7112ef64f0a45bf5d0fb536cb62b, type: 2}
+  weightWater: 0.5
+  weightSunlight: 0.3
+  weightNutrients: 0.2
+  currentHealth: 100
+--- !u!114 &7093195393260413413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428280437777696273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123a4f47a1b7d98429612e3b6f8819db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
