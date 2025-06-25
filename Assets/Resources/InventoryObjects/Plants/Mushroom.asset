@@ -16,5 +16,6 @@ MonoBehaviour:
   itemDescription: "Ein frisch geernteter Wildpilz mit erdigem Duft und zarter Konsistenz,
     der vielen Gerichten eine w\xFCrzige Note verleiht. "
   itemTooltip: Wildpilz
-  itemIcon: {fileID: 21300000, guid: 2afdbb56b98a5154a85ee3db07d07528, type: 3}
+  itemIcon: {fileID: 21300000, guid: 90963a205ed07fb4ba150a6ddc6d3df1, type: 3}
   actionMethodName: 
+  plantData: {fileID: 0}

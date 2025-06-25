@@ -11,6 +11,7 @@ TagManager:
   - InventoryCanvas
   - HoldPoint
   - HoldPointPot
+  - GroundItem
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Tiles
   - Pickupable
   - Floor
-  - 
+  - GroundItems
   - 
   - 
   - 
