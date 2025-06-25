@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
+using StarterAssets;
 
 public class HealthStatusUI : MonoBehaviour
 {
@@ -11,7 +12,10 @@ public class HealthStatusUI : MonoBehaviour
     private List<EffectSO> negativeHealthEffects;
     [SerializeField] private GameObject plantPreviewGameObject;
     [SerializeField] private GameObject plantPreviewCamera;
-    private UIDocument plantPreviewUIDocument; 
+    [SerializeField] private GameObject crosshair;
+    [SerializeField] private GameObject player;
+
+    private UIDocument plantPreviewUIDocument;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +30,9 @@ public class HealthStatusUI : MonoBehaviour
         }
         ClearImages();
         gameObject.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        crosshair = GameObject.FindGameObjectWithTag("Crosshair");
     }
 
     public void AddEffect(List<EffectSO> effects)
@@ -172,6 +179,9 @@ public class HealthStatusUI : MonoBehaviour
             }
             else
             {
+                player.GetComponent<StarterAssetsInputs>().cursorInputForLook = false;
+                player.GetComponent<StarterAssetsInputs>().cursorLocked = false;
+                crosshair.SetActive(false);
                 growth = pot.GetComponentInChildren<PlantGrowth>();
                 plantPreviewCamera.SetActive(true);
                 plantPreviewGameObject.SetActive(true);
@@ -188,11 +198,15 @@ public class HealthStatusUI : MonoBehaviour
         }
     }
 
-    private void ClosePlantPreviewUI() {
+    private void ClosePlantPreviewUI()
+    {
         plantPreviewCamera.SetActive(false);
         plantPreviewGameObject.SetActive(false);
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
+        player.GetComponent<StarterAssetsInputs>().cursorInputForLook = true;
+        player.GetComponent<StarterAssetsInputs>().cursorLocked = true;
+        crosshair.SetActive(true);
     }
     void LateUpdate()
     {
