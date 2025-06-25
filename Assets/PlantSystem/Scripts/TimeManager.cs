@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public static TimeManager Instance;
+    public static TimeManager Instance { get; private set; }
 
     // List to hold all registered plant objects.
     private List<PlantGrowth> plantGrowths = new List<PlantGrowth>();
@@ -21,6 +21,7 @@ public class TimeManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        DontDestroyOnLoad(gameObject); // Keep this object alive across scenes
     }
 
     void Update()

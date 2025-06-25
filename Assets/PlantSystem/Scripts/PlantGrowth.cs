@@ -28,9 +28,12 @@ public class PlantGrowth : MonoBehaviour
     private float cumulativeHealArea = 0f;
     public float currentHealth = 100f;    // 0 to 100
 
-    void Start()
+    void Awake()
     {
         currentNegativeHealthEffects = new List<EffectSO>();
+    }
+    void Start()
+    {
     }
 
     private void OnEnable()
@@ -121,7 +124,8 @@ public class PlantGrowth : MonoBehaviour
     // Called each frame
     public void TickGrowth(float deltaTime)
     {
-                        //Debug.Log("negativeHealthEffectList length:" + negativeHealthEffectList.Count);
+        //Debug.Log("negativeHealthEffectList length:" + negativeHealthEffectList.Count);
+       
         currentNegativeHealthEffects.Clear();
         float waterLevel = pot.CurrentWaterLevel;
         float sunlightLevel = pot.CurrentSunlightLevel;
