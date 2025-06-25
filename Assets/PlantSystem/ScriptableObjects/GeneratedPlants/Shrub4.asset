@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00f8e0c471e54134689bb948d4e6add7, type: 3}
+  m_Name: Shrub4
+  m_EditorClassIdentifier: 
+  plantName: Mondlichtranke
+  plantDescription: "Eine Rankpflanze, deren Bl\xE4tter im Mondlicht silbrig schimmern.
+    Sie w\xE4chst bevorzugt an schattigen, feuchten Orten und entfaltet nachts ihre
+    volle Pracht."
+  plantItemData: {fileID: 11400000, guid: 32517c2a58f7f3f458c3edac724220d2, type: 2}
+  plantPrefabs:
+  - {fileID: 2385704937035518211, guid: db432688217a12b4cb62e77177738128, type: 3}
+  - {fileID: 3586717910543772915, guid: b21b88e4285d4de46a2f0bce17d995b2, type: 3}
+  - {fileID: 6638801118117123499, guid: d7809ff81e3b1cd418861016aedb46db, type: 3}
+  - {fileID: 6610992081350861839, guid: 8f25a5ee04c1ce742af2600222eb52b5, type: 3}
+  minMoisturePreference: 0
+  maxMoisturePreference: 0
+  minMoistureRequirement: 0
+  maxMoistureRequirement: 0
+  waterConusmptionRate: 0
+  minSunlightPreference: 0
+  maxSunlightPreference: 0
+  minSunlightRequirement: 0
+  maxSunlightRequirement: 0
+  minNutrientsPreference: 0
+  minNutrientsRequirement: 0
+  nutrientConsumptionRate: 0
+  harvestYield: 0
+  growthRate: 0
+  robustness: 0
+  healingRate: 0

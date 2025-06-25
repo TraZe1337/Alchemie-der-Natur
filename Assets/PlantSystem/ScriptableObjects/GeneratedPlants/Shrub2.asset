@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00f8e0c471e54134689bb948d4e6add7, type: 3}
+  m_Name: Shrub2
+  m_EditorClassIdentifier: 
+  plantName: Erdherz-Knolle
+  plantDescription: "Eine unscheinbare, erdige Knolle, die jedoch \xFCberraschend
+    schwer ist und einen erdigen, beruhigenden Duft verstr\xF6mt. Sie w\xE4chst tief
+    unter der Erde."
+  plantItemData: {fileID: 11400000, guid: ad6bb819119ad83458d0ba1bdc4a80c0, type: 2}
+  plantPrefabs:
+  - {fileID: 6772175791052819383, guid: 9b30e7c9372d5ef47acda849960cd862, type: 3}
+  - {fileID: 494671274429320374, guid: 7d85df06969ad174e99cf184698ce197, type: 3}
+  - {fileID: 8377795483710775167, guid: 6aa4f98d0379a31439a360aca3c0b742, type: 3}
+  - {fileID: 3488337789918648586, guid: c6456154a293aee4db27129b412e7b02, type: 3}
+  minMoisturePreference: 0
+  maxMoisturePreference: 0
+  minMoistureRequirement: 0
+  maxMoistureRequirement: 0
+  waterConusmptionRate: 0
+  minSunlightPreference: 0
+  maxSunlightPreference: 0
+  minSunlightRequirement: 0
+  maxSunlightRequirement: 0
+  minNutrientsPreference: 0
+  minNutrientsRequirement: 0
+  nutrientConsumptionRate: 0
+  harvestYield: 0
+  growthRate: 0
+  robustness: 0
+  healingRate: 0

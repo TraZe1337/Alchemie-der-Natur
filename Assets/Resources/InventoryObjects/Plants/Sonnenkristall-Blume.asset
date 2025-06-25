@@ -19,3 +19,4 @@ MonoBehaviour:
   itemTooltip: Sonnenkristall-Blume
   itemIcon: {fileID: 21300000, guid: bd7666e8c8e4d99489757b01c677599e, type: 3}
   actionMethodName: 
+  plantData: {fileID: 11400000, guid: b97e7dcf55afe78429aef2d59a0659ac, type: 2}

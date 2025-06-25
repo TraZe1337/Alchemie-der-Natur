@@ -19,3 +19,4 @@ MonoBehaviour:
   itemTooltip: Mondlichtranke
   itemIcon: {fileID: 21300000, guid: 3f70a28929dd07f4892516178fae1e23, type: 3}
   actionMethodName: 
+  plantData: {fileID: 11400000, guid: 6445314288fa5784dba23e3fbc31c775, type: 2}

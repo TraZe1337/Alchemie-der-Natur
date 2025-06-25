@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00f8e0c471e54134689bb948d4e6add7, type: 3}
+  m_Name: Shrub3
+  m_EditorClassIdentifier: 
+  plantName: Frostblatt-Farn
+  plantDescription: "Ein Farn, dessen Bl\xE4tter stets von einer d\xFCnnen Eisschicht
+    \xFCberzogen zu sein scheinen, selbst in warmer Umgebung. Er bevorzugt k\xFChle,
+    schattige Pl\xE4tze und knackt leise beim Ber\xFChren."
+  plantItemData: {fileID: 11400000, guid: 161f2d1c87c6c01459188e59722b58f7, type: 2}
+  plantPrefabs:
+  - {fileID: 7186319148677223252, guid: b6bffd7dc73cbcb4f9f635ac7c1c9beb, type: 3}
+  - {fileID: 8669907659649384699, guid: 283421e254679ed4ba55d9aba9d8be80, type: 3}
+  - {fileID: 1565110150527163791, guid: b69c020b398980644a78c33c141f74b0, type: 3}
+  - {fileID: 6161233171901418069, guid: 5b4073c7f63670149b320feb387cb416, type: 3}
+  minMoisturePreference: 0
+  maxMoisturePreference: 0
+  minMoistureRequirement: 0
+  maxMoistureRequirement: 0
+  waterConusmptionRate: 0
+  minSunlightPreference: 0
+  maxSunlightPreference: 0
+  minSunlightRequirement: 0
+  maxSunlightRequirement: 0
+  minNutrientsPreference: 0
+  minNutrientsRequirement: 0
+  nutrientConsumptionRate: 0
+  harvestYield: 0
+  growthRate: 0
+  robustness: 0
+  healingRate: 0

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00f8e0c471e54134689bb948d4e6add7, type: 3}
+  m_Name: Dandelion
+  m_EditorClassIdentifier: 
+  plantName: Sonnenkristall-Blume
+  plantDescription: "Eine leuchtend gelbe Blume, deren Bl\xFCtenbl\xE4tter wie kleine
+    Kristalle aussehen und bei Sonnenlicht funkeln. Sie speichert Sonnenenergie und
+    bevorzugt sonnige, trockene Standorte."
+  plantItemData: {fileID: 11400000, guid: 73b9c049aa2b5344e9b9857b3ddb9bf8, type: 2}
+  plantPrefabs:
+  - {fileID: 3795930080055326699, guid: a0eade75b7d2b924bb4faa8211975955, type: 3}
+  - {fileID: 8102423340008583180, guid: 7f2fbf32a2dfb914081cb14fd2d7bffb, type: 3}
+  - {fileID: 4836877797151186441, guid: f7ffc9cf16d1c7847b8e2b06796308b4, type: 3}
+  - {fileID: 456236700975140768, guid: 7b915c787c9c0774a96eac6ce86fc43b, type: 3}
+  - {fileID: 378317201435131975, guid: 9d56a1770b9b8314b83b7713cd6bc6a5, type: 3}
+  - {fileID: 3928833036180252630, guid: 32e505850be300f46a1ca093b7043f39, type: 3}
+  minMoisturePreference: 0
+  maxMoisturePreference: 0
+  minMoistureRequirement: 0
+  maxMoistureRequirement: 0
+  waterConusmptionRate: 0
+  minSunlightPreference: 0
+  maxSunlightPreference: 0
+  minSunlightRequirement: 0
+  maxSunlightRequirement: 0
+  minNutrientsPreference: 0
+  minNutrientsRequirement: 0
+  nutrientConsumptionRate: 0
+  harvestYield: 0
+  growthRate: 0
+  robustness: 0
+  healingRate: 0

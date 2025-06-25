@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00f8e0c471e54134689bb948d4e6add7, type: 3}
+  m_Name: Nettle
+  m_EditorClassIdentifier: 
+  plantName: Schattenwurzel
+  plantDescription: "Eine knorrige Wurzel, die tief im Erdreich w\xE4chst und Dunkelheit
+    zu bevorzugen scheint. Sie ist von dunkler Farbe und f\xFChlt sich seltsam k\xFChl
+    an."
+  plantItemData: {fileID: 11400000, guid: a2ee6ad5866b749408358e560f77a4e2, type: 2}
+  plantPrefabs:
+  - {fileID: 818613820957728698, guid: 6ab4050df6efe824d973705c10cb41e5, type: 3}
+  - {fileID: 4424660428750993264, guid: f890e772b9fb2f64094dfe218b992fce, type: 3}
+  - {fileID: 4323157946833358971, guid: 6b951f04e0efecc4aa982c32015f34fa, type: 3}
+  - {fileID: 5508716926454859457, guid: da50af8461c656a4b9af7c2229359dcd, type: 3}
+  - {fileID: 8711353536837004324, guid: 618600218020711488af51fa01f131a3, type: 3}
+  - {fileID: 5521529645384192981, guid: 2d1310d9c8058044ba84a50b6c5e3a31, type: 3}
+  minMoisturePreference: 0
+  maxMoisturePreference: 0
+  minMoistureRequirement: 0
+  maxMoistureRequirement: 0
+  waterConusmptionRate: 0
+  minSunlightPreference: 0
+  maxSunlightPreference: 0
+  minSunlightRequirement: 0
+  maxSunlightRequirement: 0
+  minNutrientsPreference: 0
+  minNutrientsRequirement: 0
+  nutrientConsumptionRate: 0
+  harvestYield: 0
+  growthRate: 0
+  robustness: 0
+  healingRate: 0

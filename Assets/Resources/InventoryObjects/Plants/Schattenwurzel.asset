@@ -19,3 +19,4 @@ MonoBehaviour:
   itemTooltip: Schattenwurzel
   itemIcon: {fileID: 21300000, guid: 88de2b18f9ea76246ba3c13d96d22859, type: 3}
   actionMethodName: 
+  plantData: {fileID: 11400000, guid: e1e998a1643bc7144aaaa41184596553, type: 2}

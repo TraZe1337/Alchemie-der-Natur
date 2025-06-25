@@ -19,3 +19,4 @@ MonoBehaviour:
   itemTooltip: Frostblatt-Farn
   itemIcon: {fileID: 21300000, guid: 51070a984f3880d41b3d0dfcdf0a2659, type: 3}
   actionMethodName: 
+  plantData: {fileID: 11400000, guid: e267f882f313b234b982458dabc24fc5, type: 2}
