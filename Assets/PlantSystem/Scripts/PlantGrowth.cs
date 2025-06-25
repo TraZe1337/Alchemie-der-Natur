@@ -9,15 +9,12 @@ public class PlantGrowth : MonoBehaviour
     public NegativeHealthEffectVisualizer negativeHealthEffectVisualizer;
     public HealthStatusUI healthStatusUI;
 
-    public List<EffectSO> negativeHealthEffectList;
-
     private float currentGrowth = 0f;
     private float plantDeathRate = 0f;
 
     private int currentStage = 0;
     private GameObject currentPlantInstance;
 
-    private List<EffectSO> currentNegativeHealthEffects;
 
     [Header("Stress & Health Settings")]
     [SerializeField] private float weightWater = 0.5f;
@@ -28,9 +25,30 @@ public class PlantGrowth : MonoBehaviour
     private float cumulativeHealArea = 0f;
     public float currentHealth = 100f;    // 0 to 100
 
+    private List<EffectSO> currentNegativeHealthEffects = new List<EffectSO>();
+
+    // Also guard the inspector-assigned list:
+    [Tooltip("Assign in Inspector, or will default to empty list")]
+    public List<EffectSO> negativeHealthEffectList = new List<EffectSO>();
+
+
+    void Awake()
+    {
+        // initialize any inline‐or‐Awake state here
+        currentNegativeHealthEffects = new List<EffectSO>();
+    }
+
     void Start()
     {
-        currentNegativeHealthEffects = new List<EffectSO>();
+        // only now are all your inspector‐fields guaranteed to be set
+        if (TimeManager.Instance != null)
+            TimeManager.Instance.RegisterPlant(this);
+    }
+
+    void OnDestroy()
+    {
+        if (TimeManager.Instance != null)
+            TimeManager.Instance.UnregisterPlant(this);
     }
 
     private void OnEnable()
@@ -121,6 +139,18 @@ public class PlantGrowth : MonoBehaviour
     // Called each frame
     public void TickGrowth(float deltaTime)
     {
+
+        if (pot == null)
+        {
+            Debug.LogError($"[{name}] Pot is unassigned! Cannot tick growth.");
+            return;
+        }
+        if (plantData == null)
+        {
+            Debug.LogError($"[{name}] plantData (SO) is unassigned! Cannot tick growth.");
+            return;
+        }
+
                         //Debug.Log("negativeHealthEffectList length:" + negativeHealthEffectList.Count);
         currentNegativeHealthEffects.Clear();
         float waterLevel = pot.CurrentWaterLevel;

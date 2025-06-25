@@ -9,6 +9,12 @@ public class TimeManager : MonoBehaviour
     // List to hold all registered plant objects.
     private List<PlantGrowth> plantGrowths = new List<PlantGrowth>();
 
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ClearStatic()
+    {
+        Instance = null;
+    }
     void Awake()
     {
         // Singleton pattern
@@ -21,6 +27,13 @@ public class TimeManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
+
+    void OnDestroy()
+    {
+        // If we’re the “live” instance, clear it so a fresh one can register
+        if (Instance == this)
+            Instance = null;
     }
 
     void Update()
