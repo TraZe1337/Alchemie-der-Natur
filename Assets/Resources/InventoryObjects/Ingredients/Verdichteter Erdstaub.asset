@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Verdichteter Erdstaub
   itemDescription: "Schwerer, fein gemahlener Staub aus der Knolle. Riecht nach feuchter
-    Erde, verleiht Gef\xFChl von Stabilit\xE4t."
+    Erde, verleiht Gef\xFChl von Stabilit\xE4t.. Wird aus der Erdherz-Knolle geerntet."
   itemTooltip: Verdichteter Erdstaub
   itemIcon: {fileID: 21300000, guid: c28125279b5af414ab934aaab86022f7, type: 3}
   actionMethodName: 
+  plantData: {fileID: 0}

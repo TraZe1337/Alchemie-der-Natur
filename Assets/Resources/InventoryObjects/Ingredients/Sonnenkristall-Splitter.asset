@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Sonnenkristall-Splitter
   itemDescription: "Ein funkelnder, warmer Splitter aus den Bl\xFCtenbl\xE4ttern.
-    Speichert Sonnenenergie und strahlt sanfte W\xE4rme aus."
+    Speichert Sonnenenergie und strahlt sanfte W\xE4rme aus. Wird aus der Sonnenkristall-Blume
+    geerntet."
   itemTooltip: Sonnenkristall-Splitter
   itemIcon: {fileID: 21300000, guid: 6a2bf9e40ae99d3408eadd4b517581d8, type: 3}
   actionMethodName: Assets/InventoryObjects/Ingredients/Sonnenkristall-Splitter.asset
+  plantData: {fileID: 0}

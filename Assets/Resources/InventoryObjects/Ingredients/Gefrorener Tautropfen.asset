@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Gefrorener Tautropfen
   itemDescription: "Ein permanent gefrorener Tautropfen von den Bl\xE4ttern. Strahlt
-    K\xE4lte ab und schmilzt nie."
+    K\xE4lte ab und schmilzt nie. Wird aus dem Frostblatt-Farn geerntet."
   itemTooltip: Gefrorener Tautropfen
   itemIcon: {fileID: 21300000, guid: 99eb734eb91e7b9409118533e994bb4d, type: 3}
   actionMethodName: 
+  plantData: {fileID: 0}

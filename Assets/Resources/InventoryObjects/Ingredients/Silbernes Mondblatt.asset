@@ -15,7 +15,8 @@ MonoBehaviour:
   itemName: Silbernes Mondblatt
   itemDescription: "Ein einzelnes, silbrig schimmerndes Blatt der Mondlichtranke.
     F\xFChlt sich k\xFChl an, leuchtet schwach im Dunkeln. Enth\xE4lt konzentrierte
-    Mondenergie."
+    Mondenergie. Wird aus der Mondlichtranke geerntet."
   itemTooltip: Silbernes Mondblatt
   itemIcon: {fileID: 21300000, guid: 730a748ebfba9e74eb09d50b68d752ef, type: 3}
   actionMethodName: 
+  plantData: {fileID: 0}
