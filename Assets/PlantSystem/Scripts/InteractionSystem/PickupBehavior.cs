@@ -24,11 +24,31 @@ public class PickupBehavior : MonoBehaviour, IInteractable
     private bool isHeld;
     public Transform holdPoint;
 
-    void Awake() {
+    void Awake()
+    {
         rb = GetComponent<Rigidbody>();
     }
 
-    public void Interact(InteractionType type, PlayerInteraction interactor) {
+    void Start()
+    { 
+        switch (type)
+        {
+            case UsageType.Pot:
+                holdPoint = GameObject.FindGameObjectWithTag("HoldPointPot").transform;
+                break;
+            default:
+                holdPoint = GameObject.FindGameObjectWithTag("HoldPoint").transform;
+                break;
+        }
+        
+        if (holdPoint == null)
+        {
+            Debug.LogError("Hold point not found. Please ensure a GameObject with the appropriate tag exists in the scene.");
+        }
+    }
+
+    public void Interact(InteractionType type, PlayerInteraction interactor)
+    {
         Debug.Log($"Interact called on {gameObject.name} with type {type} by {interactor.gameObject.name}");
         if (type != interactionType) return;
         Debug.Log($"Interaction type matched: {type}");

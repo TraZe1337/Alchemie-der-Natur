@@ -22,19 +22,19 @@ MonoBehaviour:
   - {fileID: 3586717910543772915, guid: b21b88e4285d4de46a2f0bce17d995b2, type: 3}
   - {fileID: 6638801118117123499, guid: d7809ff81e3b1cd418861016aedb46db, type: 3}
   - {fileID: 6610992081350861839, guid: 8f25a5ee04c1ce742af2600222eb52b5, type: 3}
-  minMoisturePreference: 0
-  maxMoisturePreference: 0
-  minMoistureRequirement: 0
-  maxMoistureRequirement: 0
-  waterConusmptionRate: 0
-  minSunlightPreference: 0
-  maxSunlightPreference: 0
-  minSunlightRequirement: 0
-  maxSunlightRequirement: 0
-  minNutrientsPreference: 0
-  minNutrientsRequirement: 0
-  nutrientConsumptionRate: 0
-  harvestYield: 0
-  growthRate: 0
-  robustness: 0
-  healingRate: 0
+  minMoisturePreference: 40
+  maxMoisturePreference: 50
+  minMoistureRequirement: 10
+  maxMoistureRequirement: 70
+  waterConusmptionRate: 0.5
+  minSunlightPreference: 10
+  maxSunlightPreference: 20
+  minSunlightRequirement: 5
+  maxSunlightRequirement: 25
+  minNutrientsPreference: 10
+  minNutrientsRequirement: 5
+  nutrientConsumptionRate: 0.25
+  harvestYield: 4
+  growthRate: 2
+  robustness: 5
+  healingRate: 1

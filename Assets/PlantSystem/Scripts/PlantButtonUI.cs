@@ -8,7 +8,18 @@ public class PlantButtonUI : MonoBehaviour
     [SerializeField] private Pot pot;
     [SerializeField] private GameObject PlantToPlantUI;
     private GameObject inventoryCanvas; // The canvas that opens when the button is pressed
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+                                        // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    void Awake()
+    { 
+        inventoryCanvas = GameObject.FindGameObjectWithTag("InventoryCanvas");
+        if (inventoryCanvas == null)
+        {
+            Debug.LogError("Inventory Canvas not found. Please ensure a canvas is tagged as 'InventoryCanvas'.");
+        }
+    }
+
+
     void Start()
     {
         // Get Main Camera transform
@@ -17,7 +28,11 @@ public class PlantButtonUI : MonoBehaviour
         {
             Debug.LogError("Main Camera not found. Please ensure a camera is tagged as 'MainCamera'.");
         }
-        inventoryCanvas = GameObject.FindGameObjectWithTag("InventoryCanvas");
+        LateStart();
+    }
+
+    void LateStart()
+    {
         gameObject.SetActive(false);
     }
 

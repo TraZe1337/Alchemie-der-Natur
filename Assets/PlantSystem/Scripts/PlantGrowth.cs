@@ -335,7 +335,6 @@ public class PlantGrowth : MonoBehaviour
         {
             Debug.Log("Harvesting plant: " + gameObject.name);
             Die();
-            // TODO: Insert harvest into inventory
             return Mathf.RoundToInt(plantData.harvestYield * (currentHealth / 100f));
         } else {
             Debug.Log("Plant is not ready for harvest: " + gameObject.name);

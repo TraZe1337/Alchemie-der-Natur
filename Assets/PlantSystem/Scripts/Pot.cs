@@ -124,7 +124,7 @@ public class Pot : MonoBehaviour, IUsable
             Debug.Log("Player exited the pot area, but no plant is present.");
         }
         PlayerInRange = false;
-         
+
     }
 
     public (int, PlantSO) HarvestPotPlant()
@@ -151,11 +151,25 @@ public class Pot : MonoBehaviour, IUsable
     {
         return has_semen;
     }
-    
+
+    public void SetInInitialSemen(bool semen, PlantSO myPotPlant)
+    {
+        has_semen = semen;
+        myPlant = GetComponentInChildren<PlantGrowth>();
+        this.myPotPlant = myPotPlant;
+        Debug.Log($"Pot has semen initally set to: {has_semen}");
+    }
+
     public void SetInSemen(bool semen)
     {
         has_semen = semen;
         myPlant = GetComponentInChildren<PlantGrowth>();
         Debug.Log($"Pot has semen set to: {has_semen}");
     }
+
+    public void RemovePlant() { 
+        myPlant = null;
+        myPotPlant = null;
+    }
+    
 }

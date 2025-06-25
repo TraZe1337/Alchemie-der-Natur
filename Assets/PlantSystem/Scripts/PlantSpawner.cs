@@ -47,7 +47,7 @@ public class PlantSpawner : MonoBehaviour
             plantGrowthScript.healthStatusUI = healthStatusUI;
 
             // Activate the plant instance and trigger the registering process in the time manager
-            pot.SetInSemen(true);
+            pot.SetInInitialSemen(true, cardManager.itemData.plantData);
             plantInstance.SetActive(true);
             cardManager.UnSetItem();
             plantButtonUI.CloseUI();

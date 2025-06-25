@@ -33,7 +33,7 @@ public class InventoryManager : MonoBehaviour
     public void AddItemToInventory(InventoryItemData itemData)
     {
         int freeInventoryFieldIndex = FindFreeSlot();
-        if (freeInventoryFieldIndex > 0)
+        if (freeInventoryFieldIndex >= 0)
         {
             CardManager cardManager = inventoryCardManagers[freeInventoryFieldIndex];
             if (cardManager == null)

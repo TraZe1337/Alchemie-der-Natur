@@ -9,6 +9,8 @@ TagManager:
   - Crosshair
   - PlantButton
   - InventoryCanvas
+  - HoldPoint
+  - HoldPointPot
   layers:
   - Default
   - TransparentFX
