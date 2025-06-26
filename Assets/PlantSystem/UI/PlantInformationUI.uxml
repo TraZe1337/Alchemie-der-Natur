@@ -5,11 +5,11 @@
                 <engine:VisualElement name="LeftBox" style="flex-grow: 1; min-width: 35%; -unity-background-image-tint-color: rgb(36, 20, 1); background-color: rgb(36, 20, 1);">
                     <engine:VisualElement name="PotStatsBox" style="flex-grow: 0; flex-shrink: 0; background-color: rgb(255, 255, 255);">
                         <engine:VisualElement name="WaterLvlBox" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; justify-content: flex-end; -unity-background-image-tint-color: rgb(36, 20, 1); background-color: rgb(36, 20, 1);">
-                            <engine:Label text="Water Lvl:" style="color: rgb(137, 103, 51);" />
-                            <engine:ProgressBar value="22" title="22" name="WaterLvlProgress" style="min-width: 50%; background-color: rgb(156, 114, 45);" />
+                            <engine:Label text="Water Lvl:" style="color: rgb(137, 103, 51); font-size: 20px;" />
+                            <engine:ProgressBar value="22" title="22" name="WaterLvlProgress" style="min-width: 50%; background-color: rgb(36, 20, 1);" />
                         </engine:VisualElement>
                         <engine:VisualElement name="NutriScoreBox" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; justify-content: flex-end; -unity-background-image-tint-color: rgb(36, 20, 1); background-color: rgb(36, 20, 1);">
-                            <engine:Label text="Nutrients Lvl:" style="-unity-background-image-tint-color: rgb(36, 20, 1); color: rgb(137, 103, 51);" />
+                            <engine:Label text="Nutrients Lvl:" style="-unity-background-image-tint-color: rgb(36, 20, 1); color: rgb(137, 103, 51); font-size: 20px;" />
                             <engine:ProgressBar value="22" title="22" name="NutriScoreProgress" style="min-width: 50%;" />
                         </engine:VisualElement>
                     </engine:VisualElement>
@@ -19,9 +19,9 @@
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="PlantInformationBox" style="flex-grow: 1; background-color: rgb(36, 20, 1); align-items: stretch; max-width: 65%;">
-                    <engine:Label text="Plant Name" name="PlantName" style="position: relative; -unity-font-style: bold; font-size: 20%; align-items: stretch; align-self: flex-end; color: rgb(137, 103, 51);" />
+                    <engine:Label text="Plant Name" name="PlantName" style="position: relative; -unity-font-style: bold; font-size: 25%; align-items: stretch; align-self: flex-end; color: rgb(137, 103, 51);" />
                     <engine:VisualElement name="PlantHealthBox" style="flex-grow: 0; flex-shrink: 0; flex-direction: row; justify-content: flex-end; -unity-background-image-tint-color: rgb(36, 20, 1);">
-                        <engine:Label text="Health:" style="color: rgb(137, 103, 51);" />
+                        <engine:Label text="Health:" style="color: rgb(137, 103, 51); font-size: 20px;" />
                         <engine:ProgressBar value="22" title="22" name="PlantHealthProgress" style="min-width: 60%; background-color: rgb(36, 20, 1);" />
                     </engine:VisualElement>
                     <engine:VisualElement name="HealthIconsBox" style="flex-grow: 1; flex-direction: row; max-width: none; max-height: 40%; justify-content: flex-start; align-content: flex-start; -unity-background-image-tint-color: rgb(36, 20, 1);">
@@ -29,11 +29,11 @@
                         <engine:VisualElement name="Middle" style="flex-grow: 1; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px; border-left-color: rgb(156, 114, 45); border-right-color: rgb(156, 114, 45); border-top-color: rgb(156, 114, 45); border-bottom-color: rgb(156, 114, 45); -unity-background-image-tint-color: rgb(255, 255, 255); -unity-text-outline-color: rgb(156, 114, 45); background-color: rgb(156, 114, 45);" />
                         <engine:VisualElement name="Right" style="flex-grow: 1; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px; border-left-color: rgb(156, 114, 45); border-right-color: rgb(156, 114, 45); border-top-color: rgb(156, 114, 45); border-bottom-color: rgb(156, 114, 45); -unity-background-image-tint-color: rgb(255, 255, 255); -unity-text-outline-color: rgb(156, 114, 45); background-color: rgb(156, 114, 45);" />
                     </engine:VisualElement>
-                    <engine:Label text="Info-text about Plant&#10;" name="PlantInfoText" parse-escape-sequences="true" style="flex-shrink: 1; flex-grow: 1; font-size: 15%; -unity-text-align: middle-center; text-overflow: ellipsis; white-space: normal; -unity-background-image-tint-color: rgb(36, 20, 1); color: rgb(137, 103, 51);" />
+                    <engine:Label text="Info-text about Plant&#10;" name="PlantInfoText" parse-escape-sequences="true" style="flex-shrink: 1; flex-grow: 1; font-size: 25%; -unity-text-align: middle-center; text-overflow: ellipsis; white-space: normal; -unity-background-image-tint-color: rgb(36, 20, 1); color: rgb(137, 103, 51);" />
                 </engine:VisualElement>
             </engine:VisualElement>
             <engine:VisualElement name="CloseButtonBox" style="flex-grow: 0; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(36, 20, 1); flex-shrink: 1;">
-                <engine:Button text="Close" name="CloseButton" style="background-color: rgb(156, 114, 45); border-top-color: rgb(156, 114, 45); border-right-color: rgb(156, 114, 45); border-bottom-color: rgb(156, 114, 45); border-left-color: rgb(156, 114, 45);" />
+                <engine:Button text="Close" name="CloseButton" style="background-color: rgb(156, 114, 45); border-top-color: rgb(156, 114, 45); border-right-color: rgb(156, 114, 45); border-bottom-color: rgb(156, 114, 45); border-left-color: rgb(156, 114, 45); font-size: 25px;" />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>

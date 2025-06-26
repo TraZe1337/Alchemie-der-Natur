@@ -155,7 +155,7 @@ public class Pot : MonoBehaviour, IUsable
         System.Random rng = new System.Random();
         int randomNumberOfPlants = rng.Next(1, harvestRate + 1); // Random number of plants harvested, between 1 and harvestRate
         Debug.Log($"Harvested {randomNumberOfPlants} plants from the pot and {harvestRate -randomNumberOfPlants} seemen.");
-        return (randomNumberOfPlants, harvestRate-randomNumberOfPlants ,myPotPlant);
+        return (randomNumberOfPlants, harvestRate-randomNumberOfPlants , myPotPlant);
     }
 
     public bool CheckForSeemen()

@@ -31,6 +31,12 @@ public class PlantSpawner : MonoBehaviour
             return;
         }
 
+        if (cardManager.itemData.plantData == null)
+        {
+            Debug.LogError("Plant data is not assigned in CardManager!");
+            return;
+        }
+
         if (plantObjectPrefab != null)
         {
             GameObject plantInstance = Instantiate(plantObjectPrefab, plantRoot.transform);
