@@ -51,15 +51,24 @@ public class PlayerInteraction : MonoBehaviour
                         break;
                     case UsageType.Fertilizer:
                         usable.AddNutrients(pb.gameObject.GetComponent<Fertilizer>().DispenseFertilizer(Time.deltaTime));
-                        break;                    case UsageType.Harvesting:
-                        (float harvest, PlantSO plantType) = usable.HarvestPotPlant();
-                        int harvestAmount = (int)harvest; // Convert float to int (truncates decimal)
-                        Debug.Log($"Harvested {harvestAmount} from {collider.gameObject.name}");
-                        if (harvestAmount > 0 && plantType != null)
+                        break;
+                    case UsageType.Harvesting:
+                        (int harvest, int seemen, PlantSO plantType) = usable.HarvestPotPlant();
+                        Debug.Log($"Harvested {harvest} plants and {seemen} seemen from {collider.gameObject.name}");
+                        // Adding plant items to inventory
+                        if (harvest > 0 && plantType != null)
                         {
-                            for (int i = 0; i < (int)harvest; i++)
+                            for (int i = 0; i < harvest; i++)
                             {
                                 inventoryManager.AddItemToInventory(plantType.plantItemData);
+                            }
+                        }
+                        // Adding seemen items to inventory
+                        if (seemen > 0 && plantType != null)
+                        {
+                            for (int i = 0; i < seemen; i++)
+                            {
+                                inventoryManager.AddItemToInventory(plantType.seedItemData);
                             }
                         }
                         break;

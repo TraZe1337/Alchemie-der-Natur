@@ -127,24 +127,35 @@ public class Pot : MonoBehaviour, IUsable
 
     }
 
-    public (int, PlantSO) HarvestPotPlant()
+    public (int, int, PlantSO) HarvestPotPlant()
     {
         if (myPotPlant == null)
         {
             Debug.LogWarning("No plant in the pot to harvest.");
-            return (0, null);
+            return (0, 0, null);
         }
         Debug.Log($"Harvesting {myPlant} from the pot.");
 
+        int harvestRate = 0;
         try
         {
-            return (myPlant.Harvest(), myPotPlant);
+            harvestRate = myPlant.Harvest();
         }
         catch (Exception e)
         {
             Debug.Log($"Normal while harvesting plant (plant already harvested because method called each frame): {e.Message}");
-            return (0, null);
+            return (0, 0, null);
         }
+
+        if (harvestRate <= 0)
+        {
+            Debug.LogWarning("Plant was not handeled correctly, no harvest rate returned or already harvested.");
+            return (0, 0, null);
+        }
+        System.Random rng = new System.Random();
+        int randomNumberOfPlants = rng.Next(1, harvestRate + 1); // Random number of plants harvested, between 1 and harvestRate
+        Debug.Log($"Harvested {randomNumberOfPlants} plants from the pot and {harvestRate -randomNumberOfPlants} seemen.");
+        return (randomNumberOfPlants, harvestRate-randomNumberOfPlants ,myPotPlant);
     }
 
     public bool CheckForSeemen()

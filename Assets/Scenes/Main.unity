@@ -72090,7 +72090,7 @@ GameObject:
   - component: {fileID: 1506734526}
   - component: {fileID: 1506734525}
   m_Layer: 0
-  m_Name: dawda
+  m_Name: TimeManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

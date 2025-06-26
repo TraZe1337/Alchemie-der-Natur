@@ -9,6 +9,7 @@ public class PlantSO : ScriptableObject
     public string plantName;
     public string plantDescription;
     public InventoryItemData plantItemData; // Item data for the plant, used for inventory and UI representation.
+    public InventoryItemData seedItemData; // Item data for the seed, used for inventory and UI representation.
     public List<GameObject> plantPrefabs;
 
     [Header("Water Settings")]

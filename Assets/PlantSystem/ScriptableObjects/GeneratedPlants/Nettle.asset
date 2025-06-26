@@ -17,6 +17,7 @@ MonoBehaviour:
     zu bevorzugen scheint. Sie ist von dunkler Farbe und f\xFChlt sich seltsam k\xFChl
     an."
   plantItemData: {fileID: 11400000, guid: a2ee6ad5866b749408358e560f77a4e2, type: 2}
+  seedItemData: {fileID: 11400000, guid: 3932c933a16ab5b40baf56e5f5c2123f, type: 2}
   plantPrefabs:
   - {fileID: 818613820957728698, guid: 6ab4050df6efe824d973705c10cb41e5, type: 3}
   - {fileID: 4424660428750993264, guid: f890e772b9fb2f64094dfe218b992fce, type: 3}

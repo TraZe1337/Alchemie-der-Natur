@@ -981,6 +981,8 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   pot: {fileID: 3098727102186837213}
   PlantToPlantUI: {fileID: 425159640253195994}
+  crosshair: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &2432465881457192238
 GameObject:
   m_ObjectHideFlags: 0
@@ -3233,6 +3235,8 @@ MonoBehaviour:
   - {fileID: 7948258198038369730}
   plantPreviewGameObject: {fileID: 1356064591234097795}
   plantPreviewCamera: {fileID: 6834330707699013497}
+  crosshair: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1001 &7680103880845184967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3352,5 +3356,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.85
+  m_Radius: 0.56
   m_Center: {x: 0, y: 0, z: 0}

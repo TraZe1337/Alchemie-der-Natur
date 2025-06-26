@@ -17,6 +17,7 @@ MonoBehaviour:
     Sie w\xE4chst bevorzugt an schattigen, feuchten Orten und entfaltet nachts ihre
     volle Pracht."
   plantItemData: {fileID: 11400000, guid: 32517c2a58f7f3f458c3edac724220d2, type: 2}
+  seedItemData: {fileID: 11400000, guid: a635074b320ff35449b8926ba2f223f1, type: 2}
   plantPrefabs:
   - {fileID: 2385704937035518211, guid: db432688217a12b4cb62e77177738128, type: 3}
   - {fileID: 3586717910543772915, guid: b21b88e4285d4de46a2f0bce17d995b2, type: 3}

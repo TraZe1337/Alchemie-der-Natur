@@ -17,6 +17,7 @@ MonoBehaviour:
     schwer ist und einen erdigen, beruhigenden Duft verstr\xF6mt. Sie w\xE4chst tief
     unter der Erde."
   plantItemData: {fileID: 11400000, guid: ad6bb819119ad83458d0ba1bdc4a80c0, type: 2}
+  seedItemData: {fileID: 11400000, guid: f14f38f7184259847a074ad4052fbd4e, type: 2}
   plantPrefabs:
   - {fileID: 6772175791052819383, guid: 9b30e7c9372d5ef47acda849960cd862, type: 3}
   - {fileID: 494671274429320374, guid: 7d85df06969ad174e99cf184698ce197, type: 3}

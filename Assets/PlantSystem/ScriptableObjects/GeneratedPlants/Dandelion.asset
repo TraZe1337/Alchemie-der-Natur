@@ -17,6 +17,7 @@ MonoBehaviour:
     Kristalle aussehen und bei Sonnenlicht funkeln. Sie speichert Sonnenenergie und
     bevorzugt sonnige, trockene Standorte."
   plantItemData: {fileID: 11400000, guid: 73b9c049aa2b5344e9b9857b3ddb9bf8, type: 2}
+  seedItemData: {fileID: 11400000, guid: 02b45d26fd8ea124db0cf8b154544179, type: 2}
   plantPrefabs:
   - {fileID: 3795930080055326699, guid: a0eade75b7d2b924bb4faa8211975955, type: 3}
   - {fileID: 8102423340008583180, guid: 7f2fbf32a2dfb914081cb14fd2d7bffb, type: 3}
